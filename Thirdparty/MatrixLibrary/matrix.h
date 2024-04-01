@@ -152,6 +152,44 @@ class Matrixf {
   // Norm
   float norm(void) { return sqrtf((this->trans() * *this)[0][0]); }
 
+  /**
+   * @Name  multVecMatrix
+   * @brief Vector-Matrix multiplication for 3D vectors and 4x4 matrices using
+   *Homogeneous Coordinates
+   * @author Yuanzhen Gan
+   * @param   vec: vector to multiply with
+   **			 Matrixf<4, 4>: [输入/出]
+   **			 mat: [输入/出]
+   * @retval
+   * 1. ...
+   * <modify staff>:
+   * <data>        :
+   * <description> :
+   * 2. ...
+   **/
+  static Matrixf<3, 1> multVecMatrix(Matrixf<3, 1>& vec, Matrixf<4, 4>& mat) {
+    // Convert the vector into a 4x1 matrix
+    float tempMat[4] = {vec[0][0], vec[1][0], vec[2][0], 1};
+    Matrixf<4, 1> vecMat(tempMat);  // Homogeneous coordinate
+
+    // Multiply the vector-matrix
+    Matrixf<4, 1> result = mat.trans() * vecMat;
+
+    // Extract the resulting vector
+    float x = result[0][0];
+    float y = result[1][0];
+    float z = result[2][0];
+    float w = result[3][0];
+
+    // If w is not zero, divide by w to obtain correct 3D coordinates
+    if (w != 0.0f) {
+      x /= w;
+      y /= w;
+      z /= w;
+    }
+    return Matrixf<3, 1>{x, y, z};
+  }
+
  public:
   // arm matrix instance
   arm_matrix_instance_f32 arm_mat_;
@@ -165,44 +203,6 @@ class Matrixf {
 
 // Matrix funtions
 namespace matrixf {
-
-/**
- * @Name  multVecMatrix
- * @brief Vector-Matrix multiplication for 3D vectors and 4x4 matrices using
- *Homogeneous Coordinates
- * @author Yuanzhen Gan
- * @param   vec: vector to multiply with
- **			 Matrixf<4, 4>: [输入/出]
- **			 mat: [输入/出]
- * @retval
- * 1. ...
- * <modify staff>:
- * <data>        :
- * <description> :
- * 2. ...
- **/
-Matrixf<3, 1> multVecMatrix(Matrixf<3, 1>& vec, Matrixf<4, 4>& mat) {
-  // Convert the vector into a 4x1 matrix
-  float tempMat[4] = {vec[0][0], vec[1][0], vec[2][0], 0};
-  Matrixf<4, 1> vecMat(tempMat);  // Homogeneous coordinate
-
-  // Multiply the vector-matrix
-  Matrixf<1, 4> result = vecMat.trans() * mat;
-
-  // Extract the resulting vector
-  float x = result[0][0];
-  float y = result[0][1];
-  float z = result[0][2];
-  float w = result[0][3];
-
-  // If w is not zero, divide by w to obtain correct 3D coordinates
-  if (w != 0.0f) {
-    x /= w;
-    y /= w;
-    z /= w;
-  }
-  return Matrixf<3, 1>{x, y, z};
-}
 
 // Special Matrices
 // Zero matrix

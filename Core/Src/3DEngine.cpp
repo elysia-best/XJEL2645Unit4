@@ -14,7 +14,7 @@ bool computePixelCoordinates(Matrixf<3, 1> &pWorld, Matrixf<2, 1> &pRaster,
                              Matrixf<4, 4> &worldToCamera, const int &canvasWidth,
                              const int &canvasHeight, const int &imageWidth,
                              const int &imageHeight) {
-  Matrixf<3, 1> pCamera = matrixf::multVecMatrix(pWorld, worldToCamera);
+  Matrixf<3, 1> pCamera = pCamera.multVecMatrix(pWorld, worldToCamera);
   if (pCamera[2][0] > 0) return 0;
   Matrixf<2, 1> pScreen;
   pScreen[0][0] = pCamera[0][0] / -pCamera[2][0];  // x

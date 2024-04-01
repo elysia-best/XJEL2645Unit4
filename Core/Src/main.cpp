@@ -149,27 +149,36 @@ int main() {
           computePixelCoordinates(v2World, v2Raster, worldToCamera, canvasWidth,
                                   canvasHeight, imageWidth, imageHeight);
 
-      //      if (show0 && show1) lcd.drawLine(v0Raster[0][0] < 0 ? 0 :
-      //      v0Raster[0][0], v0Raster[1][0] < 0 ? 0 : v0Raster[1][0],
-      //      v1Raster[0][0] < 0 ? 0 : v1Raster[0][0], v1Raster[1][0] < 0 ? 0 :
-      //      v1Raster[1][0], 1); if (show0 && show2)
-      //      lcd.drawLine(v0Raster[0][0] < 0 ? 0 : v0Raster[0][0],
-      //      v0Raster[1][0] < 0 ? 0 : v0Raster[1][0], v2Raster[0][0] < 0 ? 0 :
-      //      v2Raster[0][0], v2Raster[1][0] < 0 ? 0 : v2Raster[1][0], 1); if
-      //      (show2 && show1) lcd.drawLine(v2Raster[0][0] < 0 ? 0 :
-      //      v2Raster[0][0], v2Raster[1][0] < 0 ? 0 : v2Raster[1][0],
-      //      v1Raster[0][0] < 0 ? 0 : v1Raster[0][0], v1Raster[1][0] < 0 ? 0 :
-      //      v1Raster[1][0], 1); lcd.refresh();
       if (show0 && show1)
-        printf("%d %d %d %d\n", (int)v0Raster[0][0], (int)v0Raster[1][0], (int)v1Raster[0][0],
-               (int)v1Raster[1][0]);
+        lcd.drawLine(v0Raster[0][0] < 0 ? 0 : v0Raster[0][0],
+                     v0Raster[1][0] < 0 ? 0 : v0Raster[1][0],
+                     v1Raster[0][0] < 0 ? 0 : v1Raster[0][0],
+                     v1Raster[1][0] < 0 ? 0 : v1Raster[1][0], 1);
       if (show0 && show2)
-        printf("%d %d %d %d\n", (int)v0Raster[0][0], (int)v0Raster[1][0], (int)v2Raster[0][0],
-               (int)v2Raster[1][0]);
+        lcd.drawLine(v0Raster[0][0] < 0 ? 0 : v0Raster[0][0],
+                     v0Raster[1][0] < 0 ? 0 : v0Raster[1][0],
+                     v2Raster[0][0] < 0 ? 0 : v2Raster[0][0],
+                     v2Raster[1][0] < 0 ? 0 : v2Raster[1][0], 1);
       if (show2 && show1)
-        printf("%d %d %d %d\n", (int)v2Raster[0][0], (int)v2Raster[1][0], (int)v1Raster[0][0],
-               (int)v1Raster[1][0]);
+        lcd.drawLine(v2Raster[0][0] < 0 ? 0 : v2Raster[0][0],
+                     v2Raster[1][0] < 0 ? 0 : v2Raster[1][0],
+                     v1Raster[0][0] < 0 ? 0 : v1Raster[0][0],
+                     v1Raster[1][0] < 0 ? 0 : v1Raster[1][0], 1);
+
+      //      if (show0 && show1)
+      //        printf("%d %d %d %d\n", (int)v0Raster[0][0],
+      //        (int)v0Raster[1][0], (int)v1Raster[0][0],
+      //               (int)v1Raster[1][0]);
+      //      if (show0 && show2)
+      //        printf("%d %d %d %d\n", (int)v0Raster[0][0],
+      //        (int)v0Raster[1][0], (int)v2Raster[0][0],
+      //               (int)v2Raster[1][0]);
+      //      if (show2 && show1)
+      //        printf("%d %d %d %d\n", (int)v2Raster[0][0],
+      //        (int)v2Raster[1][0], (int)v1Raster[0][0],
+      //               (int)v1Raster[1][0]);
     }
+    lcd.refresh();
     ok = true;
   }
 }
