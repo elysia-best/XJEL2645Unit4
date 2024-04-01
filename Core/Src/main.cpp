@@ -11,15 +11,19 @@
 #include <mbed.h>
 
 #include "3DEngine.h"
+#include "Joystick.h"
 #include "N5110.h"
+
+//                  y     x
+Joystick joystick(PC_1, PC_0);  // attach and create joystick object
 
 N5110 lcd(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
 
-Matrixf<3, 1> camera{14.77747, 29.36194, 27.99346}, X0{1, 0, 0}, Y0{0, 1, 0},
+Matrixf<3, 1> camera{5.77747, 29.36194, 27.99346}, X0{1, 0, 0}, Y0{0, 1, 0},
     Z0{0, 0, 1};
 
 // Default to zero in global definition, haha.
-float Rotate_x, Rotate_y;
+volatile float Rotate_x, Rotate_y;
 
 Matrixf<3, 1> verts[146] = {
     {0, 39.034, 0},          {0.76212, 36.843, 0},   {3, 36.604, 0},
@@ -104,6 +108,8 @@ int tris[numTris * 3] = {
 const int canvasWidth = 2, canvasHeight = 2;
 const int imageWidth = 84, imageHeight = 48;
 
+void read_joystick();
+
 /**
  * @Name    main
  * @brief  Entry point for the app
@@ -112,8 +118,9 @@ int main() {
   // Init
   lcd.init(LPH7366_1);
   lcd.setContrast(0.5);
-  bool ok = 0;
-  while (!ok) {
+  joystick.init();
+
+  while (true) {
     static Matrixf<3, 1> X = X0, Y = Y0, Z = Z0, FORWARD, RIGHT;
 
     rotate_point3d_y(X, Rotate_y, X);
@@ -132,7 +139,6 @@ int main() {
     static Matrixf<4, 4> worldToCamera = matrixf::inv(cameraToWorld);
 
     lcd.clear();
-    lcd.refresh();
 
     for (int i = 0; i < numTris; ++i) {
       auto &v0World = verts[tris[i * 3]];
@@ -179,6 +185,22 @@ int main() {
       //               (int)v1Raster[1][0]);
     }
     lcd.refresh();
-    ok = true;
+    // thread_sleep_for(10);
+    static Matrixf<3, 1> S1{worldToCamera[0][2], 0.0, worldToCamera[2][2]};
+    static Matrixf<3, 1> D1{worldToCamera[0][0], 0.0, worldToCamera[2][0]};
+    S1.normalize();
+    D1.normalize();
+//    if (joystick.get_direction() == N) {
+//      camera = camera - S1;
+//    } else if (joystick.get_direction() == S) {
+//      camera = camera + S1;
+//    } else if (joystick.get_direction() == E) {
+//      camera = camera + D1;
+//    } else if (joystick.get_direction() == W) {
+//      camera = camera - D1;
+//    }
+    camera = camera + D1*10;
   }
 }
+
+void read_joystick() {}

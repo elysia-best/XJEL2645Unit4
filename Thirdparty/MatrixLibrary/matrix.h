@@ -151,7 +151,27 @@ class Matrixf {
   }
   // Norm
   float norm(void) { return sqrtf((this->trans() * *this)[0][0]); }
-
+  
+/**
+  * @Name    normalize
+  * @brief   归一化
+  * @param   None
+  * @retval
+  * @author  Yuanzhen Gan
+  * @Data    2024-04-01
+  * 1. ...
+  * <modify staff>:
+  * <data>        :
+  * <description> :
+  * 2. ...
+  **/
+  void normalize(void) {
+    auto n = norm();
+    if (n > 0) {
+      auto factor = 1 / (float)n;
+      *this *= factor;
+    }
+  }
   /**
    * @Name  multVecMatrix
    * @brief Vector-Matrix multiplication for 3D vectors and 4x4 matrices using
