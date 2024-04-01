@@ -17,6 +17,8 @@ N5110 lcd(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
 
 Matrixf<3, 1> camera{14.77747, 29.36194, 27.99346}, X0{1, 0, 0}, Y0{0, 1, 0},
     Z0{0, 0, 1};
+
+// Default to zero in global definition, haha.
 float Rotate_x, Rotate_y;
 
 /**
