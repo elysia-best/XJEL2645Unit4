@@ -7,3 +7,15 @@
  */
 
 #include "GameEngine.h"
+
+void Engine::BaseBehaviour::Start() {}
+void Engine::BaseBehaviour::Update() {}
+void Engine::BaseBehaviour::Finalized() {}
+
+Engine::BaseBehaviour::BaseBehaviour() {
+  Start();
+}
+
+Engine::BaseBehaviour::~BaseBehaviour() {
+  Finalized();
+}
