@@ -19,12 +19,6 @@ Joystick joystick(PC_1, PC_0);  // attach and create joystick object
 
 N5110 lcd(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
 
-Matrixf<3, 1> camera{5.77747, 29.36194, 27.99346}, X0{1, 0, 0}, Y0{0, 1, 0},
-    Z0{0, 0, 1};
-
-// Default to zero in global definition, haha.
-volatile float Rotate_x, Rotate_y;
-
 Matrixf<3, 1> verts[146] = {
     {0, 39.034, 0},          {0.76212, 36.843, 0},   {3, 36.604, 0},
     {1, 35.604, 0},          {2.0162, 33.382, 0},    {0, 34.541, 0},
@@ -120,8 +114,14 @@ int main() {
   lcd.setContrast(0.5);
   joystick.init();
 
+//                      x         y        z
+  Matrixf<3, 1> camera{0.77747, 10.36194, 27.99346}, X0{1, 0, 0}, Y0{0, 1, 0},
+    Z0{0, 0, 1};
+
+// Default to zero in global definition, haha.
+  float Rotate_x, Rotate_y;
   while (true) {
-    static Matrixf<3, 1> X = X0, Y = Y0, Z = Z0, FORWARD, RIGHT;
+    Matrixf<3, 1> X = X0, Y = Y0, Z = Z0, FORWARD, RIGHT;
 
     rotate_point3d_y(X, Rotate_y, X);
     rotate_point3d_y(Y, Rotate_y, Y);
@@ -131,12 +131,12 @@ int main() {
     rotate_point3d_x(Y, Rotate_x, Y);
     rotate_point3d_x(Z, Rotate_x, Z);
 
-    static Matrixf<4, 4> cameraToWorld = {
+    Matrixf<4, 4> cameraToWorld = {
         X[0][0],      Y[0][0],      Z[0][0],      0,
         X[1][0],      Y[1][0],      Z[1][0],      0,
         X[2][0],      Y[2][0],      Z[2][0],      0,
         camera[0][0], camera[1][0], camera[2][0], 1};
-    static Matrixf<4, 4> worldToCamera = matrixf::inv(cameraToWorld);
+    Matrixf<4, 4> worldToCamera = matrixf::inv(cameraToWorld);
 
     lcd.clear();
 
@@ -186,20 +186,11 @@ int main() {
     }
     lcd.refresh();
     // thread_sleep_for(10);
-    static Matrixf<3, 1> S1{worldToCamera[0][2], 0.0, worldToCamera[2][2]};
-    static Matrixf<3, 1> D1{worldToCamera[0][0], 0.0, worldToCamera[2][0]};
-    S1.normalize();
-    D1.normalize();
-//    if (joystick.get_direction() == N) {
-//      camera = camera - S1;
-//    } else if (joystick.get_direction() == S) {
-//      camera = camera + S1;
-//    } else if (joystick.get_direction() == E) {
-//      camera = camera + D1;
-//    } else if (joystick.get_direction() == W) {
-//      camera = camera - D1;
-//    }
-    camera = camera + D1*10;
+//    static Matrixf<3, 1> S1{worldToCamera[0][2], 0.0, worldToCamera[2][2]};
+//    static Matrixf<3, 1> D1{worldToCamera[0][0], 0.0, worldToCamera[2][0]};
+//    S1.normalize();
+//    D1.normalize();
+    camera = camera + 3*Y0;
   }
 }
 
