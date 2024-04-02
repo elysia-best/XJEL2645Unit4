@@ -10,8 +10,14 @@
 #define __GAME_ENGINE_H_
 
 #include "matrix.h"
+#include <vector>
 
 namespace Engine {
+
+typedef struct{
+	BaseBehaviour* ptr;
+	bool delete_on_destroy;
+} AttachedComponent_t;
 
 class BaseBehaviour {
  public:
@@ -47,9 +53,48 @@ class BaseBehaviour {
    **/
   virtual ~BaseBehaviour();
 
- public:
+  /**
+   * @Name    AttachComponent
+   * @brief   Attach a component to this object.
+   * @param   ptr: Pointer of component to be attached
+   **			    delete_on_destroy:  Whether to delete this component on the destruction of this object
+   * @retval  : None
+   * @author  Yuanzhen Gan
+   * @Date    2024-04-02
+   * 1. ...
+   * <modify staff>:
+   * <data>        :
+   * <description> :
+   * 2. ...
+   **/
+	void AttachComponent(const BaseBehaviour* &ptr, bool delete_on_destroy);
 
-  
+ public:
+	/**
+   * @Name    Elements_ptr_list
+   * @brief   All the elements/components attache to a list should be stored here.
+   * @author  Yuanzhen Gan
+   * @Date    2024-04-02
+   * 1. ...
+   * <modify staff>:
+   * <data>        :
+   * <description> :
+   * 2. ...
+   **/
+   std::vector<AttachedComponent_t> Elements_ptr_list;
+
+  /**
+   * @Name    IsDisabled
+   * @brief   Indicates whether this object/component is disabled.
+   * @author  Yuanzhen Gan
+   * @Date    2024-04-02
+   * 1. ...
+   * <modify staff>:
+   * <data>        :
+   * <description> :
+   * 2. ...
+   **/
+	 bool IsDisabled;
  protected:
   /**
    * @Name    Start
@@ -83,7 +128,7 @@ class BaseBehaviour {
   virtual void Update();
 
   /**
-   * @Name    Finalized
+   * @Name    OnDestroyed
    * @brief   Executed upon the destruction of the object.
    * @param   : None
    * @retval  : None
@@ -95,7 +140,7 @@ class BaseBehaviour {
    * <description> :
    * 2. ...
    **/
-  virtual void Finalized();
+  virtual void OnDestroyed();
 };
 }  // namespace Engine
 
