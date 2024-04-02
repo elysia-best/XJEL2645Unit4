@@ -16,8 +16,8 @@
         <TargetCommonOption>
           <Device>STM32L476RGTx</Device>
           <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32L4xx_DFP.2.6.1</PackID>
-          <PackURL>http://www.keil.com/pack/</PackURL>
+          <PackID>Keil.STM32L4xx_DFP.2.7.0</PackID>
+          <PackURL>https://www.keil.com/pack/</PackURL>
           <Cpu>CPUTYPE("Cortex-M4") FPU2</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
@@ -397,6 +397,11 @@
               <FileName>GameEngine.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\Core\Src\GameEngine.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Engine_Trainsform.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\Core\Src\Engine_Trainsform.cpp</FilePath>
             </File>
           </Files>
         </Group>

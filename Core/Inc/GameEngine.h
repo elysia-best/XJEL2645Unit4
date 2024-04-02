@@ -13,6 +13,7 @@
 #include <vector>
 
 namespace Engine {
+class BaseBehaviour;
 
 typedef struct{
 	BaseBehaviour* ptr;
@@ -67,9 +68,9 @@ class BaseBehaviour {
    * <description> :
    * 2. ...
    **/
-	void AttachComponent(const BaseBehaviour* &ptr, bool delete_on_destroy);
+	void AttachComponent(BaseBehaviour* &ptr, bool delete_on_destroy);
 
- public:
+
 	/**
    * @Name    Elements_ptr_list
    * @brief   All the elements/components attache to a list should be stored here.
@@ -95,7 +96,8 @@ class BaseBehaviour {
    * 2. ...
    **/
 	 bool IsDisabled;
- protected:
+
+
   /**
    * @Name    Start
    * @brief   Executed on the creation of the object, i.e., first update.

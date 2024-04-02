@@ -20,7 +20,7 @@ Engine::BaseBehaviour::~BaseBehaviour() {
   OnDestroyed();
 }
 
-void Engine::BaseBehaviour::AttachComponent(const BaseBehaviour* &ptr, bool delete_on_destroy) {
+void Engine::BaseBehaviour::AttachComponent(BaseBehaviour* &ptr, bool delete_on_destroy) {
 	AttachedComponent_t tmp = {ptr, delete_on_destroy};
 	Elements_ptr_list.push_back(tmp);
 }
