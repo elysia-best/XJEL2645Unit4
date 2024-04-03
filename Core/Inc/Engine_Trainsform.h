@@ -18,12 +18,12 @@ class Transfrom : public BaseBehaviour {
   /**
    * @breif Position <x, y, z> of the object, in meter
    **/
-  Matrixi<3, 1> position;
+  Matrixf<3, 1> position;
 
   /**
    * @breif roation <x, y, z> of the object, in degree
    **/
-  Matrixi<3, 1> rotation;
+  Matrixf<3, 1> rotation;
 };
 }  // namespace Engine
 
