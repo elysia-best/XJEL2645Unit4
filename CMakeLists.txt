@@ -7,6 +7,9 @@ set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/mbed-os CACHE INTERNAL "")
 set(MBED_CONFIG_PATH ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "")
 set(APP_TARGET XJEL2645NewVersion)
 
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_C_STANDARD 99)
+
 include(${MBED_PATH}/tools/cmake/app.cmake)
 
 project(${APP_TARGET})
@@ -33,8 +36,7 @@ add_executable(${APP_TARGET}
 )
 
 target_link_libraries(${APP_TARGET}
-        mbed-os
-        ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/CMSIS_Math/Lib/GCC/libarm_cortexM4l_math.a
+    mbed-os
 )
 
 mbed_set_post_build(${APP_TARGET})

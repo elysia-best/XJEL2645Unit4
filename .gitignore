@@ -1,2 +1,4 @@
 .mbedbuild
 cmake_build/
+cmake-build-*/
+build/
