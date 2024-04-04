@@ -3,9 +3,9 @@
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
-  <component name="CMakePresetLoader"><![CDATA[{
-  "useNewFormat": true
-}]]></component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
   <component name="CMakeReloadState">
     <option name="reloaded" value="true" />
   </component>
@@ -23,27 +23,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/st_nucleo_l4.cfg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/XJEL2645Unit4.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/XJEL2645Unit4.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/CMSIS_Math/Lib/ARM/arm_cortexM4b_math.lib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/CMSIS_Math/Lib/ARM/arm_cortexM4bf_math.lib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/CMSIS_Math/Lib/ARM/arm_cortexM4l_math.lib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/CMSIS_Math/Lib/ARM/arm_cortexM4lf_math.lib" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/CMSIS_Math/Lib/GCC/libarm_cortexM4l_math.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/CMSIS_Math/Lib/GCC/libarm_cortexM4lf_math.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/CMSIS_Math/Lib/IAR/iar_cortexM4b_math.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/CMSIS_Math/Lib/IAR/iar_cortexM4bf_math.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/CMSIS_Math/Lib/IAR/iar_cortexM4l_math.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/CMSIS_Math/Lib/IAR/iar_cortexM4lf_math.a" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/pico_ecs/pico_ecs.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mbed_config.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/mbed_config.cmake" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,9 +47,9 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="140" />
     <option name="y" value="20" />
@@ -91,6 +72,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "OpenOCD Download & Run.XJEL2645NewVersion.executor": "Run",
+    "OpenOCD 下载并运行.XJEL2645NewVersion.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -104,11 +87,11 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "clion.custom.compiler.configurable",
+    "settings.editor.selected.configurable": "settings.sync",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
-  <component name="RunManager" selected="CMake Application.XJEL2645NewVersion">
+  <component name="RunManager" selected="OpenOCD 下载并运行.XJEL2645NewVersion">
     <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="CLION.EXTERNAL.BUILD" enabled="true" />
@@ -130,9 +113,10 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake Application.XJEL2645NewVersion" />
-      <item itemvalue="CMake Application.client" />
-      <item itemvalue="CMake Application.client_userio" />
+      <item itemvalue="CMake 应用程序.XJEL2645NewVersion" />
+      <item itemvalue="CMake 应用程序.client" />
+      <item itemvalue="CMake 应用程序.client_userio" />
+      <item itemvalue="OpenOCD 下载并运行.XJEL2645NewVersion" />
     </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
@@ -147,7 +131,9 @@
       <option name="presentableId" value="Default" />
       <updated>1712230563287</updated>
       <workItem from="1712230566003" duration="286000" />
-      <workItem from="1712232008214" duration="1746000" />
+      <workItem from="1712232008214" duration="2083000" />
+      <workItem from="1712234438670" duration="105000" />
+      <workItem from="1712234553720" duration="846000" />
     </task>
     <servers />
   </component>
