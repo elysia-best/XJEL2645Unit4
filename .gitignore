@@ -1,9 +1,2 @@
-.build
-.mbed
-projectfiles
-*.py*
-mbed-os
-BUILD
-
-XJEL2645Unit4.uvguix.15228
-EventRecorderStub.scvd
+.mbedbuild
+cmake_build/

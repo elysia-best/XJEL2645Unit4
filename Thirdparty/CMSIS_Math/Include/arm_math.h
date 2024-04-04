@@ -279,6 +279,8 @@
 #ifndef _ARM_MATH_H
 #define _ARM_MATH_H
 
+#include <stm32l4xx.h>
+
 /* Compiler specific diagnostic adjustment */
 #if   defined ( __CC_ARM )
 
