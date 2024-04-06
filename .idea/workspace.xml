@@ -22,10 +22,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Add picos header">
+    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="test: Comment out main.cpp for new testing.">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/Components.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/Components.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/pico_headers/pico_math.h" beforeDir="false" afterPath="$PROJECT_DIR$/Thirdparty/pico_headers/pico_math.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/Engine_Trainsform.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GameEngine.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/Engine_Trainsform.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Thirdparty/pico_headers/pico_ecs.h" beforeDir="false" afterPath="$PROJECT_DIR$/Thirdparty/pico_headers/pico_ecs.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,7 +86,9 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.advertisement.text.has.clang-format": "true",
+    "cf.advertisement.text.overridden": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "master",
@@ -145,7 +154,10 @@
       <workItem from="1712234438670" duration="105000" />
       <workItem from="1712234553720" duration="3473000" />
       <workItem from="1712322825543" duration="5840000" />
-      <workItem from="1712369042753" duration="12845000" />
+      <workItem from="1712369042753" duration="13626000" />
+      <workItem from="1712391500157" duration="3835000" />
+      <workItem from="1712401511520" duration="5000" />
+      <workItem from="1712408936341" duration="8379000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -163,7 +175,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712383447403</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="test: Comment out main.cpp for new testing.">
+      <option name="closed" value="true" />
+      <created>1712387968385</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712387968385</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -202,20 +222,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: Enable debug info in CMake." />
     <MESSAGE value="feat: Add picos header" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add picos header" />
+    <MESSAGE value="test: Comment out main.cpp for new testing." />
+    <option name="LAST_COMMIT_MESSAGE" value="test: Comment out main.cpp for new testing." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Core/Src/main.cpp</url>
-          <line>110</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Core/Src/main.cpp</url>
-          <line>73</line>
-          <option name="timeStamp" value="7" />
+          <line>14</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

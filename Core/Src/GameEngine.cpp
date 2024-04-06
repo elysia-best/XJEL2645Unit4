@@ -8,19 +8,9 @@
 
 #include "GameEngine.h"
 
-void Engine::BaseBehaviour::Start() {}
-void Engine::BaseBehaviour::Update() {}
-void Engine::BaseBehaviour::OnDestroyed() {}
-
-Engine::BaseBehaviour::BaseBehaviour() : IsDisabled{false} {
-  Start();
+Engine::GameManager::GameManager() {
+  ecs = ecs_new(128, nullptr);
 }
-
-Engine::BaseBehaviour::~BaseBehaviour() {
-  OnDestroyed();
-}
-
-void Engine::BaseBehaviour::AttachComponent(BaseBehaviour* &ptr, bool delete_on_destroy) {
-	AttachedComponent_t tmp = {ptr, delete_on_destroy};
-	Elements_ptr_list.push_back(tmp);
+Engine::GameManager::~GameManager() {
+  ecs_free(ecs);
 }

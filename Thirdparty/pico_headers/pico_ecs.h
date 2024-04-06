@@ -76,6 +76,8 @@
 #ifndef PICO_ECS_H
 #define PICO_ECS_H
 
+#define PICO_ECS_IMPLEMENTATION
+
 #include <stdbool.h> // bool, true, false
 #include <stddef.h>  // size_t
 #include <stdint.h>  // uint32_t
