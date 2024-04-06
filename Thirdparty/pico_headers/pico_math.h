@@ -80,15 +80,14 @@
 #ifndef PICO_MATH_H
 #define PICO_MATH_H
 
-#include <float.h>   // FLT_MIN/MAX, DBL_MIN/MAX
-#include <math.h>    // sqrt(f), cos(f), sin(f), atan2(f)...
-#include <stdbool.h> // bool, true, false
-#include <stdint.h>  // uint32_t
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+#include <float.h>   // FLT_MIN/MAX, DBL_MIN/MAX
+#include <arm_math.h>    // sqrt(f), cos(f), sin(f), atan2(f)...
+#include <stdbool.h> // bool, true, false
+#include <stdint.h>  // uint32_t
 // Common
 
 #if defined(_MSC_VER)
@@ -146,8 +145,8 @@ extern "C" {
     #define PM_FLOAT_MAX FLT_MAX
 
     #define pf_sqrt  sqrtf
-    #define pf_cos   cosf
-    #define pf_sin   sinf
+    #define pf_cos   arm_cos_f32
+    #define pf_sin   arm_sin_f32
     #define pf_acos  acosf
     #define pf_asin  asinf
     #define pf_atan2 atan2f
