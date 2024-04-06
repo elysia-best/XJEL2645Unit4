@@ -7,9 +7,6 @@ set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/mbed-os CACHE INTERNAL "")
 set(MBED_CONFIG_PATH ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "")
 set(APP_TARGET XJEL2645NewVersion)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_C_STANDARD 99)
-
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     message(STATUS "Maximum optimization for speed")
     add_compile_options(-Ofast)
@@ -30,6 +27,8 @@ project(${APP_TARGET})
 
 add_subdirectory(${MBED_PATH})
 
+include_directories(${gaia_INCLUDE_DIR})
+
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/Core/Inc)
 
 include_directories(
@@ -38,11 +37,20 @@ include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/MatrixLibrary
         ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/Joystick
         ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/N5110
-        ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/pico_ecs
+        ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/pico_headers
 )
 
 file(GLOB_RECURSE My_SOURCES "Core/*.c" "Core/*.cpp")
-file(GLOB_RECURSE Thirdparty_SOURCES "Thirdparty/*.c" "Thirdparty/*.cpp")
+file(GLOB_RECURSE Thirdparty_SOURCES
+        "Thirdparty/CMSIS_Math/*.c"
+        "Thirdparty/CMSIS_Math/*.cpp"
+        "Thirdparty/Joystick/*.c"
+        "Thirdparty/Joystick/*.cpp"
+        "Thirdparty/MatrixLibrary/*.c"
+        "Thirdparty/MatrixLibrary/*.cpp"
+        "Thirdparty/N5110/*.cpp"
+        "Thirdparty/N5110/*.c"
+)
 
 add_executable(${APP_TARGET}
     ${My_SOURCES}

@@ -5,8 +5,6 @@
  * Date: 2024-03-31
  * Modify Record:
  */
-#define PICO_ECS_IMPLEMENTATION
-
 #include "main.h"
 
 #include <mbed.h>
@@ -14,6 +12,7 @@
 #include "3DEngine.h"
 #include "Joystick.h"
 #include "N5110.h"
+
 
 //                  y     x
 Joystick joystick(PC_1, PC_0);  // attach and create joystick object
