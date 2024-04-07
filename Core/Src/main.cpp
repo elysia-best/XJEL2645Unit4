@@ -5,6 +5,9 @@
  * Date: 2024-03-31
  * Modify Record:
  */
+
+#define PICO_ECS_IMPLEMENTATION
+
 #include "main.h"
 
 #include <mbed.h>
@@ -12,6 +15,9 @@
 #include "3DEngine.h"
 #include "Joystick.h"
 #include "N5110.h"
+
+#include "GlobalDefines.h"
+
 //
 //
 ////                  y     x
@@ -191,4 +197,8 @@
 //    camera = camera + 3 * Y0;
 //  }
 //}
+
+int main() {
+  while(1);
+}
 

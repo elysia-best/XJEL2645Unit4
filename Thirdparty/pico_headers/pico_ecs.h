@@ -72,19 +72,16 @@
     - Better default assertion macro
     - Port Rogue demo to Windows
 */
-
 #ifndef PICO_ECS_H
 #define PICO_ECS_H
-
-#define PICO_ECS_IMPLEMENTATION
-
-#include <stdbool.h> // bool, true, false
-#include <stddef.h>  // size_t
-#include <stdint.h>  // uint32_t
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#include <stdbool.h> // bool, true, false
+#include <stddef.h>  // size_t
+#include <stdint.h>  // uint32_t
 
 /**
  * @brief ECS context
@@ -1546,4 +1543,3 @@ static bool ecs_is_system_ready(ecs_t* ecs, ecs_id_t sys_id)
 */
 
 // EoF
-

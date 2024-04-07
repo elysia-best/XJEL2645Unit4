@@ -10,7 +10,7 @@
 #define __GAME_ENGINE_H_
 
 #include "matrix.h"
-#include "pico_ecs.h"
+#include "GlobalDefines.h"
 
 namespace Engine {
 class GameManager {

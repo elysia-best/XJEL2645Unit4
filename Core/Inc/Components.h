@@ -12,10 +12,9 @@
 #ifndef XJEL2645NEWVERSION_CORE_SRC_COMPONENTS_H_
 #define XJEL2645NEWVERSION_CORE_SRC_COMPONENTS_H_
 
-#include "pico_ecs.h"
+#include "GlobalDefines.h"
 
-namespace Components {
-  extern ecs_id_t TRANSFORM_COMP;
-}
+extern ecs_id_t TRANSFORM_COMP;
+
 
 #endif //XJEL2645NEWVERSION_CORE_SRC_COMPONENTS_H_
