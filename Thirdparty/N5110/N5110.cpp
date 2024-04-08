@@ -440,7 +440,7 @@ void N5110::drawRect(unsigned int const x0, unsigned int const y0, unsigned int 
     }
 }
 
-void N5110::drawSprite(int x0, int y0, int nrows, int ncols, int *sprite){
+void N5110::drawSprite(int x0, int y0, int nrows, int ncols, bool *sprite){
     for (int i = 0; i < nrows; i++) {
         for (int j = 0 ; j < ncols ; j++) {
             int pixel = *((sprite+i*ncols)+j);

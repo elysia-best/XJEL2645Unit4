@@ -22,6 +22,9 @@ class GameManager {
    * @brief ECS world to manage all the entities and components.
    */
   ecs_t *ecs;
+
+ private:
+  void m_registerComponents();
 };
 }  // namespace Engine
 

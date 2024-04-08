@@ -2,7 +2,7 @@
 #include "N5110.h"
 #include "Bitmap.h"
 
-Bitmap::Bitmap(int const *contents, unsigned int const height, unsigned int const width): _contents(std::vector<int>(height*width)), _height(height), _width(width){
+Bitmap::Bitmap(bool const *contents, unsigned int const height, unsigned int const width): _contents(std::vector<bool>(height*width)), _height(height), _width(width){
     
     //Perform a quick sanity check of the dimensions
     if (_contents.size() != height * width) {
@@ -15,7 +15,7 @@ Bitmap::Bitmap(int const *contents, unsigned int const height, unsigned int cons
 }
 
 //returns the value of the pixel at the given position
-int Bitmap::get_pixel(unsigned int const row, unsigned int const column) const{
+bool Bitmap::get_pixel(unsigned int const row, unsigned int const column) const{
     
     // First check that row and column indices are within bounds
     if(column >= _width || row >= _height){

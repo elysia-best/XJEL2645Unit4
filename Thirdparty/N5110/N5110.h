@@ -191,7 +191,7 @@ public:
     *   @param  nrows - number of rows in sprite
     *   @param  ncols - number of columns in sprite
     *   @param  sprite - 2D array representing the sprite*/
-    void drawSprite(int x0, int y0, int nrows, int ncols, int *sprite);
+    void drawSprite(int x0, int y0, int nrows, int ncols, bool *sprite);
 
 private:
 // methods

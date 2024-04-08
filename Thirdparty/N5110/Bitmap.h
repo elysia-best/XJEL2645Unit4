@@ -7,13 +7,13 @@
 class N5110;
 class Bitmap{
 private:
-    std::vector<int> _contents;
+    std::vector<bool> _contents;
     unsigned int _height;       // The height of the drawing in pixels
     unsigned int _width;        // The width of the drawing in pixels
     
 public:
-    Bitmap(int const *contents, unsigned int const height, unsigned int const width);
-    int get_pixel(unsigned int const row, unsigned int const column) const;
+    Bitmap(bool const *contents, unsigned int const height, unsigned int const width);
+    bool get_pixel(unsigned int const row, unsigned int const column) const;
     void print() const;
     void render(N5110 &lcd, unsigned int const x0, unsigned int const y0) const;
 };
