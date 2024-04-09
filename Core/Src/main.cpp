@@ -197,8 +197,10 @@
 //    camera = camera + 3 * Y0;
 //  }
 //}
-
+#include "GameEngine.h"
+extern Engine::GameManager* gameManager_ptr;
 int main() {
+  Engine::GameManager* gameManager_ptr = new Engine::GameManager();
   while(1);
 }
 
