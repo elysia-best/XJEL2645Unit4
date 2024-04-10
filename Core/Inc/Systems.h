@@ -12,6 +12,7 @@
 
 namespace Systems {
 extern ecs_id_t TRANSFORM_SYSTEM;
+extern  ecs_id_t RENDER_SYSTEM;
 }
 
 #endif
