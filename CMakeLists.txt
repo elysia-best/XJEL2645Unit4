@@ -38,6 +38,7 @@ include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/Joystick
         ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/N5110
         ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/pico_headers
+        ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/Logger
 )
 
 file(GLOB_RECURSE My_SOURCES "Core/*.c" "Core/*.cpp")
@@ -50,11 +51,23 @@ file(GLOB_RECURSE Thirdparty_SOURCES
         "Thirdparty/MatrixLibrary/*.cpp"
         "Thirdparty/N5110/*.cpp"
         "Thirdparty/N5110/*.c"
+        "Thirdparty/Logger/*.c"
+        "Thirdparty/Logger/*.cpp"
 )
 
+foreach(filepath ${My_SOURCES})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    list(APPEND My_SOURCES_re ${filename})
+endforeach()
+
+foreach(filepath ${Thirdparty_SOURCES})
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}/" "" filename ${filepath})
+    list(APPEND Thirdparty_SOURCES_re ${filename})
+endforeach()
+
 add_executable(${APP_TARGET}
-    ${My_SOURCES}
-    ${Thirdparty_SOURCES}
+    ${My_SOURCES_re}
+    ${Thirdparty_SOURCES_re}
 )
 
 target_link_libraries(${APP_TARGET}

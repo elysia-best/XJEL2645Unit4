@@ -9,6 +9,7 @@
 #define XJEL2645NEWVERSION_CORE_SRC_COMPONENTS_H_
 
 #include "GlobalDefines.h"
+#include "pico_ecs.h"
 
 namespace Components {
 extern ecs_id_t TRANSFORM_COMP;
@@ -76,6 +77,10 @@ class Note {
 
 class Render {
  public:
+  /**
+   *  @brief Whether the sprite is visible or not.
+   */
+  bool Visible;
   /**
    * @brief A 2D array of bool values representing the sprite data.
    */

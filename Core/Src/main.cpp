@@ -201,6 +201,8 @@
 extern Engine::GameManager* gameManager_ptr;
 int main() {
   Engine::GameManager* gameManager_ptr = new Engine::GameManager();
-  while(1);
+  while(1) {
+    ecs_ret_t code = ecs_update_systems(gameManager_ptr->ecs, 0.0);
+  }
 }
 

@@ -11,6 +11,8 @@
 
 #include "matrix.h"
 #include "GlobalDefines.h"
+#include "pico_ecs.h"
+#include "N5110.h"
 
 namespace Engine {
 class GameManager {
@@ -23,9 +25,22 @@ class GameManager {
    */
   ecs_t *ecs;
 
+  /**
+   *  @brief LCD display
+   */
+  N5110* lcd;
+
  private:
+  void m_initPeripherals();
+
   void m_registerComponents();
+
+  void m_registerSystems();
+
+  void m_freePeripherals() const;
 };
 }  // namespace Engine
+
+#define GetGameManager(ptr) ((Engine::GameManager *)ptr)
 
 #endif
