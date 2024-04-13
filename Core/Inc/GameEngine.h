@@ -38,9 +38,18 @@ class GameManager {
   void m_registerSystems();
 
   void m_freePeripherals() const;
+
+  void m_initEarlyData();
+
+  ecs_id_t m_makeMainMenu();
 };
 }  // namespace Engine
 
 #define GetGameManager(ptr) ((Engine::GameManager *)ptr)
+
+template<typename T>
+T* AddComponent(ecs_t *ecs, ecs_id_t id, ecs_id_t comp_id, void* args) {
+  return (T*)ecs_add(ecs, id, comp_id, args);
+}
 
 #endif

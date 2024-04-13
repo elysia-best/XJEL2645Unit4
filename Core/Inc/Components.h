@@ -11,19 +11,20 @@
 #include "GlobalDefines.h"
 #include "pico_ecs.h"
 
-namespace Components {
-extern ecs_id_t TRANSFORM_COMP;
-extern ecs_id_t PLAYER_COMP;
-extern ecs_id_t NOTE_COMP;
-extern ecs_id_t RENDER_COMP;
-}
+volatile extern ecs_id_t TRANSFORM_COMP;
+volatile extern ecs_id_t PLAYER_COMP;
+volatile extern ecs_id_t NOTE_COMP;
+volatile extern ecs_id_t RENDER_COMP;
 
 namespace Components {
+
+void m_initComponents(ecs_s *ecs);
+
 /**
  * @class Transform
  * @brief Class for managing position, rotation, and scale of an object.
  */
-class Transform {
+struct Transform {
  public:
   /**
    * @brief Array of 3 float values representing the position of the object.
@@ -45,7 +46,7 @@ class Transform {
  * @class Player
  * @brief Class for managing player level and experience.
  */
-class Player {
+struct Player {
  public:
   /**
    * @brief Level of the player.
@@ -62,7 +63,7 @@ class Player {
  * @class Note
  * @brief Class for managing note type and score.
  */
-class Note {
+struct Note {
  public:
   /**
    * @brief Type of the note.
@@ -75,7 +76,7 @@ class Note {
   int8_t Score;
 };
 
-class Render {
+struct Render {
  public:
   /**
    *  @brief Whether the sprite is visible or not.
@@ -84,7 +85,7 @@ class Render {
   /**
    * @brief A 2D array of bool values representing the sprite data.
    */
-  bool ** Data;
+  bool *Data;
 
   /**
    * @brief The left-up point's x of the sprite.

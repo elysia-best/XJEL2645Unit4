@@ -10,12 +10,14 @@
 
 #include "pico_ecs.h"
 
-namespace Systems {
-extern ecs_id_t TRANSFORM_SYSTEM;
-extern ecs_id_t RENDER_SYSTEM;
-}
+
+volatile extern ecs_id_t TRANSFORM_SYSTEM;
+volatile extern ecs_id_t RENDER_SYSTEM;
+
 
 namespace Systems {
+void m_initSystems(ecs_s * ecs);
+
 ecs_ret_t TransformSystem(ecs_t *ecs,
                        ecs_id_t *entities,
                        int entity_count,

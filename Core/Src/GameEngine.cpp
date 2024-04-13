@@ -11,6 +11,7 @@
 #include "Systems.h"
 #include "log.h"
 #include "GlobalDefines.h"
+#include "Spirits.h"
 
 Engine::GameManager::GameManager() {
   log_info("Initializing GameEngine...");
@@ -23,6 +24,8 @@ Engine::GameManager::GameManager() {
   ecs = ecs_new(128, nullptr);
   m_registerComponents();
   m_registerSystems();
+
+  m_initEarlyData();
 }
 Engine::GameManager::~GameManager() {
   ecs_free(ecs);
@@ -31,22 +34,13 @@ Engine::GameManager::~GameManager() {
 void Engine::GameManager::m_registerComponents() {
   log_info("Registering Components...");
   using namespace Components;
-  TRANSFORM_COMP = ecs_register_component(ecs, sizeof(Transform), nullptr, nullptr);
-  PLAYER_COMP = ecs_register_component(ecs, sizeof(Player), nullptr, nullptr);
-  NOTE_COMP = ecs_register_component(ecs, sizeof(Note), nullptr, nullptr);
-  RENDER_COMP = ecs_register_component(ecs, sizeof(Render), nullptr, nullptr);
+  m_initComponents(ecs);
 }
 void Engine::GameManager::m_registerSystems() {
   log_info("Registering Systems...");
   using namespace Systems;
-  TRANSFORM_SYSTEM = ecs_register_system(ecs, TransformSystem, nullptr, nullptr, this);
 
-  ecs_require_component(ecs, TRANSFORM_SYSTEM, Components::TRANSFORM_COMP);
-
-  RENDER_SYSTEM = ecs_register_system(ecs, RenderSystem, nullptr, nullptr, this);
-
-  ecs_require_component(ecs, RENDER_SYSTEM, Components::TRANSFORM_COMP);
-  ecs_require_component(ecs, RENDER_SYSTEM, Components::RENDER_COMP);
+  m_initSystems(ecs);
 }
 void Engine::GameManager::m_initPeripherals() {
   log_info("Initializing Peripherals...");
@@ -54,10 +48,34 @@ void Engine::GameManager::m_initPeripherals() {
   log_info("Initializing LCD...");
   lcd = new N5110(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
   lcd->init(LPH7366_1);
-  lcd->setContrast(0.5);
+  lcd->setContrast(0.3);
 }
 void Engine::GameManager::m_freePeripherals() const {
   delete lcd;
 }
+void Engine::GameManager::m_initEarlyData() {
+  log_info("Initializing Early Data...");
+  using namespace Components;
 
+  m_makeMainMenu();
+}
+ecs_id_t Engine::GameManager::m_makeMainMenu() {
+  ecs_id_t id = ecs_create(ecs);
 
+  auto transform = AddComponent<Components::Transform>(ecs,id, TRANSFORM_COMP, nullptr);
+
+  for (auto p: transform->Position)
+    p = 0;
+  for (auto p : transform->Rotation)
+    p = 0;
+  for (auto p: transform->Scale)
+    p = 1;
+
+  auto render = AddComponent<Components::Render>(ecs, id, TRANSFORM_COMP, nullptr);
+  render->Data = m_mainMenu;
+  render->Visible = true;
+  render->x = 84;
+  render->y = 48;
+
+  return id;
+}

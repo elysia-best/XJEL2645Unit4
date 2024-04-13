@@ -23,15 +23,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Fix compile error">
-      <change afterPath="$PROJECT_DIR$/Thirdparty/Logger/log.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Thirdparty/Logger/log.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/Entities.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Inc/Spirits.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/Entities.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Components.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GameEngine.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/GlobalDefines.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GlobalDefines.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/Systems.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Systems.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/Components.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Components.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.cpp" afterDir="false" />
@@ -45,6 +46,9 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileTemplateManagerImpl">
+    <option name="SCHEME" value="项目" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -87,7 +91,7 @@
   "keyToString": {
     "CMake 应用程序.XJEL2645NewVersion.executor": "Run",
     "OpenOCD Download & Run.XJEL2645NewVersion.executor": "Run",
-    "OpenOCD 下载并运行.XJEL2645NewVersion.executor": "Run",
+    "OpenOCD 下载并运行.XJEL2645NewVersion.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -114,17 +118,17 @@
       <recent name="E:\Projects\School\XJEL2645Unit4\Thirdparty" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="E:\Projects\School\XJEL2645Unit4\Thirdparty\Logger" />
       <recent name="E:\Projects\School\XJEL2645Unit4\Core\Inc" />
+      <recent name="E:\Projects\School\XJEL2645Unit4\Thirdparty\Logger" />
     </key>
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.XJEL2645NewVersion">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="XJEL2645NewVersion" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="XJEL2645NewVersion" TARGET_NAME="XJEL2645NewVersion" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="XJEL2645NewVersion" RUN_TARGET_NAME="XJEL2645NewVersion">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="XJEL2645NewVersion" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="XJEL2645NewVersion" TARGET_NAME="XJEL2645NewVersion" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="XJEL2645NewVersion" RUN_TARGET_NAME="XJEL2645NewVersion">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -182,6 +186,9 @@
       <workItem from="1712749761582" duration="550000" />
       <workItem from="1712835435310" duration="426000" />
       <workItem from="1712892707623" duration="20397000" />
+      <workItem from="1712977382011" duration="2378000" />
+      <workItem from="1712980412599" duration="6637000" />
+      <workItem from="1713008523309" duration="13873000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -272,15 +279,20 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+        <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Thirdparty/pico_headers/pico_ecs.h</url>
           <line>74</line>
           <option name="timeStamp" value="12" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+        <line-breakpoint type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Thirdparty/pico_headers/pico_ecs.h</url>
           <line>1535</line>
           <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
+          <line>34</line>
+          <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

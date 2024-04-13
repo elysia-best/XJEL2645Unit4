@@ -12,4 +12,10 @@
 #define VERSION_NUMBER "0.0.1"
 #define AUTHOR "Yuanzhen Gan"
 
+namespace Engine {
+class GameManager;
+}
+
+extern Engine::GameManager* gameManager_ptr;
+
 #endif //XJEL2645NEWVERSION_CORE_INC_GLOBALDEFINES_H_
