@@ -118,8 +118,8 @@ public:
     * @param state The state of the pixel [true=black (default), false=white]
     * @details This function sets the state of a pixel in the screen buffer.
     *          The third parameter can be omitted*/
-    void setPixel(unsigned int const x,
-                  unsigned int const y,
+    void setPixel(int const x_,
+                  int const y_,
                   bool const         state = true);
 
     /* Clear a Pixel

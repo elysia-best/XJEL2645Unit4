@@ -48,7 +48,7 @@ void Engine::GameManager::m_initPeripherals() {
   log_info("Initializing LCD...");
   lcd = new N5110(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
   lcd->init(LPH7366_1);
-  lcd->setContrast(0.3);
+  lcd->setContrast(0.5);
 }
 void Engine::GameManager::m_freePeripherals() const {
   delete lcd;

@@ -228,13 +228,18 @@ void N5110::setXYAddress(unsigned int const x, unsigned int const y){
 // These functions are used to set, clear and get the value of pixels in the display
 // Pixels are addressed in the range of 0 to 47 (y) and 0 to 83 (x).  The refresh()
 // function must be called after set and clear in order to update the display
-void N5110::setPixel(unsigned int const x, unsigned int const y, bool const state){
-    if (x<WIDTH && y<HEIGHT) {  // check within range
+void N5110::setPixel(int const x_, int const y_, bool const state) {
+  auto x = (- x_ + 2 * (WIDTH / 2)) - 1;
+  auto y = (- y_ + 2* (HEIGHT / 2)) - 1;
 
-        // calculate bank and shift 1 to required position in the data byte
-        if(state) buffer[x][y/8] |= (1 << y%8);
-        else      buffer[x][y/8] &= ~(1 << y%8);
+  if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {  // 改进的范围检查
+    // 对于 Nokia 5110, 需确保 y/8 在合法范围内
+    int bank = y / 8;
+    if (bank >= 0 && bank < (HEIGHT / 8)) { // 确保 bank 计算正确，避免越界
+      if (state) buffer[x][bank] |= (1 << (y % 8));
+      else buffer[x][bank] &= ~(1 << (y % 8));
     }
+  }
 }
 
 void N5110::clearPixel(unsigned int const x, unsigned int const y){
