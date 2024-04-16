@@ -200,12 +200,17 @@
 #include "GameEngine.h"
 #include "Spirits.h"
 Engine::GameManager* gameManager_ptr;
+DigitalIn A(PC_0), B(PC_3), C(PC_1), D(PC_2);
+//DigitalOut LED_R(PA_3), LED_G(PA_2), LED_B(PC_4);
+
 int main() {
   gameManager_ptr = new Engine::GameManager();
   gameManager_ptr->lcd->drawSprite(0, 0, 48, 84, m_mainMenu);
+//  LED_B.write(1);
+//  LED_G.write(1);
   while(1) {
     ecs_ret_t code = ecs_update_systems(gameManager_ptr->ecs, 0.0);
-
+    printf("%d %d %d %d \n", A.read(), B.read(), C.read(), D.read());
     gameManager_ptr->lcd->refresh();
   }
 }
