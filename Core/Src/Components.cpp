@@ -8,14 +8,14 @@
 #include "Components.h"
 
 
-volatile ecs_id_t TRANSFORM_COMP;
-volatile ecs_id_t PLAYER_COMP;
-volatile ecs_id_t NOTE_COMP;
-volatile ecs_id_t RENDER_COMP;
+//volatile ecs_id_t TRANSFORM_COMP;
+//volatile ecs_id_t PLAYER_COMP;
+//volatile ecs_id_t NOTE_COMP;
+//volatile ecs_id_t RENDER_COMP;
 
-void Components::m_initComponents(ecs_s *ecs) {
-  TRANSFORM_COMP = ecs_register_component(ecs, sizeof(Transform), nullptr, nullptr);
-  PLAYER_COMP = ecs_register_component(ecs, sizeof(Player), nullptr, nullptr);
-  NOTE_COMP = ecs_register_component(ecs, sizeof(Note), nullptr, nullptr);
-  RENDER_COMP = ecs_register_component(ecs, sizeof(Render), nullptr, nullptr);
-}
+//void Components::m_initComponents(ecs_s *ecs) {
+//  TRANSFORM_COMP = ecs_register_component(ecs, sizeof(Transform), nullptr, nullptr);
+//  PLAYER_COMP = ecs_register_component(ecs, sizeof(Player), nullptr, nullptr);
+//  NOTE_COMP = ecs_register_component(ecs, sizeof(Note), nullptr, nullptr);
+//  RENDER_COMP = ecs_register_component(ecs, sizeof(Render), nullptr, nullptr);
+//}

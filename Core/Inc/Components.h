@@ -9,16 +9,17 @@
 #define XJEL2645NEWVERSION_CORE_SRC_COMPONENTS_H_
 
 #include "GlobalDefines.h"
-#include "pico_ecs.h"
-
-volatile extern ecs_id_t TRANSFORM_COMP;
-volatile extern ecs_id_t PLAYER_COMP;
-volatile extern ecs_id_t NOTE_COMP;
-volatile extern ecs_id_t RENDER_COMP;
+#include <cstdint>
+//#include "pico_ecs.h"
+//
+//volatile extern ecs_id_t TRANSFORM_COMP;
+//volatile extern ecs_id_t PLAYER_COMP;
+//volatile extern ecs_id_t NOTE_COMP;
+//volatile extern ecs_id_t RENDER_COMP;
 
 namespace Components {
 
-void m_initComponents(ecs_s *ecs);
+//void m_initComponents(ecs_s *ecs);
 
 /**
  * @class Transform

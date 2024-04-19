@@ -23,12 +23,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Fix compile error">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/XJEL2645NewVersion.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/XJEL2645NewVersion.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Components.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/ECS_System.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/ECS_System.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/ECS_System.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/ECS_System.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mbed-os/tools/profiles/debug.json" beforeDir="false" afterPath="$PROJECT_DIR$/mbed-os/tools/profiles/debug.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/Components.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Components.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/ECS_System.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -140,9 +142,9 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="CMake 应用程序.XJEL2645NewVersion" />
-      <item itemvalue="CMake 应用程序.client" />
-      <item itemvalue="CMake 应用程序.client_userio" />
+      <item itemvalue="CMake Application.XJEL2645NewVersion" />
+      <item itemvalue="CMake Application.client" />
+      <item itemvalue="CMake Application.client_userio" />
       <item itemvalue="OpenOCD 下载并运行.XJEL2645NewVersion" />
     </list>
   </component>
@@ -192,6 +194,8 @@
       <workItem from="1713506115308" duration="3511000" />
       <workItem from="1713520002565" duration="203000" />
       <workItem from="1713520212943" duration="6645000" />
+      <workItem from="1713538316779" duration="16000" />
+      <workItem from="1713538346170" duration="4339000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />

@@ -34,13 +34,13 @@ Engine::GameManager::~GameManager() {
 void Engine::GameManager::m_registerComponents() {
   log_info("Registering Components...");
   using namespace Components;
-  m_initComponents(ecs);
+  //m_initComponents(ecs);
 }
 void Engine::GameManager::m_registerSystems() {
   log_info("Registering Systems...");
   using namespace Systems;
 
-  m_initSystems(ecs);
+//  m_initSystems(ecs);
 }
 void Engine::GameManager::m_initPeripherals() {
   log_info("Initializing Peripherals...");
@@ -57,25 +57,25 @@ void Engine::GameManager::m_initEarlyData() {
   log_info("Initializing Early Data...");
   using namespace Components;
 
-  m_makeMainMenu();
+//  m_makeMainMenu();
 }
-ecs_id_t Engine::GameManager::m_makeMainMenu() {
-  ecs_id_t id = ecs_create(ecs);
-
-  auto transform = AddComponent<Components::Transform>(ecs,id, TRANSFORM_COMP, nullptr);
-
-  for (auto p: transform->Position)
-    p = 0;
-  for (auto p : transform->Rotation)
-    p = 0;
-  for (auto p: transform->Scale)
-    p = 1;
-
-  auto render = AddComponent<Components::Render>(ecs, id, TRANSFORM_COMP, nullptr);
-  render->Data = m_mainMenu;
-  render->Visible = true;
-  render->x = 84;
-  render->y = 48;
-
-  return id;
-}
+//ecs_id_t Engine::GameManager::m_makeMainMenu() {
+//  ecs_id_t id = ecs_create(ecs);
+//
+//  auto transform = AddComponent<Components::Transform>(ecs,id, TRANSFORM_COMP, nullptr);
+//
+//  for (auto p: transform->Position)
+//    p = 0;
+//  for (auto p : transform->Rotation)
+//    p = 0;
+//  for (auto p: transform->Scale)
+//    p = 1;
+//
+//  auto render = AddComponent<Components::Render>(ecs, id, TRANSFORM_COMP, nullptr);
+//  render->Data = m_mainMenu;
+//  render->Visible = true;
+//  render->x = 84;
+//  render->y = 48;
+//
+//  return id;
+//}

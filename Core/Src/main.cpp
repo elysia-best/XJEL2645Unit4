@@ -199,19 +199,80 @@
 //}
 #include "GameEngine.h"
 #include "Spirits.h"
-Engine::GameManager* gameManager_ptr;
-DigitalIn A(PC_0), B(PC_3), C(PC_1), D(PC_2);
+
+#include "ECS_System.h"
+#include "Components.h"
+//Engine::GameManager* gameManager_ptr;
+//DigitalIn A(PC_0), B(PC_3), C(PC_1), D(PC_2);
 //DigitalOut LED_R(PA_3), LED_G(PA_2), LED_B(PC_4);
 
+auto mCoordinator = std::make_shared<Coordinator>();
+
+class TestSystem1 : public System {
+  bool Update(float dt) override {
+    printf("Update System1\n");
+    return true;
+  }
+};
+
+class TestSystem2 : public System {
+ public:
+  bool Update(float dt) override {
+    printf("Update System2\n");
+    for (auto const& entity : mEntities)
+    {
+      auto& transform = mCoordinator->GetComponent<Components::Transform>(entity);
+      auto& render = mCoordinator->GetComponent<Components::Render>(entity);
+      printf("Get Compos OK!\n");
+    }
+    return true;
+  }
+};
+
+
+
 int main() {
-  gameManager_ptr = new Engine::GameManager();
-  gameManager_ptr->lcd->drawSprite(0, 0, 48, 84, m_mainMenu);
+//  gameManager_ptr = new Engine::GameManager();
+//  gameManager_ptr->lcd->drawSprite(0, 0, 48, 84, m_mainMenu);
 //  LED_B.write(1);
 //  LED_G.write(1);
-  while(1) {
-    ecs_ret_t code = ecs_update_systems(gameManager_ptr->ecs, 0.0);
-    printf("%d %d %d %d \n", A.read(), B.read(), C.read(), D.read());
-    gameManager_ptr->lcd->refresh();
+  mCoordinator->Init();
+
+  mCoordinator->RegisterComponent<Components::Transform>();
+  mCoordinator->RegisterComponent<Components::Render>();
+
+  auto system1 = mCoordinator->RegisterSystem<TestSystem1>();
+  auto system2 = mCoordinator->RegisterSystem<TestSystem2>();
+
+  auto entity1 = mCoordinator->CreateEntity();
+  mCoordinator->AddComponent(
+      entity1,
+      Components::Transform{{0,0,0}, {0,0,0}, {0,0,0}}
+      );
+
+  auto entity2 = mCoordinator->CreateEntity();
+  mCoordinator->AddComponent(
+      entity2,
+      Components::Transform{{0,0,0}, {0,0,0}, {0,0,0}}
+      );
+  mCoordinator->AddComponent(
+      entity2,
+      Components::Render{true, m_mainMenu, 84, 48}
+      );
+
+  float dt = 0.0f;
+
+  while (1) {
+//    ecs_ret_t code = ecs_update_systems(gameManager_ptr->ecs, 0.0);
+//    printf("%d %d %d %d \n", A.read(), B.read(), C.read(), D.read());
+//    gameManager_ptr->lcd->refresh();
+    static auto startTime = Kernel::Clock::now();
+
+    system2->Update(dt);
+
+    static auto stopTime = Kernel::Clock::now();
+
+    dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
   }
 }
 
