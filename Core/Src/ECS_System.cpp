@@ -28,7 +28,7 @@ Entity EntityManager::CreateEntity() {
   return id;
 }
 
-void EntityManager::DestroyEntity(Entity entity)  {
+void EntityManager::DestroyEntity(Entity entity) {
   assert(entity < MAX_ENTITIES && "Entity out of range.");
 
   // Invalidate the destroyed entity's signature
@@ -67,7 +67,7 @@ void ComponentArray<T>::InsertData(Entity entity, T component) {
 }
 
 template<typename T>
-void ComponentArray<T>::RemoveData(Entity entity){
+void ComponentArray<T>::RemoveData(Entity entity) {
   assert(mEntityToIndexMap.find(entity) != mEntityToIndexMap.end() && "Removing non-existent component.");
 
   // Copy element at end into deleted element's place to maintain density
@@ -95,9 +95,127 @@ T &ComponentArray<T>::GetData(Entity entity) {
 }
 
 template<typename T>
-void ComponentArray<T>::EntityDestroyed(Entity entity)  {
+void ComponentArray<T>::EntityDestroyed(Entity entity) {
   if (mEntityToIndexMap.find(entity) != mEntityToIndexMap.end()) {
     // Remove the entity's component if it existed
     RemoveData(entity);
   }
+}
+
+template<typename T>
+void ComponentManager::AddComponent(Entity entity, T component) {
+  GetComponentArray<T>()->InsertData(entity, component);
+}
+
+template<typename T>
+void ComponentManager::RemoveComponent(Entity entity) {
+  GetComponentArray<T>()->RemoveData(entity);
+}
+
+template<typename T>
+T &ComponentManager::GetComponent(Entity entity) {
+  return GetComponentArray<T>()->GetData(entity);
+}
+
+template<typename T>
+std::shared_ptr<ComponentArray<T>> ComponentManager::GetComponentArray() {
+  const char *typeName = MetatypeHash::name_detail<T>();
+  assert(mComponentArrays.find(typeName) != mComponentArrays.end() && "Component not registered before use.");
+  return std::static_pointer_cast<ComponentArray<T>>(mComponentArrays[typeName]);
+}
+
+template<typename T>
+std::shared_ptr<T> SystemManager::RegisterSystem() {
+  const char *typeName = MetatypeHash::name_detail<T>();
+
+  assert(mSystems.find(typeName) == mSystems.end() && "Registering system more than once.");
+
+  // Create a pointer to the system and return it so it can be used externally
+  auto system = std::make_shared<T>();
+  mSystems.insert({typeName, system});
+  return system;
+}
+
+template<typename T>
+void SystemManager::SetSignature(Signature signature) {
+  const char *typeName = MetatypeHash::name_detail<T>();
+
+  assert(mSystems.find(typeName) != mSystems.end() && "System used before registered.");
+
+  // Set the signature for this system
+  mSignatures.insert({typeName, signature});
+}
+
+void SystemManager::EntityDestroyed(Entity entity) {
+  // Erase a destroyed entity from all system lists
+  // mEntities is a set so no check needed
+  for (auto const &pair : mSystems) {
+    auto const &system = pair.second;
+
+    system->mEntities.erase(entity);
+  }
+}
+void SystemManager::EntitySignatureChanged(Entity entity, Signature entitySignature) {
+  // Notify each system that an entity's signature changed
+  for (auto const &pair : mSystems) {
+    auto const &type = pair.first;
+    auto const &system = pair.second;
+    auto const &systemSignature = mSignatures[type];
+
+    // Entity signature matches system signature - insert into set
+    if ((entitySignature & systemSignature) == systemSignature) {
+      system->mEntities.insert(entity);
+    }
+      // Entity signature does not match system signature - erase from set
+    else {
+      system->mEntities.erase(entity);
+    }
+  }
+}
+
+template<typename T>
+void Coordinator::RegisterComponent() {
+  mComponentManager->RegisterComponent<T>();
+}
+
+template<typename T>
+void Coordinator::AddComponent(Entity entity, T component) {
+  mComponentManager->AddComponent<T>(entity, component);
+
+  auto signature = mEntityManager->GetSignature(entity);
+  signature.set(mComponentManager->GetComponentType<T>(), true);
+  mEntityManager->SetSignature(entity, signature);
+
+  mSystemManager->EntitySignatureChanged(entity, signature);
+}
+
+template<typename T>
+void Coordinator::RemoveComponent(Entity entity) {
+  mComponentManager->RemoveComponent<T>(entity);
+
+  auto signature = mEntityManager->GetSignature(entity);
+  signature.set(mComponentManager->GetComponentType<T>(), false);
+  mEntityManager->SetSignature(entity, signature);
+
+  mSystemManager->EntitySignatureChanged(entity, signature);
+}
+
+template<typename T>
+T &Coordinator::GetComponent(Entity entity) {
+  return mComponentManager->GetComponent<T>(entity);
+}
+
+template<typename T>
+ComponentType Coordinator::GetComponentType() {
+  return mComponentManager->GetComponentType<T>();
+}
+
+template<typename T>
+std::shared_ptr<T> Coordinator::RegisterSystem() {
+  return mSystemManager->RegisterSystem<T>();
+}
+
+template<typename T>
+void Coordinator::SetSystemSignature(Signature signature) {
+  mSystemManager->SetSignature<T>(signature);
 }
