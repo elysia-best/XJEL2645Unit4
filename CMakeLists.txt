@@ -7,6 +7,10 @@ set(MBED_PATH ${CMAKE_CURRENT_SOURCE_DIR}/mbed-os CACHE INTERNAL "")
 set(MBED_CONFIG_PATH ${CMAKE_CURRENT_SOURCE_DIR} CACHE INTERNAL "")
 set(APP_TARGET XJEL2645NewVersion)
 
+set(MBED_PRINTF_LIB "std")
+
+add_compile_definitions(ECS_NO_RTTI)
+
 if ("${CMAKE_BUILD_TYPE}" STREQUAL "Release")
     message(STATUS "Maximum optimization for speed")
     add_compile_options(-Ofast)
@@ -39,6 +43,7 @@ include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/N5110
         ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/pico_headers
         ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/Logger
+        ${CMAKE_CURRENT_SOURCE_DIR}/Thirdparty/ECS
 )
 
 file(GLOB_RECURSE My_SOURCES "Core/*.c" "Core/*.cpp")
@@ -53,6 +58,8 @@ file(GLOB_RECURSE Thirdparty_SOURCES
         "Thirdparty/N5110/*.c"
         "Thirdparty/Logger/*.c"
         "Thirdparty/Logger/*.cpp"
+        "Thirdparty/ECS/*.c"
+        "Thirdparty/ECS/*.cpp"
 )
 
 foreach(filepath ${My_SOURCES})

@@ -13,7 +13,7 @@
 #include "GlobalDefines.h"
 #include "Spirits.h"
 
-Engine::GameManager::GameManager() {
+void Engine::GameManager::Init() {
   log_info("Initializing GameEngine...");
   log_info("AppName: %s", GAME_NAME);
   log_info("AppVersion: %s", VERSION_NUMBER);
@@ -21,27 +21,17 @@ Engine::GameManager::GameManager() {
 
   m_initPeripherals();
 
-  ecs = ecs_new(128, nullptr);
-  m_registerComponents();
+  ecs = ECS::World::createWorld();
   m_registerSystems();
 
   m_initEarlyData();
 }
 Engine::GameManager::~GameManager() {
-  ecs_free(ecs);
+  ecs->destroyWorld();
+  delete ecs;
   m_freePeripherals();
 }
-void Engine::GameManager::m_registerComponents() {
-  log_info("Registering Components...");
-  using namespace Components;
-  //m_initComponents(ecs);
-}
-void Engine::GameManager::m_registerSystems() {
-  log_info("Registering Systems...");
-  using namespace Systems;
 
-//  m_initSystems(ecs);
-}
 void Engine::GameManager::m_initPeripherals() {
   log_info("Initializing Peripherals...");
 
@@ -49,33 +39,73 @@ void Engine::GameManager::m_initPeripherals() {
   lcd = new N5110(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
   lcd->init(LPH7366_1);
   lcd->setContrast(0.5);
+
+  log_info("Initializing Keys");
+  keys[0] = new InterruptIn(PA_5);
+  keys[1] = new InterruptIn(PA_6);
+  keys[2] = new InterruptIn(PA_7);
+  keys[3] = new InterruptIn(PC_8);
+  for (auto &p: keys)
+    p->mode(PinMode::PullDown);
+
+  log_info("Initializing LED");
+  led_bgr = new BusOut{PC_14, PC_15, PH_0};
+  led_bgr->write(0b000);
+
+  log_info("Initializing Buzzer");
+  buzzer = new PwmOut(PA_15);
+
+  log_info("Initializing Joysticks");
+  joystics[0] = new Joystick(PC_1, PC_0);  // y  x
+  joystics[1] = new Joystick(PA_4, PB_0);
+  for (auto &p: joystics)
+    p->init();
+
+  log_info("Successfully Initialized Peripherals...");
 }
 void Engine::GameManager::m_freePeripherals() const {
   delete lcd;
+
+  for (auto &p: keys)
+    delete p;
+
+  delete led_bgr;
+
+  delete buzzer;
+
+  for (auto &p: joystics)
+    delete p;
 }
 void Engine::GameManager::m_initEarlyData() {
   log_info("Initializing Early Data...");
   using namespace Components;
 
-//  m_makeMainMenu();
+  log_info("Loading Main menu...");
+  m_makeMainMenu();
 }
-//ecs_id_t Engine::GameManager::m_makeMainMenu() {
-//  ecs_id_t id = ecs_create(ecs);
-//
-//  auto transform = AddComponent<Components::Transform>(ecs,id, TRANSFORM_COMP, nullptr);
-//
-//  for (auto p: transform->Position)
-//    p = 0;
-//  for (auto p : transform->Rotation)
-//    p = 0;
-//  for (auto p: transform->Scale)
-//    p = 1;
-//
-//  auto render = AddComponent<Components::Render>(ecs, id, TRANSFORM_COMP, nullptr);
-//  render->Data = m_mainMenu;
-//  render->Visible = true;
-//  render->x = 84;
-//  render->y = 48;
-//
-//  return id;
-//}
+
+ECS::Entity* Engine::GameManager::m_makeMainMenu() {
+  using namespace Components;
+  using namespace ECS;
+  auto ent = ecs->create();
+  auto trans = ent->assign<Components::Transform>();
+  auto render = ent->assign<Components::Render>();
+
+  for (auto &p: trans->Position)
+    p = 0;
+  for (auto &p : trans->Rotation)
+    p = 0;
+  for (auto &p: trans->Scale)
+    p = 1;
+
+  render->Data = m_mainMenu;
+  render->Visible = true;
+  render->x = 84;
+  render->y = 48;
+
+  return ent;
+}
+void Engine::GameManager::m_registerSystems() {
+  ecs->registerSystem(new Systems::TransformSystem);
+  ecs->registerSystem(new Systems::RenderSystem);
+}

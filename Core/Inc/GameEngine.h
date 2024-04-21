@@ -11,45 +11,60 @@
 
 #include "matrix.h"
 #include "GlobalDefines.h"
-#include "pico_ecs.h"
+#include "ECS.h"
 #include "N5110.h"
+#include "Joystick.h"
+#include "singleton.h"
 
 namespace Engine {
 class GameManager {
+ private:
+  GameManager() {};
  public:
-  GameManager();
+ SINGLETON(GameManager);
+
+  void Init();
+
   ~GameManager();
   
   /**
    * @brief ECS world to manage all the entities and components.
    */
-  ecs_t *ecs;
+  ECS::World* ecs;
 
   /**
    *  @brief LCD display
    */
   N5110* lcd;
 
+  /**
+   *  @brief 4 keys, A B C D
+   */
+  InterruptIn* keys[4];
+
+  /**
+   * @brief Buzzer
+   */
+  PwmOut* buzzer;
+
+  /**
+   * @brief 2 joysticks L, R
+   */
+  Joystick* joystics[2];
+
+  BusOut* led_bgr;
+
  private:
   void m_initPeripherals();
-
-  void m_registerComponents();
-
-  void m_registerSystems();
 
   void m_freePeripherals() const;
 
   void m_initEarlyData();
 
-  ecs_id_t m_makeMainMenu();
+  void m_registerSystems();
+
+  ECS::Entity* m_makeMainMenu();
 };
 }  // namespace Engine
-
-#define GetGameManager(ptr) ((Engine::GameManager *)ptr)
-
-template<typename T>
-T* AddComponent(ecs_t *ecs, ecs_id_t id, ecs_id_t comp_id, void* args) {
-  return (T*)ecs_add(ecs, id, comp_id, args);
-}
 
 #endif

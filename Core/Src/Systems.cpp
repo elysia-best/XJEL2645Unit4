@@ -10,11 +10,7 @@
 #include "GameEngine.h"
 #include "log.h"
 #include "GlobalDefines.h"
-
-
-volatile ecs_id_t TRANSFORM_SYSTEM;
-volatile ecs_id_t RENDER_SYSTEM;
-
+#include "ECS.h"
 
 //namespace Systems {
 //ecs_ret_t TransformSystem(ecs_t *ecs,
@@ -53,3 +49,21 @@ volatile ecs_id_t RENDER_SYSTEM;
 //  ecs_require_component(ecs, RENDER_SYSTEM, RENDER_COMP);
 //}
 //}
+void Systems::TransformSystem::tick(ECS::World *world, float deltaTime) {
+  world->each<Components::Transform>(
+      [&](ECS::Entity *ent,
+          ECS::ComponentHandle<Components::Transform> trans) -> void {
+        trans->Position;
+      }
+  );
+}
+void Systems::RenderSystem::tick(ECS::World *world, float deltaTime) {
+  world->each<Components::Transform, Components::Render>(
+      [&](ECS::Entity *ent,
+          ECS::ComponentHandle<Components::Transform> trans, ECS::ComponentHandle<Components::Render> render) -> void {
+        if (render->Visible) {
+          Engine::GameManager::getInstance()->lcd->drawSprite(trans->Position[0], trans->Position[1], render->y, render->x, render->Data);
+        }
+      }
+  );
+}

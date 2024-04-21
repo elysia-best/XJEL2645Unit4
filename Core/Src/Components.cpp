@@ -7,15 +7,10 @@
  */
 #include "Components.h"
 
+using namespace ECS;
 
-//volatile ecs_id_t TRANSFORM_COMP;
-//volatile ecs_id_t PLAYER_COMP;
-//volatile ecs_id_t NOTE_COMP;
-//volatile ecs_id_t RENDER_COMP;
+namespace Components {
+  Internal::TypeRegistry Transform::__ecs_type_reg;
 
-//void Components::m_initComponents(ecs_s *ecs) {
-//  TRANSFORM_COMP = ecs_register_component(ecs, sizeof(Transform), nullptr, nullptr);
-//  PLAYER_COMP = ecs_register_component(ecs, sizeof(Player), nullptr, nullptr);
-//  NOTE_COMP = ecs_register_component(ecs, sizeof(Note), nullptr, nullptr);
-//  RENDER_COMP = ecs_register_component(ecs, sizeof(Render), nullptr, nullptr);
-//}
+  Internal::TypeRegistry Render::__ecs_type_reg;
+};
