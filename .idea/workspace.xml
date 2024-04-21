@@ -22,24 +22,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="fix: Able to compile newly written ECS now, have problem with getting related components though">
-      <change afterPath="$PROJECT_DIR$/Thirdparty/ECS/ECS.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/back.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Components.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/ECS_System.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GameEngine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/GlobalDefines.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GlobalDefines.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/Systems.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Systems.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/Components.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Components.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
+    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Hola, whole ECS is working Now!! A initial Menu is displayed.">
       <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/pico_headers/pico_ecs.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/pico_headers/pico_log.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mbed_app.json" beforeDir="false" afterPath="$PROJECT_DIR$/mbed_app.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mbed_config.cmake" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -212,7 +196,7 @@
       <workItem from="1713610468571" duration="14828000" />
       <workItem from="1713661938034" duration="5855000" />
       <workItem from="1713673138482" duration="933000" />
-      <workItem from="1713697210454" duration="10591000" />
+      <workItem from="1713697210454" duration="11339000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -254,7 +238,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713542949568</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: Hola, whole ECS is working Now!! A initial Menu is displayed.">
+      <option name="closed" value="true" />
+      <created>1713712768305</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1713712768305</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -307,7 +299,8 @@
     <MESSAGE value="test: Comment out main.cpp for new testing." />
     <MESSAGE value="feat: Fix compile error" />
     <MESSAGE value="fix: Able to compile newly written ECS now, have problem with getting related components though" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: Able to compile newly written ECS now, have problem with getting related components though" />
+    <MESSAGE value="feat: Hola, whole ECS is working Now!! A initial Menu is displayed." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Hola, whole ECS is working Now!! A initial Menu is displayed." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
