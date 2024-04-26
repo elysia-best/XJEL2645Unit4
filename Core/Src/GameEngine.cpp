@@ -84,29 +84,36 @@ void Engine::GameManager::m_initEarlyData() {
   m_makeMainMenu();
 }
 
-ECS::Entity* Engine::GameManager::m_makeMainMenu() {
+void Engine::GameManager::m_makeMainMenu() {
   using namespace Components;
   using namespace ECS;
   auto ent = ecs->create();
   auto trans = ent->assign<Components::Transform>();
   auto render = ent->assign<Components::Render>();
 
-  for (auto &p: trans->Position)
-    p = 0;
-  for (auto &p : trans->Rotation)
-    p = 0;
-  for (auto &p: trans->Scale)
-    p = 1;
+  trans->Position = {0, 0, 0};
+
+  trans->Rotation = {0, 0, 0};
+
+  trans->Scale = {1, 1, 1};
 
   render->Type = Components::Render::Type_e::Spirit;
   render->Data.spirit_Data = m_mainMenu;
   render->Visible = true;
   render->x = 84;
   render->y = 48;
-
-  return ent;
 }
+
 void Engine::GameManager::m_registerSystems() {
   ecs->registerSystem(new Systems::TransformSystem);
   ecs->registerSystem(new Systems::RenderSystem);
+}
+
+void Engine::GameManager::m_welcomScreen() {
+  using namespace ECS;
+  auto ent = ecs->create();
+  auto trans = ent->assign<Components::Transform>();
+  auto render = ent->assign<Components::Render>();
+
+  trans->Position = {0,0,0};
 }

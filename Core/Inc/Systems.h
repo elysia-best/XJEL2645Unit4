@@ -28,13 +28,13 @@ namespace Systems {
  struct TransformSystem : public ECS::EntitySystem {
    ~TransformSystem() override = default;
 
-   void tick(ECS::World* world, float deltaTime);
+   void tick(ECS::World* world, float deltaTime) override;
  };
 
  struct RenderSystem : public ECS::EntitySystem {
    ~RenderSystem() override = default;
 
-   void tick(ECS::World* world, float deltaTime);
+   void tick(ECS::World* world, float deltaTime) override;
  };
 }
 

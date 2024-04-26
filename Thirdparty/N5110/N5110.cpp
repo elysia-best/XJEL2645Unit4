@@ -64,7 +64,7 @@ void N5110::init(LCD_Type const lcd){
     normalMode();           // normal video mode by default
     clearRAM();             // RAM is undefined at power-up so clear to be sure
     clear();                // clear buffer
-    setBrightness(0.5);
+    setBrightness(1);
 }
 
 // sets normal video mode (black on white)
@@ -229,9 +229,14 @@ void N5110::setXYAddress(unsigned int const x, unsigned int const y){
 // Pixels are addressed in the range of 0 to 47 (y) and 0 to 83 (x).  The refresh()
 // function must be called after set and clear in order to update the display
 void N5110::setPixel(int const x_, int const y_, bool const state) {
+
+  #ifdef N5110_ROTATE
   auto x = (- x_ + 2 * (WIDTH / 2)) - 1;
   auto y = (- y_ + 2* (HEIGHT / 2)) - 1;
-
+  #else
+  auto x = x_;
+  auto y = y_;
+  #endif
   if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT) {  // 改进的范围检查
     // 对于 Nokia 5110, 需确保 y/8 在合法范围内
     int bank = y / 8;

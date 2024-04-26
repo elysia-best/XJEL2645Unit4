@@ -25,21 +25,27 @@
 
 ECS_TYPE_IMPLEMENTATION
 
+Thread updateThread;
+
+volatile float dt = 0.0f;
+
 int main() {
   Engine::GameManager::getInstance()->Init();
+  updateThread.start([&]()->void{
+    while (true) {
+      static auto startTime = Kernel::Clock::now();
 
-  static float dt = 0.0f;
+      Engine::GameManager::getInstance()->ecs->tick(dt);
 
-  while (true) {
-    static auto startTime = Kernel::Clock::now();
+      auto stopTime = Kernel::Clock::now();
 
-    Engine::GameManager::getInstance()->ecs->tick(dt);
+      dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
+    }
+  });
 
+  while(1)
     Engine::GameManager::getInstance()->lcd->refresh();
 
-    auto stopTime = Kernel::Clock::now();
-
-    dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
-  }
+  updateThread.join();
 }
 

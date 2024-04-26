@@ -11,6 +11,7 @@
 #include "GlobalDefines.h"
 #include <cstdint>
 #include "ECS.h"
+#include <tuple>
 
 namespace Components {
 
@@ -25,17 +26,17 @@ class Transform {
   /**
    * @brief Array of 3 float values representing the position of the object.
    */
-  float Position[3];
+  std::tuple<float, float, float> Position;
 
   /**
    * @brief Array of 3 float values representing the rotation of the object.
    */
-  float Rotation[3];
+  std::tuple<float, float, float> Rotation;
 
   /**
    * @brief Array of 3 float values representing the scale of the object.
    */
-  float Scale[3];
+  std::tuple<float, float, float> Scale;
 };
 
 /**

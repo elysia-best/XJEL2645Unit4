@@ -11,6 +11,7 @@
 #include "log.h"
 #include "GlobalDefines.h"
 #include "ECS.h"
+#include "tuple"
 
 void Systems::TransformSystem::tick(ECS::World *world, float deltaTime) {
   world->each<Components::Transform>(
@@ -28,7 +29,7 @@ void Systems::RenderSystem::tick(ECS::World *world, float deltaTime) {
         if (render->Visible) {
           switch (render->Type) {
             case render_t::Spirit :
-              Engine::GameManager::getInstance()->lcd->drawSprite(trans->Position[0], trans->Position[1], render->y, render->x, render->Data.spirit_Data);
+              Engine::GameManager::getInstance()->lcd->drawSprite(std::get<0>(trans->Position),std::get<1>(trans->Position), render->y, render->x, render->Data.spirit_Data);
               break;
           }
 

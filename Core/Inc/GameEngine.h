@@ -61,9 +61,14 @@ class GameManager {
 
   void m_initEarlyData();
 
+  /**
+   * @brief Register Systems to Manager. Systems are executed by the order of registration.
+   */
   void m_registerSystems();
 
-  ECS::Entity* m_makeMainMenu();
+  void m_welcomScreen();
+
+  void m_makeMainMenu();
 };
 }  // namespace Engine
 
