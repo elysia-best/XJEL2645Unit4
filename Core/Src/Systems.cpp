@@ -24,8 +24,14 @@ void Systems::RenderSystem::tick(ECS::World *world, float deltaTime) {
   world->each<Components::Transform, Components::Render>(
       [&](ECS::Entity *ent,
           ECS::ComponentHandle<Components::Transform> trans, ECS::ComponentHandle<Components::Render> render) -> void {
+        using render_t = Components::Render::Type_e;
         if (render->Visible) {
-          Engine::GameManager::getInstance()->lcd->drawSprite(trans->Position[0], trans->Position[1], render->y, render->x, render->Data);
+          switch (render->Type) {
+            case render_t::Spirit :
+              Engine::GameManager::getInstance()->lcd->drawSprite(trans->Position[0], trans->Position[1], render->y, render->x, render->Data.spirit_Data);
+              break;
+          }
+
         }
       }
   );

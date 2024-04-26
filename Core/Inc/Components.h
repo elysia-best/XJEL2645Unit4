@@ -77,6 +77,25 @@ class Note {
 class Render {
  ECS_DECLARE_TYPE;
  public:
+
+ typedef enum  Type_e {
+   Spirit = 0,
+   Text,
+   Line,
+   Rect,
+   Circle
+ } Type_t;
+
+ union Data_ptr {
+   bool * spirit_Data;
+   char * text_Data;
+   int8_t * line_Data;
+   int8_t * rect_Data;
+   int8_t * circle_Data;
+ };
+
+  Type_t Type;
+
   /**
    *  @brief Whether the sprite is visible or not.
    */
@@ -84,7 +103,7 @@ class Render {
   /**
    * @brief A 2D array of bool values representing the sprite data.
    */
-  bool *Data;
+  Data_ptr Data;
 
   /**
    * @brief The left-up point's x of the sprite.

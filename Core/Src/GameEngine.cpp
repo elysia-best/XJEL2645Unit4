@@ -98,7 +98,8 @@ ECS::Entity* Engine::GameManager::m_makeMainMenu() {
   for (auto &p: trans->Scale)
     p = 1;
 
-  render->Data = m_mainMenu;
+  render->Type = Components::Render::Type_e::Spirit;
+  render->Data.spirit_Data = m_mainMenu;
   render->Visible = true;
   render->x = 84;
   render->y = 48;
