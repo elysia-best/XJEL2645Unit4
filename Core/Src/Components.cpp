@@ -13,4 +13,6 @@ namespace Components {
 Internal::TypeRegistry Transform::__ecs_type_reg;
 
 Internal::TypeRegistry Render::__ecs_type_reg;
+
+Internal::TypeRegistry UISelector::__ecs_type_reg;
 };

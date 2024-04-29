@@ -21,7 +21,7 @@ namespace Components {
  */
 class Transform {
  public:
-  ECS_DECLARE_TYPE;
+ ECS_DECLARE_TYPE;
 
   /**
    * @brief Array of 3 float values representing the position of the object.
@@ -79,21 +79,21 @@ class Render {
  ECS_DECLARE_TYPE;
  public:
 
- typedef enum  Type_e {
-   Spirit = 0,
-   Text,
-   Line,
-   Rect,
-   Circle
- } Type_t;
+  typedef enum Type_e {
+    Spirit = 0,
+    Text,
+    Line,
+    Rect,
+    Circle
+  } Type_t;
 
- union Data_ptr {
-   bool * spirit_Data;
-   char * text_Data;
-   int8_t * line_Data;
-   int8_t * rect_Data;
-   int8_t * circle_Data;
- };
+  union Data_ptr {
+    bool *spirit_Data;
+    char *text_Data;
+    int8_t *line_Data;
+    int8_t *rect_Data;
+    int8_t *circle_Data;
+  };
 
   Type_t Type;
 
@@ -115,6 +115,14 @@ class Render {
    * @brief The left-up point's y of the sprite.
    */
   int8_t y;
+};
+
+/**
+ * Store the states of UI selection
+ */
+class UISelector {
+ ECS_DECLARE_TYPE;
+
 };
 }
 #endif //XJEL2645NEWVERSION_CORE_SRC_COMPONENTS_H_

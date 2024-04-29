@@ -23,16 +23,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Hola, whole ECS is working Now!! A initial Menu is displayed.">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations/XJEL2645NewVersion.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/runConfigurations/XJEL2645NewVersion.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Components.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GameEngine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/Systems.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Systems.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Components.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Components.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Thirdparty/N5110/N5110.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Thirdparty/N5110/N5110.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -125,12 +118,12 @@
     </key>
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.XJEL2645NewVersion">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="XJEL2645NewVersion" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="XJEL2645NewVersion" TARGET_NAME="XJEL2645NewVersion" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="XJEL2645NewVersion" RUN_TARGET_NAME="XJEL2645NewVersion">
       <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="XJEL2645NewVersion" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="XJEL2645NewVersion" TARGET_NAME="XJEL2645NewVersion" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="XJEL2645NewVersion" RUN_TARGET_NAME="XJEL2645NewVersion">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -209,6 +202,7 @@
       <workItem from="1713857949776" duration="1759000" />
       <workItem from="1714024136691" duration="4425000" />
       <workItem from="1714126577744" duration="8351000" />
+      <workItem from="1714398172780" duration="3844000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
