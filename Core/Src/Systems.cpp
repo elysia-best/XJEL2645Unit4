@@ -37,3 +37,14 @@ void Systems::RenderSystem::tick(ECS::World *world, float deltaTime) {
       }
   );
 }
+void Systems::UIControlSystem::tick(ECS::World *world, float deltaTime) {
+  world->each<Components::Transform, Components::UIRender>(
+      [&](ECS::Entity *ent,
+          ECS::ComponentHandle<Components::Transform> trans, ECS::ComponentHandle<Components::UIRender> render) -> void {
+        if(render->selected) {
+          Engine::GameManager::getInstance()->lcd->drawSprite(std::get<0>(trans->Position),std::get<1>(trans->Position), render->y, render->x, render->spirit_Data);
+          render->callback_function();
+        }
+      }
+  );
+}

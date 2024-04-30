@@ -12,6 +12,7 @@
 #include <cstdint>
 #include "ECS.h"
 #include <tuple>
+#include <functional>
 
 namespace Components {
 
@@ -107,12 +108,12 @@ class Render {
   Data_ptr Data;
 
   /**
-   * @brief The left-up point's x of the sprite.
+   * @brief The width (x) of the sprite.
    */
   int8_t x;
 
   /**
-   * @brief The left-up point's y of the sprite.
+   * @brief The height (y) of the sprite.
    */
   int8_t y;
 };
@@ -120,9 +121,18 @@ class Render {
 /**
  * Store the states of UI selection
  */
-class UISelector {
+class UIRender {
  ECS_DECLARE_TYPE;
+ public:
+  int8_t selected = false;
 
+  bool* spirit_Data = nullptr;
+
+  int8_t x;
+
+  int8_t y;
+
+  std::function<void()> callback_function = []()->void{};
 };
 }
 #endif //XJEL2645NEWVERSION_CORE_SRC_COMPONENTS_H_

@@ -66,8 +66,6 @@ class GameManager {
    */
   void m_registerSystems();
 
-  void m_welcomScreen();
-
   void m_makeMainMenu();
 };
 }  // namespace Engine

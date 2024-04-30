@@ -11,4 +11,6 @@
 
 extern bool m_mainMenu[84*48];
 
+extern bool m_mainMenu_SelectIndicator[3*5];
+
 #endif //XJEL2645NEWVERSION_CORE_INC_SPIRITS_H_

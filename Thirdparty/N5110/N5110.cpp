@@ -247,6 +247,7 @@ void N5110::setPixel(int const x_, int const y_, bool const state) {
   }
 }
 
+
 void N5110::clearPixel(unsigned int const x, unsigned int const y){
     if (x<WIDTH && y<HEIGHT) {  // check within range
 

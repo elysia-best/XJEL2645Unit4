@@ -36,6 +36,12 @@ namespace Systems {
 
    void tick(ECS::World* world, float deltaTime) override;
  };
+
+struct UIControlSystem : public ECS::EntitySystem {
+  ~UIControlSystem() override = default;
+
+  void tick(ECS::World* world, float deltaTime) override;
+};
 }
 
 #endif

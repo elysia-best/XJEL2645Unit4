@@ -38,7 +38,7 @@ void Engine::GameManager::m_initPeripherals() {
   log_info("Initializing LCD...");
   lcd = new N5110(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
   lcd->init(LPH7366_1);
-  lcd->setContrast(0.5);
+  lcd->setContrast(0.4);
 
   log_info("Initializing Keys");
   keys[0] = new InterruptIn(PA_5);
@@ -87,6 +87,8 @@ void Engine::GameManager::m_initEarlyData() {
 void Engine::GameManager::m_makeMainMenu() {
   using namespace Components;
   using namespace ECS;
+
+  // Init basic menu display
   auto ent = ecs->create();
   auto trans = ent->assign<Components::Transform>();
   auto render = ent->assign<Components::Render>();
@@ -102,18 +104,25 @@ void Engine::GameManager::m_makeMainMenu() {
   render->Visible = true;
   render->x = 84;
   render->y = 48;
+
+  // Init selectable items
+  auto ent2 = ecs->create();
+  auto ent2_trans = ent2->assign<Components::Transform>();
+  auto ent2_UISelect = ent2->assign<Components::UIRender>();
+
+  ent2_trans->Position = {32, 17, 0};
+  ent2_trans->Rotation = {0, 0, 0};
+  ent2_trans->Scale = {1, 1, 1};
+
+  ent2_UISelect->spirit_Data = m_mainMenu_SelectIndicator;
+  ent2_UISelect->selected = true;
+  ent2_UISelect->x = 3;
+  ent2_UISelect->y = 5;
+  ent2_UISelect->callback_function = [](){};
 }
 
 void Engine::GameManager::m_registerSystems() {
   ecs->registerSystem(new Systems::TransformSystem);
   ecs->registerSystem(new Systems::RenderSystem);
-}
-
-void Engine::GameManager::m_welcomScreen() {
-  using namespace ECS;
-  auto ent = ecs->create();
-  auto trans = ent->assign<Components::Transform>();
-  auto render = ent->assign<Components::Render>();
-
-  trans->Position = {0,0,0};
+  ecs->registerSystem(new Systems::UIControlSystem);
 }
