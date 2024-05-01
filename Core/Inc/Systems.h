@@ -26,37 +26,39 @@ namespace Systems {
 //                       ecs_dt_t dt,
 //                       void *udata);
 
- struct TransformSystem : public ECS::EntitySystem {
-   ~TransformSystem() override = default;
+struct TransformSystem : public ECS::EntitySystem {
+  ~TransformSystem() override = default;
 
-   void tick(ECS::World* world, float deltaTime) override;
- };
+  void tick(ECS::World *world, float deltaTime) override;
+};
 
- struct RenderSystem : public ECS::EntitySystem {
-   ~RenderSystem() override = default;
+struct RenderSystem : public ECS::EntitySystem {
+  ~RenderSystem() override = default;
 
-   void tick(ECS::World* world, float deltaTime) override;
- };
+  void tick(ECS::World *world, float deltaTime) override;
+};
 
-struct UIControlSystem : public ECS::EntitySystem, public ECS::EventSubscriber<Events::JoystickUpdateEvent> {
+struct UIControlSystem : public ECS::EntitySystem,
+                         public ECS::EventSubscriber<Events::JoystickUpdateEvent>,
+                         public ECS::EventSubscriber<Events::KeypressEvent> {
   ~UIControlSystem() override = default;
 
-  void tick(ECS::World* world, float deltaTime) override;
+  void tick(ECS::World *world, float deltaTime) override;
 
-  virtual void configure(ECS::World* world) override
-  {
+  virtual void configure(ECS::World *world) override {
     world->subscribe<Events::JoystickUpdateEvent>(this);
+    world->subscribe<Events::KeypressEvent>(this);
   }
 
-  virtual void unconfigure(ECS::World* world) override
-  {
+  virtual void unconfigure(ECS::World *world) override {
     world->unsubscribeAll(this);
     // You may also unsubscribe from specific events with world->unsubscribe<MyEvent>(this), but
     // when unconfigure is called you usually want to unsubscribe from all events.
   }
 
-  virtual void receive(class ECS::World* world, const Events::JoystickUpdateEvent& event) override;
+  virtual void receive(class ECS::World *world, const Events::JoystickUpdateEvent &event) override;
 
+  virtual void receive(class ECS::World *world, const Events::KeypressEvent &event) override;
 };
 }
 

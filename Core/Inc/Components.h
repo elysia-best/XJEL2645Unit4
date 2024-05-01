@@ -135,14 +135,13 @@ class UIRender {
     int8_t x;
 
     int8_t y;
+
+    std::function<void()> callback_function = []()->void{};
   } UIComp_t;
 
   int8_t selected = false;
 
   std::list<UIComp_t> m_comps;
-
-
-  std::function<void()> render_function = []()->void{};
 };
 }
 #endif //XJEL2645NEWVERSION_CORE_SRC_COMPONENTS_H_

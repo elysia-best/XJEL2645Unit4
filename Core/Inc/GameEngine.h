@@ -42,7 +42,7 @@ class GameManager {
   /**
    *  @brief 4 keys, A B C D
    */
-  InterruptIn* keys[4];
+  DigitalIn* keys[4];
 
   /**
    * @brief Buzzer
@@ -69,6 +69,8 @@ class GameManager {
   void m_registerSystems();
 
   void m_makeMainMenu();
+
+  void m_makeTestMenu();
 };
 }  // namespace Engine
 

@@ -42,12 +42,13 @@ void Engine::GameManager::m_initPeripherals() {
   lcd->setContrast(0.4);
 
   log_info("Initializing Keys");
-  keys[0] = new InterruptIn(PA_5);
-  keys[1] = new InterruptIn(PA_6);
-  keys[2] = new InterruptIn(PA_7);
-  keys[3] = new InterruptIn(PC_8);
-  for (auto &p: keys)
-    p->mode(PinMode::PullDown);
+  keys[0] = new DigitalIn(PA_5);
+  keys[1] = new DigitalIn(PA_6);
+  keys[2] = new DigitalIn(PA_7);
+  keys[3] = new DigitalIn(PC_8);
+  for (auto & key : keys) {
+    key->mode(PinMode::PullDown);
+  }
 
   log_info("Initializing LED");
   led_bgr = new BusOut{PC_14, PC_15, PH_0};
@@ -59,7 +60,7 @@ void Engine::GameManager::m_initPeripherals() {
   log_info("Initializing Joysticks");
   joystics[0] = new Joystick(PC_1, PC_0);  // y  x
   joystics[1] = new Joystick(PA_4, PB_0);
-  for (auto &p: joystics)
+  for (auto &p : joystics)
     p->init();
 
   log_info("Successfully Initialized Peripherals...");
@@ -67,14 +68,14 @@ void Engine::GameManager::m_initPeripherals() {
 void Engine::GameManager::m_freePeripherals() const {
   delete lcd;
 
-  for (auto &p: keys)
+  for (auto &p : keys)
     delete p;
 
   delete led_bgr;
 
   delete buzzer;
 
-  for (auto &p: joystics)
+  for (auto &p : joystics)
     delete p;
 }
 void Engine::GameManager::m_initEarlyData() {
@@ -110,10 +111,10 @@ void Engine::GameManager::m_makeMainMenu() {
   auto ent2 = ecs->create();
   auto ent2_UISelect = ent2->assign<Components::UIRender>();
 
-std::tuple<float, float, float> pos[4] = {{31, 13, 0}, {22, 24, 0}, {30, 34, 0}, {43, 31, 0}};
+  std::tuple<float, float, float> pos[4] = {{31, 13, 0}, {22, 24, 0}, {30, 34, 0}, {43, 31, 0}};
 
   int i = 0;
-  for (auto &p  : pos) {
+  for (auto &p : pos) {
     Components::UIRender::UIComp_t comp;
     comp.trans.Position = p;
     comp.trans.Rotation = {0, 0, 0};
@@ -125,12 +126,35 @@ std::tuple<float, float, float> pos[4] = {{31, 13, 0}, {22, 24, 0}, {30, 34, 0},
     comp.x = (i < 3) ? 3 : 5;
     comp.y = (i < 3) ? 5 : 3;
 
+    switch (i) {
+      case 3:
+        comp.callback_function = [&]() -> void {
+          GameManager::getInstance()->ecs->each<Components::Render>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::Render> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, false);
+              }
+          );
+
+          GameManager::getInstance()->ecs->each<Components::UIRender>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::UIRender> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, false);
+              }
+          );
+
+          GameManager::getInstance()->lcd->clear();
+
+          GameManager::getInstance()->m_makeTestMenu();
+        };
+        break;
+    }
+
     ent2_UISelect->m_comps.emplace_back(comp);
     ++i;
   }
 
   ent2_UISelect->selected = 3;
-  ent2_UISelect->render_function = [=](){};
 }
 
 void Engine::GameManager::m_registerSystems() {
@@ -142,8 +166,7 @@ void Engine::GameManager::m_registerSystems() {
 void Engine::GameManager::m_checkPeripherals() {
   for (int8_t i = 0; i < 2; ++i) {
     if (joystics[i]->get_direction() != Direction::CENTRE) {
-      thread_sleep_for(150);
-      if (joystics[i]->get_direction() != Direction::CENTRE) {
+      if (joystics[i]->get_mag() >= 0.9)
         ecs->emit<Events::JoystickUpdateEvent>(
             {
                 i,
@@ -155,7 +178,30 @@ void Engine::GameManager::m_checkPeripherals() {
                 joystics[i]->get_polar()
             }
         );
-      }
+    }
+  }
+
+  for (int8_t i = 0; i < 3; ++i) {
+    if (!keys[i]->read()) {
+      ecs->emit<Events::KeypressEvent>({i});
     }
   }
 }
+
+void Engine::GameManager::m_makeTestMenu() {
+  auto ent = GameManager::getInstance()->ecs->create();
+  auto trans = ent->assign<Components::Transform>();
+  auto render = ent->assign<Components::Render>();
+
+  trans->Position = {0, 0, 0};
+
+  trans->Rotation = {0, 0, 0};
+
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = (char*)"It works!";
+  render->Visible = true;
+
+}
+

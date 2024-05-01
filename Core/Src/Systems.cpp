@@ -31,6 +31,8 @@ void Systems::RenderSystem::tick(ECS::World *world, float deltaTime) {
             case render_t::Spirit :
               Engine::GameManager::getInstance()->lcd->drawSprite(std::get<0>(trans->Position),std::get<1>(trans->Position), render->y, render->x, render->Data.spirit_Data, true);
               break;
+            case render_t::Text :
+              Engine::GameManager::getInstance()->lcd->printString(render->Data.text_Data, std::get<0>(trans->Position), std::get<1>(trans->Position));
           }
 
         }
@@ -70,4 +72,18 @@ void Systems::UIControlSystem::receive(ECS::World *world, const Events::Joystick
         }
       }
   );
+}
+
+void Systems::UIControlSystem::receive(ECS::World *world, const Events::KeypressEvent &event) {
+  switch (event.id) {
+    case 1:
+      world->each<Components::UIRender>(
+          [=](ECS::Entity *ent, ECS::ComponentHandle<Components::UIRender> render) -> void {
+            auto p = render->m_comps.begin();
+            std::advance(p, render->selected);
+            p->callback_function();
+          }
+      );
+      break;
+  }
 }

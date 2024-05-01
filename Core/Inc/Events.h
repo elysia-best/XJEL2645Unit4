@@ -30,6 +30,11 @@ class JoystickUpdateEvent {
 
   Polar polar;
 };
+
+class KeypressEvent {
+ ECS_DECLARE_TYPE;
+  int8_t id;
+};
 };
 
 #endif //XJEL2645NEWVERSION_CORE_SRC_EVENTS_H_

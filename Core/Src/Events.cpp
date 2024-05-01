@@ -13,4 +13,5 @@
 
 namespace Events {
 ECS_DEFINE_TYPE(JoystickUpdateEvent);
+ECS_DEFINE_TYPE(KeypressEvent);
 }
