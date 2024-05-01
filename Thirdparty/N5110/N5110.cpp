@@ -228,8 +228,10 @@ void N5110::setXYAddress(unsigned int const x, unsigned int const y){
 // These functions are used to set, clear and get the value of pixels in the display
 // Pixels are addressed in the range of 0 to 47 (y) and 0 to 83 (x).  The refresh()
 // function must be called after set and clear in order to update the display
-void N5110::setPixel(int const x_, int const y_, bool const state) {
-
+void N5110::setPixel(int const x_, int const y_, bool const state, bool override) {
+  if (!(override) && (!state))
+    return;
+    
   #ifdef N5110_ROTATE
   auto x = (- x_ + 2 * (WIDTH / 2)) - 1;
   auto y = (- y_ + 2* (HEIGHT / 2)) - 1;
@@ -451,11 +453,11 @@ void N5110::drawRect(unsigned int const x0, unsigned int const y0, unsigned int 
     }
 }
 
-void N5110::drawSprite(int x0, int y0, int nrows, int ncols, bool *sprite){
+void N5110::drawSprite(int x0, int y0, int nrows, int ncols, bool *sprite, bool override){
     for (int i = 0; i < nrows; i++) {
         for (int j = 0 ; j < ncols ; j++) {
             int pixel = *((sprite+i*ncols)+j);
-            setPixel(x0+j,y0+i, pixel);
+            setPixel(x0+j,y0+i, pixel, override);
         }
     }
 }

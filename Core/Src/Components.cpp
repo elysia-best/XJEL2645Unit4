@@ -10,9 +10,9 @@
 using namespace ECS;
 
 namespace Components {
-Internal::TypeRegistry Transform::__ecs_type_reg;
+ECS_DEFINE_TYPE(Transform);
 
-Internal::TypeRegistry Render::__ecs_type_reg;
+ECS_DEFINE_TYPE(Render);
 
-Internal::TypeRegistry UIRender::__ecs_type_reg;
+ECS_DEFINE_TYPE(UIRender);
 };

@@ -120,7 +120,8 @@ public:
     *          The third parameter can be omitted*/
     void setPixel(int const x_,
                   int const y_,
-                  bool const         state = true);
+                  bool const         state = true,
+                  bool override = false);
 
     /* Clear a Pixel
     *   @param  x - the x co-ordinate of the pixel (0 to 83)
@@ -191,7 +192,7 @@ public:
     *   @param  nrows - number of rows in sprite
     *   @param  ncols - number of columns in sprite
     *   @param  sprite - 2D array representing the sprite*/
-    void drawSprite(int x0, int y0, int nrows, int ncols, bool *sprite);
+    void drawSprite(int x0, int y0, int nrows, int ncols, bool *sprite, bool override = false);
 
 private:
 // methods

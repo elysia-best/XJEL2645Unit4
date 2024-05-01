@@ -13,6 +13,7 @@
 #include "ECS.h"
 #include <tuple>
 #include <functional>
+#include <list>
 
 namespace Components {
 
@@ -124,15 +125,24 @@ class Render {
 class UIRender {
  ECS_DECLARE_TYPE;
  public:
+  typedef struct UIComp {
+    Transform trans;
+
+    int8_t id;
+
+    bool* spirit_Data = nullptr;
+
+    int8_t x;
+
+    int8_t y;
+  } UIComp_t;
+
   int8_t selected = false;
 
-  bool* spirit_Data = nullptr;
+  std::list<UIComp_t> m_comps;
 
-  int8_t x;
 
-  int8_t y;
-
-  std::function<void()> callback_function = []()->void{};
+  std::function<void()> render_function = []()->void{};
 };
 }
 #endif //XJEL2645NEWVERSION_CORE_SRC_COMPONENTS_H_

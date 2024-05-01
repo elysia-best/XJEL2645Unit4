@@ -9,6 +9,7 @@
 #define _SYSTEMS_H_
 
 #include "ECS.h"
+#include "Events.h"
 
 namespace Systems {
 
@@ -37,10 +38,25 @@ namespace Systems {
    void tick(ECS::World* world, float deltaTime) override;
  };
 
-struct UIControlSystem : public ECS::EntitySystem {
+struct UIControlSystem : public ECS::EntitySystem, public ECS::EventSubscriber<Events::JoystickUpdateEvent> {
   ~UIControlSystem() override = default;
 
   void tick(ECS::World* world, float deltaTime) override;
+
+  virtual void configure(ECS::World* world) override
+  {
+    world->subscribe<Events::JoystickUpdateEvent>(this);
+  }
+
+  virtual void unconfigure(ECS::World* world) override
+  {
+    world->unsubscribeAll(this);
+    // You may also unsubscribe from specific events with world->unsubscribe<MyEvent>(this), but
+    // when unconfigure is called you usually want to unsubscribe from all events.
+  }
+
+  virtual void receive(class ECS::World* world, const Events::JoystickUpdateEvent& event) override;
+
 };
 }
 

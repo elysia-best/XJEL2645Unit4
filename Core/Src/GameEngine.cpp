@@ -12,6 +12,7 @@
 #include "log.h"
 #include "GlobalDefines.h"
 #include "Spirits.h"
+#include "Events.h"
 
 void Engine::GameManager::Init() {
   log_info("Initializing GameEngine...");
@@ -107,22 +108,54 @@ void Engine::GameManager::m_makeMainMenu() {
 
   // Init selectable items
   auto ent2 = ecs->create();
-  auto ent2_trans = ent2->assign<Components::Transform>();
   auto ent2_UISelect = ent2->assign<Components::UIRender>();
 
-  ent2_trans->Position = {32, 17, 0};
-  ent2_trans->Rotation = {0, 0, 0};
-  ent2_trans->Scale = {1, 1, 1};
+std::tuple<float, float, float> pos[4] = {{31, 13, 0}, {22, 24, 0}, {30, 34, 0}, {43, 31, 0}};
 
-  ent2_UISelect->spirit_Data = m_mainMenu_SelectIndicator;
-  ent2_UISelect->selected = true;
-  ent2_UISelect->x = 3;
-  ent2_UISelect->y = 5;
-  ent2_UISelect->callback_function = [](){};
+  int i = 0;
+  for (auto &p  : pos) {
+    Components::UIRender::UIComp_t comp;
+    comp.trans.Position = p;
+    comp.trans.Rotation = {0, 0, 0};
+    comp.trans.Scale = {1, 1, 1};
+
+    comp.spirit_Data = (i < 3) ? m_mainMenu_SelectIndicator : m_mainMenu_SelectIndicatorUp;
+    comp.id = i;
+
+    comp.x = (i < 3) ? 3 : 5;
+    comp.y = (i < 3) ? 5 : 3;
+
+    ent2_UISelect->m_comps.emplace_back(comp);
+    ++i;
+  }
+
+  ent2_UISelect->selected = 3;
+  ent2_UISelect->render_function = [=](){};
 }
 
 void Engine::GameManager::m_registerSystems() {
   ecs->registerSystem(new Systems::TransformSystem);
   ecs->registerSystem(new Systems::RenderSystem);
   ecs->registerSystem(new Systems::UIControlSystem);
+}
+
+void Engine::GameManager::m_checkPeripherals() {
+  for (int8_t i = 0; i < 2; ++i) {
+    if (joystics[i]->get_direction() != Direction::CENTRE) {
+      thread_sleep_for(150);
+      if (joystics[i]->get_direction() != Direction::CENTRE) {
+        ecs->emit<Events::JoystickUpdateEvent>(
+            {
+                i,
+                joystics[i]->get_direction(),
+                joystics[i]->get_mag(),
+                joystics[i]->get_angle(),
+                joystics[i]->get_coord(),
+                joystics[i]->get_mapped_coord(),
+                joystics[i]->get_polar()
+            }
+        );
+      }
+    }
+  }
 }

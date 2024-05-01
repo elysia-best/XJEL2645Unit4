@@ -23,6 +23,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Hola, whole ECS is working Now!! A initial Menu is displayed.">
+      <change afterPath="$PROJECT_DIR$/Core/Inc/Events.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Core/Src/Events.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Components.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GameEngine.h" afterDir="false" />
@@ -32,7 +34,9 @@
       <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Spirits.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Spirits.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Thirdparty/N5110/N5110.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Thirdparty/N5110/N5110.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Thirdparty/N5110/N5110.h" beforeDir="false" afterPath="$PROJECT_DIR$/Thirdparty/N5110/N5110.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,9 +122,9 @@
       <recent name="E:\Projects\School\XJEL2645Unit4\Thirdparty" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Projects\School\XJEL2645Unit4\Core\Inc" />
       <recent name="E:\Projects\School\XJEL2645Unit4" />
       <recent name="E:\Projects\School\XJEL2645Unit4\Thirdparty\ECS" />
-      <recent name="E:\Projects\School\XJEL2645Unit4\Core\Inc" />
       <recent name="C:\Users\15228\Documents\Projects\School\XJEL2645Unit4\Core\Inc" />
       <recent name="E:\Projects\School\XJEL2645Unit4\Thirdparty\Logger" />
     </key>
@@ -212,6 +216,8 @@
       <workItem from="1714126577744" duration="8351000" />
       <workItem from="1714398172780" duration="3844000" />
       <workItem from="1714464181663" duration="3340000" />
+      <workItem from="1714482079453" duration="10211000" />
+      <workItem from="1714530197383" duration="13781000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -322,8 +328,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
-          <line>45</line>
-          <option name="timeStamp" value="3" />
+          <line>61</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

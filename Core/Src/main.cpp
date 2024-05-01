@@ -43,9 +43,16 @@ int main() {
     }
   });
 
-  while(1)
-    Engine::GameManager::getInstance()->lcd->refresh();
+  auto thread2 = new Thread();
+  thread2->start([&]()->void {
+    while(1) Engine::GameManager::getInstance()->m_checkPeripherals();
+  });
 
+  while(1) {
+    Engine::GameManager::getInstance()->lcd->refresh();
+  }
+
+  thread2->join();
   updateThread.join();
 }
 

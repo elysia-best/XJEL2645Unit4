@@ -64,3 +64,9 @@ bool m_mainMenu_SelectIndicator[3*5] = {
     0, 1, 1,
     0, 0, 1
 };
+
+bool m_mainMenu_SelectIndicatorUp[5*3] = {
+    0, 0, 1, 0, 0,
+    0, 1, 1, 1, 0,
+    1, 1, 1, 1, 1
+};

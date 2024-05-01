@@ -26,6 +26,8 @@ class GameManager {
   void Init();
 
   ~GameManager();
+
+  void m_checkPeripherals();
   
   /**
    * @brief ECS world to manage all the entities and components.
