@@ -11,6 +11,8 @@
 
 extern bool m_mainMenu[84*48];
 
+extern bool m_songSelection[84*48];
+
 extern bool m_mainMenu_SelectIndicator[3*5];
 
 extern bool m_mainMenu_SelectIndicatorUp[5*3];

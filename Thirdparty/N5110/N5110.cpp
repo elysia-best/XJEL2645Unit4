@@ -336,6 +336,29 @@ void N5110::printString(const char *str, unsigned int const x, unsigned int cons
     }
 }
 
+void N5110::printString5x5(const char *str, unsigned int const x, unsigned int const y){
+
+  // check if printing in range of y banks
+  if (y < BANKS) {
+    int n = 0 ; // counter for number of characters in string
+
+    // loop through string and print character
+    while(*str) {
+
+      // Adjust for 4x5 font size
+      for (int i = 0; i < 5 ; i++ ) { // Change loop limit to 4 for 4-pixel height
+        int pixel_x = x+i+n*5; // Adjusted column increment to 5 (for 4-pixel width + possible spacing)
+        if (pixel_x > WIDTH-1)  // ensure pixel isn't outside the buffer size (0 - 83)
+          break;
+        // Assuming font4x5 is the new 4x5 font array, adjust indexing accordingly
+        buffer[pixel_x][y] = font5x5[(*str - 32)*5 + i]; // Change array access to match 4x5 dimensions
+      }
+      str++;  // go to next character in string
+      n++;    // increment index
+    }
+  }
+}
+
 // function to clear the screen buffer
 void N5110::clear(){
     memset(buffer,0,sizeof(buffer));

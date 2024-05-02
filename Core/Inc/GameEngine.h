@@ -70,7 +70,7 @@ class GameManager {
 
   void m_makeMainMenu();
 
-  void m_makeTestMenu();
+  void m_makeSelectionMenu();
 };
 }  // namespace Engine
 

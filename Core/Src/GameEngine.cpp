@@ -145,7 +145,7 @@ void Engine::GameManager::m_makeMainMenu() {
 
           GameManager::getInstance()->lcd->clear();
 
-          GameManager::getInstance()->m_makeTestMenu();
+          GameManager::getInstance()->m_makeSelectionMenu();
         };
         break;
     }
@@ -166,7 +166,8 @@ void Engine::GameManager::m_registerSystems() {
 void Engine::GameManager::m_checkPeripherals() {
   for (int8_t i = 0; i < 2; ++i) {
     if (joystics[i]->get_direction() != Direction::CENTRE) {
-      if (joystics[i]->get_mag() >= 0.9)
+      ThisThread::sleep_for(150ms);
+      if (joystics[i]->get_direction() != Direction::CENTRE)
         ecs->emit<Events::JoystickUpdateEvent>(
             {
                 i,
@@ -188,7 +189,7 @@ void Engine::GameManager::m_checkPeripherals() {
   }
 }
 
-void Engine::GameManager::m_makeTestMenu() {
+void Engine::GameManager::m_makeSelectionMenu() {
   auto ent = GameManager::getInstance()->ecs->create();
   auto trans = ent->assign<Components::Transform>();
   auto render = ent->assign<Components::Render>();
@@ -199,9 +200,11 @@ void Engine::GameManager::m_makeTestMenu() {
 
   trans->Scale = {1, 1, 1};
 
-  render->Type = Components::Render::Type_e::Text;
-  render->Data.text_Data = (char*)"It works!";
+  render->Type = Components::Render::Type_e::Spirit;
+  render->Data.spirit_Data = m_songSelection;
   render->Visible = true;
+  render->x = 84;
+  render->y = 48;
 
 }
 
