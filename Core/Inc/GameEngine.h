@@ -71,6 +71,9 @@ class GameManager {
   void m_makeMainMenu();
 
   void m_makeSelectionMenu();
+
+  // Game levels
+  void m_makeGameLevel(int level);
 };
 }  // namespace Engine
 

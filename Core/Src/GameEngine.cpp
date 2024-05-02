@@ -161,6 +161,7 @@ void Engine::GameManager::m_registerSystems() {
   ecs->registerSystem(new Systems::TransformSystem);
   ecs->registerSystem(new Systems::RenderSystem);
   ecs->registerSystem(new Systems::UIControlSystem);
+  ecs->registerSystem(new Systems::GameControlSystem);
 }
 
 void Engine::GameManager::m_checkPeripherals() {
@@ -182,9 +183,12 @@ void Engine::GameManager::m_checkPeripherals() {
     }
   }
 
-  for (int8_t i = 0; i < 3; ++i) {
+
+  for (int8_t i = 0; i < 4; ++i) {
     if (!keys[i]->read()) {
-      ecs->emit<Events::KeypressEvent>({i});
+      ThisThread::sleep_for(80ms);
+      if (!keys[i]->read())
+        ecs->emit<Events::KeypressEvent>({i});
     }
   }
 }
@@ -195,9 +199,7 @@ void Engine::GameManager::m_makeSelectionMenu() {
   auto render = ent->assign<Components::Render>();
 
   trans->Position = {0, 0, 0};
-
   trans->Rotation = {0, 0, 0};
-
   trans->Scale = {1, 1, 1};
 
   render->Type = Components::Render::Type_e::Spirit;
@@ -206,5 +208,118 @@ void Engine::GameManager::m_makeSelectionMenu() {
   render->x = 84;
   render->y = 48;
 
+  // Make song items
+  ent = GameManager::getInstance()->ecs->create();
+  trans = ent->assign<Components::Transform>();
+  render = ent->assign<Components::Render>();
+
+  trans->Position = {3, 20, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Spirit;
+  render->size = 0;
+  render->Visible = true;
+  render->Data.spirit_Data = m_song1Font;
+  render->x = 23;
+  render->y = 5;
+
+  ent = GameManager::getInstance()->ecs->create();
+  trans = ent->assign<Components::Transform>();
+  render = ent->assign<Components::Render>();
+
+  trans->Position = {45, 15, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Spirit;
+  render->size = 0;
+  render->Visible = true;
+  render->Data.spirit_Data = m_song1Font;
+  render->x = 23;
+  render->y = 5;
+
+  auto ent2 = GameManager::getInstance()->ecs->create();
+  auto render2 = ent2->assign<Components::UIRender>();
+  std::tuple<float, float, float> pos[1] = {{80, 15, 0}};
+
+  int i = 0;
+  for (auto &p : pos) {
+    Components::UIRender::UIComp_t comp;
+    comp.trans.Position = p;
+    comp.trans.Rotation = {0, 0, 0};
+    comp.trans.Scale = {1, 1, 1};
+
+    comp.spirit_Data = m_mainMenu_SelectIndicator;
+    comp.id = i;
+
+    comp.x = 3;
+    comp.y = 5;
+
+    switch (i) {
+      case 0:
+        comp.callback_function = [&]() -> void {
+          GameManager::getInstance()->ecs->each<Components::Render>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::Render> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, false);
+              }
+          );
+
+          GameManager::getInstance()->ecs->each<Components::UIRender>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::UIRender> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, false);
+              }
+          );
+
+          GameManager::getInstance()->lcd->clear();
+
+          GameManager::getInstance()->m_makeGameLevel(0);
+        };
+        break;
+    }
+
+    render2->m_comps.emplace_back(comp);
+    ++i;
+  }
+
+  render2->selected = 0;
+}
+
+void Engine::GameManager::m_makeGameLevel(int level) {
+  // Make backround
+  auto ent = GameManager::getInstance()->ecs->create();
+  auto trans = ent->assign<Components::Transform>();
+  auto render = ent->assign<Components::Render>();
+
+  trans->Position = {0, 0, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Spirit;
+  render->Data.spirit_Data = m_songPlaying;
+  render->Visible = true;
+  render->x = 84;
+  render->y = 48;
+
+  // Test creating a note.
+  ent = GameManager::getInstance()->ecs->create();
+  trans = ent->assign<Components::Transform>();
+  render = ent->assign<Components::Render>();
+  auto note = ent->assign<Components::Note>();
+
+  trans->Position = {28, 0, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Spirit;
+  render->Data.spirit_Data = m_keyNote;
+  render->Visible = true;
+  render->x = 6;
+  render->y = 5;
+
+  note->Type = 0;
+  note->Score = 10;
 }
 

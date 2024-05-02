@@ -25,27 +25,22 @@
 
 ECS_TYPE_IMPLEMENTATION
 
-volatile float dt = 0.0f;
+volatile uint16_t dt = 0.0f;
 
 int main() {
   Engine::GameManager::getInstance()->Init();
 
-  auto thread2 = new Thread();
-  thread2->start([&]()->void {
-    while(1) Engine::GameManager::getInstance()->m_checkPeripherals();
-  });
-
   while(1) {
-    static auto startTime = Kernel::Clock::now();
+    static auto startTime = HAL_GetTick();
 
+    Engine::GameManager::getInstance()->m_checkPeripherals();
     Engine::GameManager::getInstance()->ecs->tick(dt);
     Engine::GameManager::getInstance()->lcd->refresh();
 
-    auto stopTime = Kernel::Clock::now();
+    static auto stopTime = HAL_GetTick();
 
-    dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
+    dt = stopTime - startTime; // ms
   }
 
-  thread2->join();
 }
 

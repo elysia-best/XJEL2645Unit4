@@ -15,4 +15,6 @@ ECS_DEFINE_TYPE(Transform);
 ECS_DEFINE_TYPE(Render);
 
 ECS_DEFINE_TYPE(UIRender);
+
+ECS_DEFINE_TYPE(Note);
 };

@@ -17,7 +17,7 @@ void Systems::TransformSystem::tick(ECS::World *world, float deltaTime) {
   world->each<Components::Transform>(
       [&](ECS::Entity *ent,
           ECS::ComponentHandle<Components::Transform> trans) -> void {
-        trans->Position;
+        //trans->Position;
       }
   );
 }
@@ -32,7 +32,10 @@ void Systems::RenderSystem::tick(ECS::World *world, float deltaTime) {
               Engine::GameManager::getInstance()->lcd->drawSprite(std::get<0>(trans->Position),std::get<1>(trans->Position), render->y, render->x, render->Data.spirit_Data, true);
               break;
             case render_t::Text :
-              Engine::GameManager::getInstance()->lcd->printString(render->Data.text_Data, std::get<0>(trans->Position), std::get<1>(trans->Position));
+              if (render->size == 1)
+                Engine::GameManager::getInstance()->lcd->printString(render->Data.text_Data, std::get<0>(trans->Position), std::get<1>(trans->Position));
+              else
+                Engine::GameManager::getInstance()->lcd->printString5x5(render->Data.text_Data, std::get<0>(trans->Position), std::get<1>(trans->Position));
           }
 
         }
@@ -65,10 +68,10 @@ void Systems::UIControlSystem::receive(ECS::World *world, const Events::Joystick
 
   world->each<Components::UIRender>(
       [=](ECS::Entity *ent, ECS::ComponentHandle<Components::UIRender> render) -> void {
-        if (control_result == 1) {
+        if (control_result == -1) {
           render->selected = ((render->selected + 1) < (render->m_comps.size())) ? (render->selected + 1) : 0;
-        } else if (control_result == 0) {
-          render->selected = ((render->selected - 1) > 0) ? (render->selected - 1) : (render->m_comps.size()-1);
+        } else if (control_result == 1) {
+          render->selected = ((render->selected - 1) >= 0) ? (render->selected - 1) : (render->m_comps.size()-1);
         }
       }
   );
@@ -76,14 +79,30 @@ void Systems::UIControlSystem::receive(ECS::World *world, const Events::Joystick
 
 void Systems::UIControlSystem::receive(ECS::World *world, const Events::KeypressEvent &event) {
   switch (event.id) {
-    case 1:
+    case 0:
+      std::list<ECS::ComponentHandle<Components::UIRender>> renders;
       world->each<Components::UIRender>(
-          [=](ECS::Entity *ent, ECS::ComponentHandle<Components::UIRender> render) -> void {
-            auto p = render->m_comps.begin();
-            std::advance(p, render->selected);
-            p->callback_function();
+          [&](ECS::Entity *ent, ECS::ComponentHandle<Components::UIRender> render) -> void {
+            renders.emplace_back(render);
           }
       );
+      for(auto &render: renders) {
+        auto p = render->m_comps.begin();
+        std::advance(p, render->selected);
+        p->callback_function();
+      }
       break;
   }
+}
+
+void Systems::GameControlSystem::tick(ECS::World *world, float deltaTime) {
+  // 目前先把速度写死
+  float speed = 0.01;
+  world->each<Components::Transform, Components::Note>([=](ECS::Entity *ent, ECS::ComponentHandle<Components::Transform> trans, ECS::ComponentHandle<Components::Note> note)->void{
+      // Destroy note if out ranged.
+//      if (get<1>(trans->Position) > 48)
+//        world->destroy(ent);
+
+      get<1>(trans->Position) += deltaTime * speed;
+  });
 }

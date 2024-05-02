@@ -60,6 +60,12 @@ struct UIControlSystem : public ECS::EntitySystem,
 
   virtual void receive(class ECS::World *world, const Events::KeypressEvent &event) override;
 };
+
+ struct GameControlSystem : public ECS::EntitySystem {
+   ~GameControlSystem() override = default;
+
+   void tick(ECS::World *world, float deltaTime) override;
+ };
 }
 
 #endif

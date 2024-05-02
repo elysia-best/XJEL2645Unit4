@@ -26,6 +26,11 @@ class Transform {
  ECS_DECLARE_TYPE;
 
   /**
+    * Used to indicate which group this Component is attached.
+    */
+  int8_t GroupID;
+
+  /**
    * @brief Array of 3 float values representing the position of the object.
    */
   std::tuple<float, float, float> Position;
@@ -67,6 +72,11 @@ class Note {
  ECS_DECLARE_TYPE;
  public:
   /**
+   * Used to indicate which group this Component is attached.
+   */
+  int8_t GroupID;
+
+  /**
    * @brief Type of the note.
    */
   int8_t Type;
@@ -80,6 +90,11 @@ class Note {
 class Render {
  ECS_DECLARE_TYPE;
  public:
+
+  /**
+   * Used to indicate which group this Component is attached.
+   */
+  int8_t GroupID;
 
   typedef enum Type_e {
     Spirit = 0,
@@ -98,6 +113,11 @@ class Render {
   };
 
   Type_t Type;
+
+  /**
+   * Size of the font, 0 for 5x5 and 1 for 5x7
+   */
+  int8_t size = 0;
 
   /**
    *  @brief Whether the sprite is visible or not.
