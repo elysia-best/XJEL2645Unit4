@@ -12,6 +12,8 @@
 #define VERSION_NUMBER "0.0.1"
 #define AUTHOR "Yuanzhen Gan"
 
+#include "Note_definitions.h"
+
 namespace Engine {
 class GameManager;
 }

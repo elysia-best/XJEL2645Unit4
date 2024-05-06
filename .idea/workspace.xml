@@ -23,18 +23,19 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Added a 5x5 font">
+    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Able to create and move a simple note.">
+      <change afterPath="$PROJECT_DIR$/Core/Inc/Note_definitions.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Components.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GameEngine.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/GlobalDefines.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GlobalDefines.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/Spirits.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Spirits.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/Systems.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Systems.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/Components.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Components.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Spirits.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Spirits.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/back.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +95,7 @@
   "keyToString": {
     "CMake 应用程序.XJEL2645NewVersion.executor": "Run",
     "OpenOCD Download & Run.XJEL2645NewVersion.executor": "Run",
-    "OpenOCD 下载并运行.XJEL2645NewVersion.executor": "Run",
+    "OpenOCD 下载并运行.XJEL2645NewVersion.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -106,18 +107,19 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "E:/Projects/School/XJEL2645Unit4/Core/Src",
+    "last_opened_file_path": "E:/Projects/School/XJEL2645Unit4/Core/Inc",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "CMakeSettings",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Projects\School\XJEL2645Unit4\Core\Inc" />
       <recent name="E:\Projects\School\XJEL2645Unit4\Core\Src" />
       <recent name="C:\Users\15228\Documents\Projects\School\XJEL2645Unit4\Core\Inc" />
       <recent name="E:\Projects\School\XJEL2645Unit4\Thirdparty" />
@@ -220,7 +222,13 @@
       <workItem from="1714482079453" duration="10211000" />
       <workItem from="1714530197383" duration="26583000" />
       <workItem from="1714566744469" duration="13190000" />
-      <workItem from="1714614043611" duration="37978000" />
+      <workItem from="1714614043611" duration="38679000" />
+      <workItem from="1714703489019" duration="21735000" />
+      <workItem from="1714739070680" duration="14195000" />
+      <workItem from="1714911707145" duration="1206000" />
+      <workItem from="1714961281234" duration="14000" />
+      <workItem from="1714961310207" duration="11000" />
+      <workItem from="1714991247832" duration="15487000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -294,7 +302,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714617525476</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="feat: Able to create and move a simple note.">
+      <option name="closed" value="true" />
+      <created>1714665163745</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1714665163745</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -351,7 +367,29 @@
     <MESSAGE value="feat: Able to select menus" />
     <MESSAGE value="feat: Able to switch UI" />
     <MESSAGE value="feat: Added a 5x5 font" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Added a 5x5 font" />
+    <MESSAGE value="feat: Able to create and move a simple note." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Able to create and move a simple note." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
+          <line>73</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
+          <line>153</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="com.jetbrains.cidr.embedded.openocd.conf.type">
+        <watch expression="this" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

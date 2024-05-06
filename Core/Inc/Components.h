@@ -85,6 +85,13 @@ class Note {
    * @brief Score of the note.
    */
   int8_t Score;
+
+  /**
+   * Falling speed of the note.
+   */
+  float Speed;
+
+  bool Played = false;
 };
 
 class Render {
@@ -137,6 +144,8 @@ class Render {
    * @brief The height (y) of the sprite.
    */
   int8_t y;
+
+  bool Override = true;
 };
 
 /**

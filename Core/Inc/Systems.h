@@ -10,6 +10,7 @@
 
 #include "ECS.h"
 #include "Events.h"
+#include <vector>
 
 namespace Systems {
 
@@ -61,11 +62,67 @@ struct UIControlSystem : public ECS::EntitySystem,
   virtual void receive(class ECS::World *world, const Events::KeypressEvent &event) override;
 };
 
- struct GameControlSystem : public ECS::EntitySystem {
-   ~GameControlSystem() override = default;
+struct GameControlSystem : public ECS::EntitySystem {
 
-   void tick(ECS::World *world, float deltaTime) override;
- };
+
+ public:
+
+  class LeveInfo {
+   public:
+    LeveInfo(std::vector<int> _key_tones, std::vector<bool> _key_notes, std::vector<rtos::Kernel::Clock::duration_u32> _key_duration, int _total_keys) :
+        key_tones{_key_tones},
+        key_notes{_key_notes},
+        key_duration{_key_duration},
+        total_keys{_total_keys} {};
+
+    LeveInfo(const LeveInfo &info) {
+      this->key_tones = info.key_tones;
+      this->key_notes = info.key_notes;
+      this->key_duration = info.key_duration;
+      this->key_speeds = info.key_speeds;
+      this->total_keys = info.total_keys;
+    }
+
+    LeveInfo() = default;
+    std::vector<int> key_tones;
+    std::vector<bool> key_notes;
+    std::vector<rtos::Kernel::Clock::duration_u32> key_duration;
+    std::vector<float> key_speeds;
+    int total_keys;
+  };
+
+  void initialGameLevel(int level);
+
+  void tick(ECS::World *world, float deltaTime) override;
+
+  GameControlSystem();
+  ~GameControlSystem() override = default;
+
+  void m_playNote(int freq, rtos::Kernel::Clock::duration_u32 );
+
+  void m_createNote(int index, int pos);
+
+  void m_startLevel();
+
+ private:
+
+  std::vector<LeveInfo> m_levelInfos;
+
+  LeveInfo currentLevelInfo;
+
+  int m_currentMusicNoteIndex = 0;
+
+  bool isGameInitiazing;
+
+  bool* start_to_play_notes = new bool(false);
+
+};
+
+struct PeripheralCheckSystem_UI : public ECS::EntitySystem {
+  ~PeripheralCheckSystem_UI() override = default;
+
+  void tick(ECS::World *world, float deltaTime) override;
+};
 }
 
 #endif

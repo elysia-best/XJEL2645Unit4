@@ -84,6 +84,24 @@ void Engine::GameManager::m_initEarlyData() {
 
   log_info("Loading Main menu...");
   m_makeMainMenu();
+
+  auto buzzer_thread = new Thread();
+  buzzer_thread->start([=]()->void{
+    const int fade[] = {NOTE_DS4, NOTE_AS4, NOTE_FS5, NOTE_AS4, NOTE_DS4, NOTE_AS4, NOTE_AS5, NOTE_AS4}; //create array with the required notes (in order)
+
+    auto play_note = [&](int frequency){
+      GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) frequency);    //set the period of the pwm signal (in us)
+      GameManager::getInstance()->buzzer->pulsewidth_us(GameManager::getInstance()->buzzer->read_period_us()/2);            //set pulse width of the pwm to 1/2 the period
+      ThisThread::sleep_for(330ms);                               //play sound for 500ms
+    };
+
+    for(int i = 0; i < 8; i++){         //iterate through the C_major_scale array
+      play_note(fade[i]);    //pass the note at position C_major_scale[i] to function
+    }
+
+    GameManager::getInstance()->buzzer->pulsewidth_us(0);            //turn off buzzer
+    delete buzzer_thread;
+  });
 }
 
 void Engine::GameManager::m_makeMainMenu() {
@@ -158,10 +176,13 @@ void Engine::GameManager::m_makeMainMenu() {
 }
 
 void Engine::GameManager::m_registerSystems() {
-  ecs->registerSystem(new Systems::TransformSystem);
-  ecs->registerSystem(new Systems::RenderSystem);
-  ecs->registerSystem(new Systems::UIControlSystem);
-  ecs->registerSystem(new Systems::GameControlSystem);
+  m_PeripheralCheckSystem_UI = ecs->registerSystem(new Systems::PeripheralCheckSystem_UI);
+  // m_TransformSystem = ecs->registerSystem(new Systems::TransformSystem);
+  m_RenderSystem = ecs->registerSystem(new Systems::RenderSystem);
+  m_UIControlSystem = ecs->registerSystem(new Systems::UIControlSystem);
+  m_GameControlSystem = ecs->registerSystem(new Systems::GameControlSystem);
+
+  ecs->disableSystem(m_GameControlSystem);
 }
 
 void Engine::GameManager::m_checkPeripherals() {
@@ -258,7 +279,7 @@ void Engine::GameManager::m_makeSelectionMenu() {
 
     switch (i) {
       case 0:
-        comp.callback_function = [&]() -> void {
+        comp.callback_function = [=]() -> void {
           GameManager::getInstance()->ecs->each<Components::Render>(
               [&](ECS::Entity *ent,
                   ECS::ComponentHandle<Components::Render> render) -> void {
@@ -275,7 +296,7 @@ void Engine::GameManager::m_makeSelectionMenu() {
 
           GameManager::getInstance()->lcd->clear();
 
-          GameManager::getInstance()->m_makeGameLevel(0);
+          GameManager::getInstance()->m_makeGameLevel(i);
         };
         break;
     }
@@ -302,24 +323,31 @@ void Engine::GameManager::m_makeGameLevel(int level) {
   render->Visible = true;
   render->x = 84;
   render->y = 48;
+  render->Override = true;
 
   // Test creating a note.
-  ent = GameManager::getInstance()->ecs->create();
-  trans = ent->assign<Components::Transform>();
-  render = ent->assign<Components::Render>();
-  auto note = ent->assign<Components::Note>();
+//  ent = GameManager::getInstance()->ecs->create();
+//  trans = ent->assign<Components::Transform>();
+//  render = ent->assign<Components::Render>();
+//  auto note = ent->assign<Components::Note>();
+//
+//  trans->Position = {28, 0, 0};
+//  trans->Rotation = {0, 0, 0};
+//  trans->Scale = {1, 1, 1};
+//
+//  render->Type = Components::Render::Type_e::Spirit;
+//  render->Data.spirit_Data = m_keyNote;
+//  render->Visible = true;
+//  render->x = 6;
+//  render->y = 5;
+//
+//  note->Type = 0;
+//  note->Score = 10;
+  GameManager::getInstance()->ecs->enableSystem(m_GameControlSystem);
 
-  trans->Position = {28, 0, 0};
-  trans->Rotation = {0, 0, 0};
-  trans->Scale = {1, 1, 1};
+  ((Systems::GameControlSystem*)GameManager::getInstance()->m_GameControlSystem)->initialGameLevel(level);
 
-  render->Type = Components::Render::Type_e::Spirit;
-  render->Data.spirit_Data = m_keyNote;
-  render->Visible = true;
-  render->x = 6;
-  render->y = 5;
-
-  note->Type = 0;
-  note->Score = 10;
+  GameManager::getInstance()->ecs->disableSystem(m_UIControlSystem);
+  GameManager::getInstance()->ecs->disableSystem(m_PeripheralCheckSystem_UI);
 }
 

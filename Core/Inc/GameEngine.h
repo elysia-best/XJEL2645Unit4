@@ -56,6 +56,14 @@ class GameManager {
 
   BusOut* led_bgr;
 
+  // Systems
+  ECS::EntitySystem *m_TransformSystem;
+  ECS::EntitySystem *m_RenderSystem;
+  ECS::EntitySystem *m_UIControlSystem;
+  ECS::EntitySystem *m_GameControlSystem;
+  ECS::EntitySystem *m_PeripheralCheckSystem_UI;
+
+
  private:
   void m_initPeripherals();
 

@@ -33,7 +33,7 @@ int main() {
   while(1) {
     static auto startTime = HAL_GetTick();
 
-    Engine::GameManager::getInstance()->m_checkPeripherals();
+    // Engine::GameManager::getInstance()->m_checkPeripherals();
     Engine::GameManager::getInstance()->ecs->tick(dt);
     Engine::GameManager::getInstance()->lcd->refresh();
 
