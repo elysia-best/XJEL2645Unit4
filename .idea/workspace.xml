@@ -23,19 +23,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Able to create and move a simple note.">
-      <change afterPath="$PROJECT_DIR$/Core/Inc/Note_definitions.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Changed to a new playing method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Components.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GameEngine.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/GlobalDefines.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GlobalDefines.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/Spirits.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Spirits.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/Systems.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Systems.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/Spirits.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Spirits.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/main.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +86,7 @@
   "keyToString": {
     "CMake 应用程序.XJEL2645NewVersion.executor": "Run",
     "OpenOCD Download & Run.XJEL2645NewVersion.executor": "Run",
-    "OpenOCD 下载并运行.XJEL2645NewVersion.executor": "Debug",
+    "OpenOCD 下载并运行.XJEL2645NewVersion.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
@@ -228,7 +219,7 @@
       <workItem from="1714911707145" duration="1206000" />
       <workItem from="1714961281234" duration="14000" />
       <workItem from="1714961310207" duration="11000" />
-      <workItem from="1714991247832" duration="15487000" />
+      <workItem from="1714991247832" duration="18646000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -310,7 +301,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714665163745</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat: Changed to a new playing method">
+      <option name="closed" value="true" />
+      <created>1715008334696</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1715008334696</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -368,7 +367,8 @@
     <MESSAGE value="feat: Able to switch UI" />
     <MESSAGE value="feat: Added a 5x5 font" />
     <MESSAGE value="feat: Able to create and move a simple note." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Able to create and move a simple note." />
+    <MESSAGE value="feat: Changed to a new playing method" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Changed to a new playing method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -377,11 +377,6 @@
           <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
           <line>73</line>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
-          <line>153</line>
-          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

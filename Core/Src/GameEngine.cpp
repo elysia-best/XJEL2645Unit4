@@ -85,23 +85,23 @@ void Engine::GameManager::m_initEarlyData() {
   log_info("Loading Main menu...");
   m_makeMainMenu();
 
-  auto buzzer_thread = new Thread();
-  buzzer_thread->start([=]()->void{
-    const int fade[] = {NOTE_DS4, NOTE_AS4, NOTE_FS5, NOTE_AS4, NOTE_DS4, NOTE_AS4, NOTE_AS5, NOTE_AS4}; //create array with the required notes (in order)
-
-    auto play_note = [&](int frequency){
-      GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) frequency);    //set the period of the pwm signal (in us)
-      GameManager::getInstance()->buzzer->pulsewidth_us(GameManager::getInstance()->buzzer->read_period_us()/2);            //set pulse width of the pwm to 1/2 the period
-      ThisThread::sleep_for(330ms);                               //play sound for 500ms
-    };
-
-    for(int i = 0; i < 8; i++){         //iterate through the C_major_scale array
-      play_note(fade[i]);    //pass the note at position C_major_scale[i] to function
-    }
-
-    GameManager::getInstance()->buzzer->pulsewidth_us(0);            //turn off buzzer
-    delete buzzer_thread;
-  });
+//  auto buzzer_thread = new Thread();
+//  buzzer_thread->start([=]()->void{
+//    const int fade[] = {NOTE_DS4, NOTE_AS4, NOTE_FS5, NOTE_AS4, NOTE_DS4, NOTE_AS4, NOTE_AS5, NOTE_AS4}; //create array with the required notes (in order)
+//
+//    auto play_note = [&](int frequency){
+//      GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) frequency);    //set the period of the pwm signal (in us)
+//      GameManager::getInstance()->buzzer->pulsewidth_us(GameManager::getInstance()->buzzer->read_period_us()/2);            //set pulse width of the pwm to 1/2 the period
+//      ThisThread::sleep_for(330ms);                               //play sound for 500ms
+//    };
+//
+//    for(int i = 0; i < 8; i++){         //iterate through the C_major_scale array
+//      play_note(fade[i]);    //pass the note at position C_major_scale[i] to function
+//    }
+//
+//    GameManager::getInstance()->buzzer->pulsewidth_us(0);            //turn off buzzer
+//    delete buzzer_thread;
+//  });
 }
 
 void Engine::GameManager::m_makeMainMenu() {
