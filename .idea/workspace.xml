@@ -23,10 +23,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="Delete release">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/Systems.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Systems.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,6 +44,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://D:/opt/Keil_v5/ARM/ARMCLANG/include/libcxx/algorithm" root0="SKIP_INSPECTION" />
     <setting file="file://D:/opt/Keil_v5/ARM/ARMCLANG/include/libcxx/functional" root0="SKIP_INSPECTION" />
   </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
@@ -125,12 +124,12 @@
     </key>
   </component>
   <component name="RunManager" selected="OpenOCD 下载并运行.XJEL2645NewVersion">
-    <configuration name="XJEL2645NewVersion" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="XJEL2645NewVersion" TARGET_NAME="XJEL2645NewVersion" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="XJEL2645NewVersion" RUN_TARGET_NAME="XJEL2645NewVersion">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
       <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="XJEL2645NewVersion" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="XJEL2645NewVersion" TARGET_NAME="XJEL2645NewVersion" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="XJEL2645NewVersion" RUN_TARGET_NAME="XJEL2645NewVersion">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -223,6 +222,7 @@
       <workItem from="1714991247832" duration="18646000" />
       <workItem from="1715045966361" duration="561000" />
       <workItem from="1715068246016" duration="1741000" />
+      <workItem from="1715083164145" duration="10543000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -383,13 +383,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
-          <line>222</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
-          <line>223</line>
-          <option name="timeStamp" value="8" />
+          <line>131</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

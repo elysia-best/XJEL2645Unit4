@@ -93,8 +93,6 @@ struct GameControlSystem : public ECS::EntitySystem {
 
   void initialGameLevel(int level);
 
-  static void m_startPlayMusic(bool* start_to_play);
-
   void tick(ECS::World *world, float deltaTime) override;
 
   GameControlSystem();
@@ -106,13 +104,14 @@ struct GameControlSystem : public ECS::EntitySystem {
 
   void m_startLevel();
 
+  Thread *buzzer_thread;
+
  private:
 
   std::vector<LeveInfo> m_levelInfos;
 
   LeveInfo currentLevelInfo;
 
-  int m_currentMusicNoteIndex = 0;
 
   bool isGameInitiazing;
 

@@ -142,11 +142,36 @@ void Systems::GameControlSystem::initialGameLevel(int level) {
 }
 
 Systems::GameControlSystem::GameControlSystem() {
+  //  ToDo: Still have error when first key needs
   m_levelInfos.emplace_back(LeveInfo({
-    std::vector<int>({NOTE_DS4, NOTE_AS4, NOTE_FS5, NOTE_AS4, NOTE_DS4, NOTE_AS4,NOTE_AS5, NOTE_AS4}),
-    {1,0,0,0,1,0,0,0},
- std::vector<rtos::Kernel::Clock::duration_u32>({1000ms, 1000ms, 1000ms, 1000ms, 1000ms, 1000ms, 1000ms, 1000ms}),
-    8
+    std::vector<int>(
+        {NOTE_DS4, NOTE_AS4, NOTE_FS5, NOTE_AS4,
+            NOTE_DS4, NOTE_AS4,NOTE_AS5, NOTE_AS4,
+            NOTE_B3, NOTE_FS4, NOTE_DS6, NOTE_FS4,
+            NOTE_B3, NOTE_FS4, NOTE_CS6, NOTE_FS4,
+            NOTE_FS4, NOTE_CS5, NOTE_AS5, NOTE_CS5,
+            NOTE_FS4, NOTE_CS5, NOTE_AS5, NOTE_CS5,
+            NOTE_CS4, NOTE_GS4, NOTE_F5, NOTE_GS4,
+            NOTE_CS4, NOTE_GS4, NOTE_F5, NOTE_GS4,
+            }),
+    {0, 1, 1, 1,
+                1, 1, 1, 1,
+                1, 1, 1, 1,
+                1, 1, 1, 1,
+                1, 1, 1, 1,
+                1, 1, 1, 1,
+                1, 1, 1, 1,
+                1, 1, 1, 1,},
+ std::vector<rtos::Kernel::Clock::duration_u32>(
+     {330ms, 330ms, 330ms, 330ms,
+         330ms, 330ms, 330ms, 330ms,
+         330ms, 330ms, 330ms, 330ms,
+         330ms, 330ms, 330ms, 330ms,
+         330ms, 330ms, 330ms, 330ms,
+         330ms, 330ms, 330ms, 330ms,
+         330ms, 330ms, 330ms, 330ms,
+         330ms, 330ms, 330ms, 330ms}),
+    40
   }));
 }
 
@@ -195,7 +220,7 @@ void Systems::GameControlSystem::m_createNote(int index, int pos) {
 }
 
 void Systems::GameControlSystem::m_startLevel() {
-  m_currentMusicNoteIndex = 0;
+  start_to_play_notes = false;
 
   // Calculate speed for this level;
   for (volatile int i = 0; i < currentLevelInfo.total_keys; i++) {
@@ -204,27 +229,31 @@ void Systems::GameControlSystem::m_startLevel() {
     }
     currentLevelInfo.key_speeds.emplace_back((38. / chrono::duration_cast<chrono::milliseconds>(currentLevelInfo.key_duration[i-1]).count()));
   }
-  m_createNote(m_currentMusicNoteIndex, 0);
 
-
-  auto buzzer_thread = new Thread();
-  // Considered touched the line
-  buzzer_thread->start(callback(m_startPlayMusic, &start_to_play_notes));
-}
-
- void Systems::GameControlSystem::m_startPlayMusic(bool *start_to_play) {
-  while(!*start_to_play) {
-    //log_info("Waitting");
-  };
-
-  auto self_ = (Systems::GameControlSystem*)Engine::GameManager::getInstance()->m_GameControlSystem;
-  for(int i = 0; i < self_->currentLevelInfo.total_keys; i++){         //iterate through the C_major_scale array
-    if(self_->currentLevelInfo.key_notes[i])
-      self_->m_createNote(self_->m_currentMusicNoteIndex, 0);
-    self_->m_playNote(self_->currentLevelInfo.key_tones[i], self_->currentLevelInfo.key_duration[i]);    //pass the note at position C_major_scale[i] to function
-    ++self_->m_currentMusicNoteIndex;
+  if (currentLevelInfo.key_notes[0]) {
+    m_createNote(0, 0);
+  } else {
+    start_to_play_notes = true;
   }
-  Engine::GameManager::getInstance()->buzzer->pulsewidth_us(0);  //turn off buzzer
+
+
+  buzzer_thread = new Thread();
+  // Considered touched the line
+  buzzer_thread->start([&, this]()->void{
+    // waiting to play
+    while (true) {
+      if (this->start_to_play_notes) break;
+    }
+
+
+    for(int i = 0; i < this->currentLevelInfo.total_keys; i++){         //iterate through the C_major_scale array
+      if(i != 0 && this->currentLevelInfo.key_notes[i+1])
+        this->m_createNote(i+1, 0);
+      this->m_playNote(this->currentLevelInfo.key_tones[i], this->currentLevelInfo.key_duration[i]);    //pass the note at position C_major_scale[i] to function
+    }
+    Engine::GameManager::getInstance()->buzzer->pulsewidth_us(0);  //turn off buzzer
+    delete this->buzzer_thread;
+  });
 }
 
 void Systems::PeripheralCheckSystem_UI::tick(ECS::World *world, float deltaTime) {
