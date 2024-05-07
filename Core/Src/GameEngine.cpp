@@ -85,7 +85,7 @@ void Engine::GameManager::m_initEarlyData() {
   log_info("Loading Main menu...");
   m_makeMainMenu();
 
-//  auto buzzer_thread = new Thread();
+ //  auto buzzer_thread = new Thread();
 //  buzzer_thread->start([=]()->void{
 //    const int fade[] = {NOTE_DS4, NOTE_AS4, NOTE_FS5, NOTE_AS4, NOTE_DS4, NOTE_AS4, NOTE_AS5, NOTE_AS4}; //create array with the required notes (in order)
 //

@@ -126,10 +126,10 @@ void Systems::GameControlSystem::tick(ECS::World *world, float deltaTime) {
                                                            ECS::ComponentHandle<Components::Transform> trans,
                                                            ECS::ComponentHandle<Components::Note> note) -> void {
     // Destroy note if out ranged.
-    if (get<1>(trans->Position) > 48) {
+    if (get<1>(trans->Position) > 48)
       world->destroy(ent);
-    } else if ((get<1>(trans->Position) > 38) && (!*start_to_play_notes)) {
-      *start_to_play_notes = true;
+    else if ((get<1>(trans->Position) > 38)) {
+      start_to_play_notes = true;
     }
 
     get<1>(trans->Position) += deltaTime * note->Speed;
@@ -151,8 +151,8 @@ Systems::GameControlSystem::GameControlSystem() {
 }
 
 void Systems::GameControlSystem::m_playNote(int freq, rtos::Kernel::Clock::duration_u32 duration) {
-  //Engine::GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) freq); //set the period of the pwm signal (in us)
-  //Engine::GameManager::getInstance()->buzzer->pulsewidth_us(Engine::GameManager::getInstance()->buzzer->read_period_us()/2);  //set pulse width of the pwm to 1/2 the period
+  Engine::GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) freq); //set the period of the pwm signal (in us)
+  Engine::GameManager::getInstance()->buzzer->pulsewidth_us(Engine::GameManager::getInstance()->buzzer->read_period_us()/2);  //set pulse width of the pwm to 1/2 the period
   log_info("Playing tone: %d", freq);
   ThisThread::sleep_for(duration);  //play sound for duration ms
 }
@@ -201,34 +201,30 @@ void Systems::GameControlSystem::m_startLevel() {
   for (volatile int i = 0; i < currentLevelInfo.total_keys; i++) {
     if (i == 0) {
       currentLevelInfo.key_speeds.emplace_back(38. / chrono::duration_cast<chrono::milliseconds>(currentLevelInfo.key_duration[i]).count());
-      continue;
     }
-      currentLevelInfo.key_speeds.emplace_back(chrono::duration_cast<chrono::milliseconds>(currentLevelInfo.key_duration[i-1]).count());
+    currentLevelInfo.key_speeds.emplace_back((38. / chrono::duration_cast<chrono::milliseconds>(currentLevelInfo.key_duration[i-1]).count()));
   }
-
-
-  if (currentLevelInfo.key_notes[0])
-    m_createNote(m_currentMusicNoteIndex, 0);
-  else
-    *start_to_play_notes = true;
+  m_createNote(m_currentMusicNoteIndex, 0);
 
 
   auto buzzer_thread = new Thread();
   // Considered touched the line
-  buzzer_thread->start([=]()->void{
-    while(!*start_to_play_notes) {
-      //log_info("Waitting");
-    };
+  buzzer_thread->start(callback(m_startPlayMusic, &start_to_play_notes));
+}
 
-    for(int i = 0; i < currentLevelInfo.total_keys; i++){         //iterate through the C_major_scale array
-      if( i != 0 && currentLevelInfo.key_notes[i])
-        m_createNote(m_currentMusicNoteIndex, 0);
-      m_playNote(currentLevelInfo.key_tones[i], currentLevelInfo.key_duration[i]);    //pass the note at position C_major_scale[i] to function
-      ++m_currentMusicNoteIndex;
-    }
-    Engine::GameManager::getInstance()->buzzer->pulsewidth_us(0);  //turn off buzzer
-    delete buzzer_thread;
-  });
+ void Systems::GameControlSystem::m_startPlayMusic(bool *start_to_play) {
+  while(!*start_to_play) {
+    //log_info("Waitting");
+  };
+
+  auto self_ = (Systems::GameControlSystem*)Engine::GameManager::getInstance()->m_GameControlSystem;
+  for(int i = 0; i < self_->currentLevelInfo.total_keys; i++){         //iterate through the C_major_scale array
+    if(self_->currentLevelInfo.key_notes[i])
+      self_->m_createNote(self_->m_currentMusicNoteIndex, 0);
+    self_->m_playNote(self_->currentLevelInfo.key_tones[i], self_->currentLevelInfo.key_duration[i]);    //pass the note at position C_major_scale[i] to function
+    ++self_->m_currentMusicNoteIndex;
+  }
+  Engine::GameManager::getInstance()->buzzer->pulsewidth_us(0);  //turn off buzzer
 }
 
 void Systems::PeripheralCheckSystem_UI::tick(ECS::World *world, float deltaTime) {

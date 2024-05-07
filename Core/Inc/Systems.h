@@ -93,6 +93,8 @@ struct GameControlSystem : public ECS::EntitySystem {
 
   void initialGameLevel(int level);
 
+  static void m_startPlayMusic(bool* start_to_play);
+
   void tick(ECS::World *world, float deltaTime) override;
 
   GameControlSystem();
@@ -114,7 +116,7 @@ struct GameControlSystem : public ECS::EntitySystem {
 
   bool isGameInitiazing;
 
-  bool* start_to_play_notes = new bool(false);
+  bool start_to_play_notes = false;
 
 };
 
