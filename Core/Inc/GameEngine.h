@@ -27,8 +27,6 @@ class GameManager {
 
   ~GameManager();
 
-  void m_checkPeripherals();
-  
   /**
    * @brief ECS world to manage all the entities and components.
    */
@@ -62,9 +60,8 @@ class GameManager {
   ECS::EntitySystem *m_UIControlSystem;
   ECS::EntitySystem *m_GameControlSystem;
   ECS::EntitySystem *m_PeripheralCheckSystem_UI;
+  ECS::EntitySystem *m_PeripheralCheckSystem_Game;
 
-
- private:
   void m_initPeripherals();
 
   void m_freePeripherals() const;

@@ -165,7 +165,10 @@ class UIRender {
 
     int8_t y;
 
-    std::function<void()> callback_function = []()->void{};
+    std::function<void()> callback_functionA = []()->void{};
+    std::function<void()> callback_functionB = []()->void{};
+    std::function<void()> callback_functionC = []()->void{};
+    std::function<void()> callback_functionD = []()->void{};
   } UIComp_t;
 
   int8_t selected = false;

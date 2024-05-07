@@ -13,6 +13,8 @@
 #include "ECS.h"
 #include "tuple"
 #include "Spirits.h"
+#include "arm_math.h"
+#include <random>
 
 void Systems::TransformSystem::tick(ECS::World *world, float deltaTime) {
   world->each<Components::Transform>(
@@ -94,8 +96,22 @@ void Systems::UIControlSystem::receive(ECS::World *world, const Events::Joystick
 }
 
 void Systems::UIControlSystem::receive(ECS::World *world, const Events::KeypressEvent &event) {
+  std::list<ECS::ComponentHandle<Components::UIRender>> renders;
+  world->each<Components::UIRender>(
+      [&](ECS::Entity *ent, ECS::ComponentHandle<Components::UIRender> render) -> void {
+        renders.emplace_back(render);
+      }
+  );
   switch (event.id) {
-    case 0:std::list<ECS::ComponentHandle<Components::UIRender>> renders;
+    case 0:
+      for (auto &render : renders) {
+        auto p = render->m_comps.begin();
+        std::advance(p, render->selected);
+        p->callback_functionA();
+      }
+      break;
+    case 1:
+      renders.clear();
       world->each<Components::UIRender>(
           [&](ECS::Entity *ent, ECS::ComponentHandle<Components::UIRender> render) -> void {
             renders.emplace_back(render);
@@ -104,9 +120,24 @@ void Systems::UIControlSystem::receive(ECS::World *world, const Events::Keypress
       for (auto &render : renders) {
         auto p = render->m_comps.begin();
         std::advance(p, render->selected);
-        p->callback_function();
+        p->callback_functionB();
       }
       break;
+    case 2:
+      for (auto &render : renders) {
+        auto p = render->m_comps.begin();
+        std::advance(p, render->selected);
+        p->callback_functionC();
+      }
+      break;
+    case 3:
+      for (auto &render : renders) {
+        auto p = render->m_comps.begin();
+        std::advance(p, render->selected);
+        p->callback_functionD();
+      }
+      break;
+
   }
 }
 
@@ -171,14 +202,14 @@ Systems::GameControlSystem::GameControlSystem() {
          330ms, 330ms, 330ms, 330ms,
          330ms, 330ms, 330ms, 330ms,
          330ms, 330ms, 330ms, 330ms}),
-    40
+    32
   }));
 }
 
 void Systems::GameControlSystem::m_playNote(int freq, rtos::Kernel::Clock::duration_u32 duration) {
   Engine::GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) freq); //set the period of the pwm signal (in us)
   Engine::GameManager::getInstance()->buzzer->pulsewidth_us(Engine::GameManager::getInstance()->buzzer->read_period_us()/2);  //set pulse width of the pwm to 1/2 the period
-  log_info("Playing tone: %d", freq);
+  //log_info("Playing tone: %d", freq);
   ThisThread::sleep_for(duration);  //play sound for duration ms
 }
 
@@ -188,7 +219,7 @@ void Systems::GameControlSystem::m_createNote(int index, int pos) {
   auto render = ent->assign<Components::Render>();
   auto note = ent->assign<Components::Note>();
 
-  log_info("Creating note: %d at: %d", index, pos);
+  // log_info("Creating note: %d at: %d", index, pos);
 
   switch (pos) {
     case 0:
@@ -221,6 +252,7 @@ void Systems::GameControlSystem::m_createNote(int index, int pos) {
 
 void Systems::GameControlSystem::m_startLevel() {
   start_to_play_notes = false;
+  m_currentScore = 0;
 
   // Calculate speed for this level;
   for (volatile int i = 0; i < currentLevelInfo.total_keys; i++) {
@@ -230,8 +262,22 @@ void Systems::GameControlSystem::m_startLevel() {
     currentLevelInfo.key_speeds.emplace_back((38. / chrono::duration_cast<chrono::milliseconds>(currentLevelInfo.key_duration[i-1]).count()));
   }
 
+  // Generate position for this play
+  std::random_device rd;  //如果可用的话，从一个随机数发生器上获得一个真正的随机数
+  std::mt19937 gen(rd()); //gen是一个使用rd()作种子初始化的标准梅森旋转算法的随机数发生器
+  std::uniform_int_distribution<> distrib(0, 3);
+
+  const int RAND_NUM = 4;
+
+  for (volatile int i = 0; i < currentLevelInfo.total_keys; i++) {
+    if (i == 0) {
+      currentLevelInfo.key_pos.emplace_back(distrib(gen));
+    }
+    currentLevelInfo.key_pos.emplace_back(distrib(gen));
+  }
+
   if (currentLevelInfo.key_notes[0]) {
-    m_createNote(0, 0);
+    m_createNote(0, currentLevelInfo.key_pos[0]);
   } else {
     start_to_play_notes = true;
   }
@@ -247,13 +293,83 @@ void Systems::GameControlSystem::m_startLevel() {
 
 
     for(int i = 0; i < this->currentLevelInfo.total_keys; i++){         //iterate through the C_major_scale array
-      if(i != 0 && this->currentLevelInfo.key_notes[i+1])
-        this->m_createNote(i+1, 0);
+      if(i != 0 && i != this->currentLevelInfo.total_keys - 1 && this->currentLevelInfo.key_notes[i+1])
+        this->m_createNote(i+1, this->currentLevelInfo.key_pos[i+1]);
       this->m_playNote(this->currentLevelInfo.key_tones[i], this->currentLevelInfo.key_duration[i]);    //pass the note at position C_major_scale[i] to function
     }
     Engine::GameManager::getInstance()->buzzer->pulsewidth_us(0);  //turn off buzzer
+
+    // Finalize game
+    this->finishedGameLevel();
     delete this->buzzer_thread;
   });
+}
+
+void Systems::GameControlSystem::finishedGameLevel() {
+  Engine::GameManager::getInstance()->ecs->disableSystem(Engine::GameManager::getInstance()->m_GameControlSystem);
+
+  Engine::GameManager::getInstance()->ecs->enableSystem(Engine::GameManager::getInstance()->m_UIControlSystem);
+  Engine::GameManager::getInstance()->ecs->enableSystem(Engine::GameManager::getInstance()->m_PeripheralCheckSystem_UI);
+
+  Engine::GameManager::getInstance()->ecs->each<Components::Transform>([=](ECS::Entity *ent,
+                                                                                             ECS::ComponentHandle<Components::Transform> trans) -> void {
+    // Destroy all
+    Engine::GameManager::getInstance()->ecs->destroy(ent);
+  });
+
+  Engine::GameManager::getInstance()->lcd->clear();
+
+  log_info("Score for this play: %d", m_currentScore);
+
+  Engine::GameManager::getInstance()->m_makeSelectionMenu();
+}
+
+void Systems::GameControlSystem::receive(ECS::World *world, const Events::KeypressEvent &event) {
+  // ToDo: Multi Keys may not working
+  world->each<Components::Transform, Components::Note>(
+      [&](ECS::Entity *ent, ECS::ComponentHandle<Components::Transform> trans, ECS::ComponentHandle<Components::Note> note) -> void {
+        float dis;
+        switch (event.id) {
+          case 0:
+            if (get<0>(trans->Position) == 28) {
+              dis = std::fabs((get<1>(trans->Position) - 38));
+              if (dis <= 3) {
+                m_currentScore += note->Score;
+                world->destroy(ent);
+              }
+            }
+            break;
+          case 1:
+            if (get<0>(trans->Position) == 35) {
+              dis = std::fabs((get<1>(trans->Position) - 38));
+              if (dis <= 3) {
+                m_currentScore += note->Score;
+                world->destroy(ent);
+              }
+            }
+            break;
+          case 2:
+            if (get<0>(trans->Position) == 42) {
+              dis = std::fabs((get<1>(trans->Position) - 38));
+              if (dis <= 3) {
+                m_currentScore += note->Score;
+                world->destroy(ent);
+              }
+            }
+            break;
+          case 3:
+            if (get<0>(trans->Position) == 49) {
+              dis = std::fabs((get<1>(trans->Position) - 38));
+              if (dis <= 3) {
+                m_currentScore += note->Score;
+                world->destroy(ent);
+              }
+            }
+            break;
+        }
+      }
+  );
+
 }
 
 void Systems::PeripheralCheckSystem_UI::tick(ECS::World *world, float deltaTime) {
@@ -279,6 +395,14 @@ void Systems::PeripheralCheckSystem_UI::tick(ECS::World *world, float deltaTime)
     if (!Engine::GameManager::getInstance()->keys[i]->read()) {
       ThisThread::sleep_for(80ms);
       if (!Engine::GameManager::getInstance()->keys[i]->read())
+        Engine::GameManager::getInstance()->ecs->emit<Events::KeypressEvent>({i});
+    }
+  }
+}
+
+void Systems::PeripheralCheckSystem_Game::tick(ECS::World *world, float deltaTime) {
+  for (int8_t i = 0; i < 4; ++i) {
+    if (!Engine::GameManager::getInstance()->keys[i]->read()) {
         Engine::GameManager::getInstance()->ecs->emit<Events::KeypressEvent>({i});
     }
   }

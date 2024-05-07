@@ -62,7 +62,8 @@ struct UIControlSystem : public ECS::EntitySystem,
   virtual void receive(class ECS::World *world, const Events::KeypressEvent &event) override;
 };
 
-struct GameControlSystem : public ECS::EntitySystem {
+struct GameControlSystem : public ECS::EntitySystem,
+                           public ECS::EventSubscriber<Events::KeypressEvent>{
 
 
  public:
@@ -80,6 +81,7 @@ struct GameControlSystem : public ECS::EntitySystem {
       this->key_notes = info.key_notes;
       this->key_duration = info.key_duration;
       this->key_speeds = info.key_speeds;
+      this->key_pos = info.key_pos;
       this->total_keys = info.total_keys;
     }
 
@@ -88,10 +90,25 @@ struct GameControlSystem : public ECS::EntitySystem {
     std::vector<bool> key_notes;
     std::vector<rtos::Kernel::Clock::duration_u32> key_duration;
     std::vector<float> key_speeds;
+    std::vector<int8_t> key_pos;
     int total_keys;
   };
 
+  virtual void configure(ECS::World *world) override {
+    world->subscribe<Events::KeypressEvent>(this);
+  }
+
+  virtual void unconfigure(ECS::World *world) override {
+    world->unsubscribeAll(this);
+    // You may also unsubscribe from specific events with world->unsubscribe<MyEvent>(this), but
+    // when unconfigure is called you usually want to unsubscribe from all events.
+  }
+
+  virtual void receive(class ECS::World *world, const Events::KeypressEvent &event) override;
+
   void initialGameLevel(int level);
+
+  void finishedGameLevel();
 
   void tick(ECS::World *world, float deltaTime) override;
 
@@ -117,10 +134,18 @@ struct GameControlSystem : public ECS::EntitySystem {
 
   bool start_to_play_notes = false;
 
+  int m_currentScore;
+
 };
 
 struct PeripheralCheckSystem_UI : public ECS::EntitySystem {
   ~PeripheralCheckSystem_UI() override = default;
+
+  void tick(ECS::World *world, float deltaTime) override;
+};
+
+struct PeripheralCheckSystem_Game : public ECS::EntitySystem {
+  ~PeripheralCheckSystem_Game() override = default;
 
   void tick(ECS::World *world, float deltaTime) override;
 };

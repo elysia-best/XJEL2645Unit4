@@ -22,9 +22,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="Delete release">
+    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="Able to play all notes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Components.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GameEngine.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/Systems.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Systems.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -222,7 +225,7 @@
       <workItem from="1714991247832" duration="18646000" />
       <workItem from="1715045966361" duration="561000" />
       <workItem from="1715068246016" duration="1741000" />
-      <workItem from="1715083164145" duration="10543000" />
+      <workItem from="1715083164145" duration="15158000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -312,7 +315,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715008334696</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Able to play all notes">
+      <option name="closed" value="true" />
+      <created>1715096134173</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1715096134173</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -371,20 +382,21 @@
     <MESSAGE value="feat: Added a 5x5 font" />
     <MESSAGE value="feat: Able to create and move a simple note." />
     <MESSAGE value="feat: Changed to a new playing method" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Changed to a new playing method" />
+    <MESSAGE value="Able to play all notes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Able to play all notes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
-          <line>73</line>
-          <option name="timeStamp" value="4" />
+          <line>76</line>
+          <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
-          <line>131</line>
-          <option name="timeStamp" value="9" />
+          <line>405</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

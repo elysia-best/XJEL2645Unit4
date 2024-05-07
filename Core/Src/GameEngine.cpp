@@ -146,7 +146,7 @@ void Engine::GameManager::m_makeMainMenu() {
 
     switch (i) {
       case 3:
-        comp.callback_function = [&]() -> void {
+        comp.callback_functionA = [&]() -> void {
           GameManager::getInstance()->ecs->each<Components::Render>(
               [&](ECS::Entity *ent,
                   ECS::ComponentHandle<Components::Render> render) -> void {
@@ -177,41 +177,14 @@ void Engine::GameManager::m_makeMainMenu() {
 
 void Engine::GameManager::m_registerSystems() {
   m_PeripheralCheckSystem_UI = ecs->registerSystem(new Systems::PeripheralCheckSystem_UI);
+  m_PeripheralCheckSystem_Game = ecs->registerSystem(new Systems::PeripheralCheckSystem_Game);
   // m_TransformSystem = ecs->registerSystem(new Systems::TransformSystem);
   m_RenderSystem = ecs->registerSystem(new Systems::RenderSystem);
   m_UIControlSystem = ecs->registerSystem(new Systems::UIControlSystem);
   m_GameControlSystem = ecs->registerSystem(new Systems::GameControlSystem);
 
   ecs->disableSystem(m_GameControlSystem);
-}
-
-void Engine::GameManager::m_checkPeripherals() {
-  for (int8_t i = 0; i < 2; ++i) {
-    if (joystics[i]->get_direction() != Direction::CENTRE) {
-      ThisThread::sleep_for(150ms);
-      if (joystics[i]->get_direction() != Direction::CENTRE)
-        ecs->emit<Events::JoystickUpdateEvent>(
-            {
-                i,
-                joystics[i]->get_direction(),
-                joystics[i]->get_mag(),
-                joystics[i]->get_angle(),
-                joystics[i]->get_coord(),
-                joystics[i]->get_mapped_coord(),
-                joystics[i]->get_polar()
-            }
-        );
-    }
-  }
-
-
-  for (int8_t i = 0; i < 4; ++i) {
-    if (!keys[i]->read()) {
-      ThisThread::sleep_for(80ms);
-      if (!keys[i]->read())
-        ecs->emit<Events::KeypressEvent>({i});
-    }
-  }
+  ecs->disableSystem(m_PeripheralCheckSystem_Game);
 }
 
 void Engine::GameManager::m_makeSelectionMenu() {
@@ -279,7 +252,7 @@ void Engine::GameManager::m_makeSelectionMenu() {
 
     switch (i) {
       case 0:
-        comp.callback_function = [=]() -> void {
+        comp.callback_functionA = [&, i]() -> void {
           GameManager::getInstance()->ecs->each<Components::Render>(
               [&](ECS::Entity *ent,
                   ECS::ComponentHandle<Components::Render> render) -> void {
@@ -297,6 +270,25 @@ void Engine::GameManager::m_makeSelectionMenu() {
           GameManager::getInstance()->lcd->clear();
 
           GameManager::getInstance()->m_makeGameLevel(i);
+        };
+        comp.callback_functionB = [&]() -> void {
+          GameManager::getInstance()->ecs->each<Components::Render>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::Render> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, false);
+              }
+          );
+
+          GameManager::getInstance()->ecs->each<Components::UIRender>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::UIRender> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, false);
+              }
+          );
+
+          GameManager::getInstance()->lcd->clear();
+
+          GameManager::getInstance()->m_makeMainMenu();
         };
         break;
     }
@@ -344,6 +336,7 @@ void Engine::GameManager::m_makeGameLevel(int level) {
 //  note->Type = 0;
 //  note->Score = 10;
   GameManager::getInstance()->ecs->enableSystem(m_GameControlSystem);
+  GameManager::getInstance()->ecs->enableSystem(m_PeripheralCheckSystem_Game);
 
   ((Systems::GameControlSystem*)GameManager::getInstance()->m_GameControlSystem)->initialGameLevel(level);
 
