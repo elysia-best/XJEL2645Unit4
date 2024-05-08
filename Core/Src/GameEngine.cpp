@@ -30,6 +30,9 @@ void Engine::GameManager::Init() {
 Engine::GameManager::~GameManager() {
   ecs->destroyWorld();
   delete ecs;
+
+  delete m_Player;
+
   m_freePeripherals();
 }
 
@@ -39,7 +42,7 @@ void Engine::GameManager::m_initPeripherals() {
   log_info("Initializing LCD...");
   lcd = new N5110(PC_7, PA_9, PB_10, PB_5, PB_3, PA_10);
   lcd->init(LPH7366_1);
-  lcd->setContrast(0.4);
+  lcd->setContrast(0.45);
 
   log_info("Initializing Keys");
   keys[0] = new DigitalIn(PA_5);
@@ -82,26 +85,12 @@ void Engine::GameManager::m_initEarlyData() {
   log_info("Initializing Early Data...");
   using namespace Components;
 
+  m_Player = new Components::Player;
+  m_Player->Exp = 0;
+  m_Player->Level = 0;
+
   log_info("Loading Main menu...");
   m_makeMainMenu();
-
- //  auto buzzer_thread = new Thread();
-//  buzzer_thread->start([=]()->void{
-//    const int fade[] = {NOTE_DS4, NOTE_AS4, NOTE_FS5, NOTE_AS4, NOTE_DS4, NOTE_AS4, NOTE_AS5, NOTE_AS4}; //create array with the required notes (in order)
-//
-//    auto play_note = [&](int frequency){
-//      GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) frequency);    //set the period of the pwm signal (in us)
-//      GameManager::getInstance()->buzzer->pulsewidth_us(GameManager::getInstance()->buzzer->read_period_us()/2);            //set pulse width of the pwm to 1/2 the period
-//      ThisThread::sleep_for(330ms);                               //play sound for 500ms
-//    };
-//
-//    for(int i = 0; i < 8; i++){         //iterate through the C_major_scale array
-//      play_note(fade[i]);    //pass the note at position C_major_scale[i] to function
-//    }
-//
-//    GameManager::getInstance()->buzzer->pulsewidth_us(0);            //turn off buzzer
-//    delete buzzer_thread;
-//  });
 }
 
 void Engine::GameManager::m_makeMainMenu() {
@@ -150,14 +139,14 @@ void Engine::GameManager::m_makeMainMenu() {
           GameManager::getInstance()->ecs->each<Components::Render>(
               [&](ECS::Entity *ent,
                   ECS::ComponentHandle<Components::Render> render) -> void {
-                GameManager::getInstance()->ecs->destroy(ent, false);
+                GameManager::getInstance()->ecs->destroy(ent, true);
               }
           );
 
           GameManager::getInstance()->ecs->each<Components::UIRender>(
               [&](ECS::Entity *ent,
                   ECS::ComponentHandle<Components::UIRender> render) -> void {
-                GameManager::getInstance()->ecs->destroy(ent, false);
+                GameManager::getInstance()->ecs->destroy(ent, true);
               }
           );
 
@@ -173,6 +162,62 @@ void Engine::GameManager::m_makeMainMenu() {
   }
 
   ent2_UISelect->selected = 3;
+
+  auto ent3 = GameManager::getInstance()->ecs->create();
+  trans = ent3->assign<Components::Transform>();
+  render = ent3->assign<Components::Render>();
+
+  trans->Position = {65, 1, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = (char*)"LV:";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 0;
+
+  ent3 = GameManager::getInstance()->ecs->create();
+  trans = ent3->assign<Components::Transform>();
+  render = ent3->assign<Components::Render>();
+
+  trans->Position = {65, 3, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = (char*)"Exp:";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 0;
+
+  ent3 = GameManager::getInstance()->ecs->create();
+  trans = ent3->assign<Components::Transform>();
+  render = ent3->assign<Components::Render>();
+
+  trans->Position = {65, 3, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = (char*)Engine::GameManager::getInstance()->m_Player->Level;
+  render->Visible = true;
+  render->Override = true;
+  render->size = 0;
+
+  ent3 = GameManager::getInstance()->ecs->create();
+  trans = ent3->assign<Components::Transform>();
+  render = ent3->assign<Components::Render>();
+
+  trans->Position = {65, 3, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = (char*)"Exp:";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 0;
 }
 
 void Engine::GameManager::m_registerSystems() {
@@ -256,14 +301,14 @@ void Engine::GameManager::m_makeSelectionMenu() {
           GameManager::getInstance()->ecs->each<Components::Render>(
               [&](ECS::Entity *ent,
                   ECS::ComponentHandle<Components::Render> render) -> void {
-                GameManager::getInstance()->ecs->destroy(ent, false);
+                GameManager::getInstance()->ecs->destroy(ent, true);
               }
           );
 
           GameManager::getInstance()->ecs->each<Components::UIRender>(
               [&](ECS::Entity *ent,
                   ECS::ComponentHandle<Components::UIRender> render) -> void {
-                GameManager::getInstance()->ecs->destroy(ent, false);
+                GameManager::getInstance()->ecs->destroy(ent, true);
               }
           );
 
@@ -275,14 +320,14 @@ void Engine::GameManager::m_makeSelectionMenu() {
           GameManager::getInstance()->ecs->each<Components::Render>(
               [&](ECS::Entity *ent,
                   ECS::ComponentHandle<Components::Render> render) -> void {
-                GameManager::getInstance()->ecs->destroy(ent, false);
+                GameManager::getInstance()->ecs->destroy(ent, true);
               }
           );
 
           GameManager::getInstance()->ecs->each<Components::UIRender>(
               [&](ECS::Entity *ent,
                   ECS::ComponentHandle<Components::UIRender> render) -> void {
-                GameManager::getInstance()->ecs->destroy(ent, false);
+                GameManager::getInstance()->ecs->destroy(ent, true);
               }
           );
 
@@ -317,24 +362,6 @@ void Engine::GameManager::m_makeGameLevel(int level) {
   render->y = 48;
   render->Override = true;
 
-  // Test creating a note.
-//  ent = GameManager::getInstance()->ecs->create();
-//  trans = ent->assign<Components::Transform>();
-//  render = ent->assign<Components::Render>();
-//  auto note = ent->assign<Components::Note>();
-//
-//  trans->Position = {28, 0, 0};
-//  trans->Rotation = {0, 0, 0};
-//  trans->Scale = {1, 1, 1};
-//
-//  render->Type = Components::Render::Type_e::Spirit;
-//  render->Data.spirit_Data = m_keyNote;
-//  render->Visible = true;
-//  render->x = 6;
-//  render->y = 5;
-//
-//  note->Type = 0;
-//  note->Score = 10;
   GameManager::getInstance()->ecs->enableSystem(m_GameControlSystem);
   GameManager::getInstance()->ecs->enableSystem(m_PeripheralCheckSystem_Game);
 

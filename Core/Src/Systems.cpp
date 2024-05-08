@@ -111,12 +111,6 @@ void Systems::UIControlSystem::receive(ECS::World *world, const Events::Keypress
       }
       break;
     case 1:
-      renders.clear();
-      world->each<Components::UIRender>(
-          [&](ECS::Entity *ent, ECS::ComponentHandle<Components::UIRender> render) -> void {
-            renders.emplace_back(render);
-          }
-      );
       for (auto &render : renders) {
         auto p = render->m_comps.begin();
         std::advance(p, render->selected);
@@ -207,8 +201,8 @@ Systems::GameControlSystem::GameControlSystem() {
 }
 
 void Systems::GameControlSystem::m_playNote(int freq, rtos::Kernel::Clock::duration_u32 duration) {
-  Engine::GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) freq); //set the period of the pwm signal (in us)
-  Engine::GameManager::getInstance()->buzzer->pulsewidth_us(Engine::GameManager::getInstance()->buzzer->read_period_us()/2);  //set pulse width of the pwm to 1/2 the period
+  //Engine::GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) freq); //set the period of the pwm signal (in us)
+  //Engine::GameManager::getInstance()->buzzer->pulsewidth_us(Engine::GameManager::getInstance()->buzzer->read_period_us()/2);  //set pulse width of the pwm to 1/2 the period
   //log_info("Playing tone: %d", freq);
   ThisThread::sleep_for(duration);  //play sound for duration ms
 }
@@ -307,9 +301,7 @@ void Systems::GameControlSystem::m_startLevel() {
 
 void Systems::GameControlSystem::finishedGameLevel() {
   Engine::GameManager::getInstance()->ecs->disableSystem(Engine::GameManager::getInstance()->m_GameControlSystem);
-
-  Engine::GameManager::getInstance()->ecs->enableSystem(Engine::GameManager::getInstance()->m_UIControlSystem);
-  Engine::GameManager::getInstance()->ecs->enableSystem(Engine::GameManager::getInstance()->m_PeripheralCheckSystem_UI);
+  Engine::GameManager::getInstance()->ecs->disableSystem(Engine::GameManager::getInstance()->m_PeripheralCheckSystem_Game);
 
   Engine::GameManager::getInstance()->ecs->each<Components::Transform>([=](ECS::Entity *ent,
                                                                                              ECS::ComponentHandle<Components::Transform> trans) -> void {
@@ -317,11 +309,35 @@ void Systems::GameControlSystem::finishedGameLevel() {
     Engine::GameManager::getInstance()->ecs->destroy(ent);
   });
 
+  Engine::GameManager::getInstance()->ecs->each<Components::Render>(
+      [&](ECS::Entity *ent,
+          ECS::ComponentHandle<Components::Render> render) -> void {
+        Engine::GameManager::getInstance()->ecs->destroy(ent, true);
+      }
+  );
+
+  Engine::GameManager::getInstance()->ecs->each<Components::UIRender>(
+      [&](ECS::Entity *ent,
+          ECS::ComponentHandle<Components::UIRender> render) -> void {
+        Engine::GameManager::getInstance()->ecs->destroy(ent, true);
+      }
+  );
+
   Engine::GameManager::getInstance()->lcd->clear();
 
+  // Store exp
   log_info("Score for this play: %d", m_currentScore);
+  Engine::GameManager::getInstance()->m_Player->Exp += m_currentScore;
+  if (Engine::GameManager::getInstance()->m_Player->Exp > 500) {
+    // Level upgrade
+    Engine::GameManager::getInstance()->m_Player->Level ++;
+    Engine::GameManager::getInstance()->m_Player->Exp -= 500;
+  }
 
   Engine::GameManager::getInstance()->m_makeSelectionMenu();
+
+  Engine::GameManager::getInstance()->ecs->enableSystem(Engine::GameManager::getInstance()->m_UIControlSystem);
+  Engine::GameManager::getInstance()->ecs->enableSystem(Engine::GameManager::getInstance()->m_PeripheralCheckSystem_UI);
 }
 
 void Systems::GameControlSystem::receive(ECS::World *world, const Events::KeypressEvent &event) {

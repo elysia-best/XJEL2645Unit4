@@ -51,17 +51,16 @@ class Transform {
  * @brief Class for managing player level and experience.
  */
 class Player {
- ECS_DECLARE_TYPE;
  public:
   /**
    * @brief Level of the player.
    */
-  int8_t Level;
+  int Level;
 
   /**
    * @brief Experience of the player.
    */
-  int8_t Exp;
+  int Exp;
 };
 
 /**

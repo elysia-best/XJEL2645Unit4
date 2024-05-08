@@ -15,6 +15,7 @@
 #include "N5110.h"
 #include "Joystick.h"
 #include "singleton.h"
+#include "Components.h"
 
 namespace Engine {
 class GameManager {
@@ -53,6 +54,8 @@ class GameManager {
   Joystick* joystics[2];
 
   BusOut* led_bgr;
+
+  Components::Player* m_Player;
 
   // Systems
   ECS::EntitySystem *m_TransformSystem;
