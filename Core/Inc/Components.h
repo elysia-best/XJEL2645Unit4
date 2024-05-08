@@ -14,6 +14,7 @@
 #include <tuple>
 #include <functional>
 #include <list>
+#include <string>
 
 namespace Components {
 
@@ -110,9 +111,9 @@ class Render {
     Circle
   } Type_t;
 
-  union Data_ptr {
+  struct Data_ptr {
     bool *spirit_Data;
-    char *text_Data;
+    std::string text_Data;
     int8_t *line_Data;
     int8_t *rect_Data;
     int8_t *circle_Data;

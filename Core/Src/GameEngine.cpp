@@ -167,12 +167,26 @@ void Engine::GameManager::m_makeMainMenu() {
   trans = ent3->assign<Components::Transform>();
   render = ent3->assign<Components::Render>();
 
-  trans->Position = {65, 1, 0};
+  trans->Position = {65, 2, 0};
   trans->Rotation = {0, 0, 0};
   trans->Scale = {1, 1, 1};
 
   render->Type = Components::Render::Type_e::Text;
-  render->Data.text_Data = (char*)"LV:";
+  render->Data.text_Data = "LV:";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 0;
+
+  ent3 = GameManager::getInstance()->ecs->create();
+  trans = ent3->assign<Components::Transform>();
+  render = ent3->assign<Components::Render>();
+
+  trans->Position = {65, 4, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "Exp:";
   render->Visible = true;
   render->Override = true;
   render->size = 0;
@@ -186,7 +200,8 @@ void Engine::GameManager::m_makeMainMenu() {
   trans->Scale = {1, 1, 1};
 
   render->Type = Components::Render::Type_e::Text;
-  render->Data.text_Data = (char*)"Exp:";
+  auto level = to_string(Engine::GameManager::getInstance()->m_Player->Level);
+  render->Data.text_Data = level;
   render->Visible = true;
   render->Override = true;
   render->size = 0;
@@ -195,26 +210,12 @@ void Engine::GameManager::m_makeMainMenu() {
   trans = ent3->assign<Components::Transform>();
   render = ent3->assign<Components::Render>();
 
-  trans->Position = {65, 3, 0};
+  trans->Position = {65, 5, 0};
   trans->Rotation = {0, 0, 0};
   trans->Scale = {1, 1, 1};
 
   render->Type = Components::Render::Type_e::Text;
-  render->Data.text_Data = (char*)Engine::GameManager::getInstance()->m_Player->Level;
-  render->Visible = true;
-  render->Override = true;
-  render->size = 0;
-
-  ent3 = GameManager::getInstance()->ecs->create();
-  trans = ent3->assign<Components::Transform>();
-  render = ent3->assign<Components::Render>();
-
-  trans->Position = {65, 3, 0};
-  trans->Rotation = {0, 0, 0};
-  trans->Scale = {1, 1, 1};
-
-  render->Type = Components::Render::Type_e::Text;
-  render->Data.text_Data = (char*)"Exp:";
+  render->Data.text_Data = to_string(Engine::GameManager::getInstance()->m_Player->Exp).c_str();
   render->Visible = true;
   render->Override = true;
   render->size = 0;

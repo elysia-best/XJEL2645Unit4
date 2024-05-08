@@ -42,11 +42,11 @@ void Systems::RenderSystem::tick(ECS::World *world, float deltaTime) {
               break;
             case render_t::Text :
               if (render->size == 1)
-                Engine::GameManager::getInstance()->lcd->printString(render->Data.text_Data,
+                Engine::GameManager::getInstance()->lcd->printString(render->Data.text_Data.c_str(),
                                                                      std::get<0>(trans->Position),
                                                                      std::get<1>(trans->Position));
               else
-                Engine::GameManager::getInstance()->lcd->printString5x5(render->Data.text_Data,
+                Engine::GameManager::getInstance()->lcd->printString5x5(render->Data.text_Data.c_str(),
                                                                         std::get<0>(trans->Position),
                                                                         std::get<1>(trans->Position));
           }
