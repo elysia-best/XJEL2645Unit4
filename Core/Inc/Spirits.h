@@ -9,6 +9,8 @@
 #ifndef XJEL2645NEWVERSION_CORE_INC_SPIRITS_H_
 #define XJEL2645NEWVERSION_CORE_INC_SPIRITS_H_
 
+extern bool m_blank[84*48];
+
 extern bool m_mainMenu[84*48];
 
 extern bool m_songSelection[84*48];

@@ -408,9 +408,92 @@ void Engine::GameManager::m_makeGameLevel(int level) {
 }
 
 void Engine::GameManager::m_makeAboutInfo() {
-  // Display About
-  GameManager::getInstance()->lcd->printString("About ArcEmbed", 0, 0);
+// Init basic menu display
+  auto ent = ecs->create();
+  auto trans = ent->assign<Components::Transform>();
+  auto render = ent->assign<Components::Render>();
 
+  trans->Position = {0, 0, 0};
+
+  trans->Rotation = {0, 0, 0};
+
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Spirit;
+  render->Data.spirit_Data = m_blank;
+  render->Visible = true;
+  render->x = 84;
+  render->y = 48;
+  // Display About
+  auto ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {0, 0, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "About ArcEmbed";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {6, 1, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "A Music Game";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {0, 3, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "Brought to you by";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 0;
+
+  ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {6, 4, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "Yuanzhen Gan";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {18, 5, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "(C) 2024";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
 
   auto ent2 = GameManager::getInstance()->ecs->create();
   auto render2 = ent2->assign<Components::UIRender>();
