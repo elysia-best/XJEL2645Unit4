@@ -22,7 +22,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Able to display score and percentage when playing.">
+    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Added Help Page">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
     </list>
@@ -225,7 +225,7 @@
       <workItem from="1715130681559" duration="3561000" />
       <workItem from="1715149692725" duration="44000" />
       <workItem from="1715149757307" duration="3224000" />
-      <workItem from="1715154159329" duration="4947000" />
+      <workItem from="1715154159329" duration="5609000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -347,7 +347,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715158304296</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="feat: Added Help Page">
+      <option name="closed" value="true" />
+      <created>1715159482826</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1715159482826</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -410,7 +418,8 @@
     <MESSAGE value="feat: Unify fonts, Add level indicator." />
     <MESSAGE value="feat: Added About menu." />
     <MESSAGE value="feat: Able to display score and percentage when playing." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Able to display score and percentage when playing." />
+    <MESSAGE value="feat: Added Help Page" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Added Help Page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

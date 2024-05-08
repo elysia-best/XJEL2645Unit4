@@ -724,6 +724,35 @@ void Engine::GameManager::m_settingMenu() {
   render->x = 84;
   render->y = 48;
 
+  // Display Setting
+  auto ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {0, 0, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "ArcEmbed Sett.";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {4, 3, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "Not available";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
   auto ent2 = GameManager::getInstance()->ecs->create();
   auto render2 = ent2->assign<Components::UIRender>();
   std::tuple<float, float, float> pos[1] = {{80, 15, 0}};
