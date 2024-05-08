@@ -14,25 +14,6 @@
 
 namespace Systems {
 
-
-//ecs_ret_t TransformSystem(ecs_t *ecs,
-//                       ecs_id_t *entities,
-//                       int entity_count,
-//                       ecs_dt_t dt,
-//                       void *udata);
-//
-//ecs_ret_t RenderSystem(ecs_t *ecs,
-//                       ecs_id_t *entities,
-//                       int entity_count,
-//                       ecs_dt_t dt,
-//                       void *udata);
-
-struct TransformSystem : public ECS::EntitySystem {
-  ~TransformSystem() override = default;
-
-  void tick(ECS::World *world, float deltaTime) override;
-};
-
 struct RenderSystem : public ECS::EntitySystem {
   ~RenderSystem() override = default;
 
@@ -122,6 +103,10 @@ struct GameControlSystem : public ECS::EntitySystem,
   void m_startLevel();
 
   Thread *buzzer_thread;
+
+  ECS::Entity *m_percents;
+
+  ECS::Entity *m_scores;
 
  private:
 

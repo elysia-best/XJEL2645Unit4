@@ -16,15 +16,6 @@
 #include "arm_math.h"
 #include <random>
 
-void Systems::TransformSystem::tick(ECS::World *world, float deltaTime) {
-  world->each<Components::Transform>(
-      [&](ECS::Entity *ent,
-          ECS::ComponentHandle<Components::Transform> trans) -> void {
-        //trans->Position;
-      }
-  );
-}
-
 void Systems::RenderSystem::tick(ECS::World *world, float deltaTime) {
   world->each<Components::Transform, Components::Render>(
       [&](ECS::Entity *ent,
@@ -146,7 +137,7 @@ void Systems::GameControlSystem::tick(ECS::World *world, float deltaTime) {
     m_startLevel();
   }
 
-
+  // Update states of notes
   world->each<Components::Transform, Components::Note>([=](ECS::Entity *ent,
                                                            ECS::ComponentHandle<Components::Transform> trans,
                                                            ECS::ComponentHandle<Components::Note> note) -> void {
@@ -159,6 +150,8 @@ void Systems::GameControlSystem::tick(ECS::World *world, float deltaTime) {
 
     get<1>(trans->Position) += deltaTime * note->Speed;
   });
+
+  m_scores->get<Components::Render>()->Data.text_Data = to_string(m_currentScore);
 }
 
 void Systems::GameControlSystem::initialGameLevel(int level) {
@@ -248,6 +241,48 @@ void Systems::GameControlSystem::m_startLevel() {
   start_to_play_notes = false;
   m_currentScore = 0;
 
+  m_scores = Engine::GameManager::getInstance()->ecs->create();
+  auto trans = m_scores->assign<Components::Transform>();
+  auto render = m_scores->assign<Components::Render>();
+
+  trans->Position = {65, 0, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = to_string(m_currentScore);
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  m_percents = Engine::GameManager::getInstance()->ecs->create();
+  trans = m_percents->assign<Components::Transform>();
+  render = m_percents->assign<Components::Render>();
+
+  trans->Position = {0, 0, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = to_string((int)(0/currentLevelInfo.total_keys));
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  auto ent = Engine::GameManager::getInstance()->ecs->create();
+  trans = ent->assign<Components::Transform>();
+  render = ent->assign<Components::Render>();
+
+  trans->Position = {0, 1, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "%";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
   // Calculate speed for this level;
   for (volatile int i = 0; i < currentLevelInfo.total_keys; i++) {
     if (i == 0) {
@@ -290,6 +325,8 @@ void Systems::GameControlSystem::m_startLevel() {
       if(i != 0 && i != this->currentLevelInfo.total_keys - 1 && this->currentLevelInfo.key_notes[i+1])
         this->m_createNote(i+1, this->currentLevelInfo.key_pos[i+1]);
       this->m_playNote(this->currentLevelInfo.key_tones[i], this->currentLevelInfo.key_duration[i]);    //pass the note at position C_major_scale[i] to function
+      // Update displayed infos
+      this->m_percents->get<Components::Render>()->Data.text_Data = to_string((int)(((double)(i+1)/this->currentLevelInfo.total_keys)*100));
     }
     Engine::GameManager::getInstance()->buzzer->pulsewidth_us(0);  //turn off buzzer
 

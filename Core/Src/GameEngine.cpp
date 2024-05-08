@@ -134,6 +134,48 @@ void Engine::GameManager::m_makeMainMenu() {
     comp.y = (i < 3) ? 5 : 3;
 
     switch (i) {
+      case 0:
+        comp.callback_functionA = [&]() -> void {
+          GameManager::getInstance()->ecs->each<Components::Render>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::Render> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->ecs->each<Components::UIRender>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::UIRender> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->lcd->clear();
+
+          GameManager::getInstance()->m_makeHelpInfo();
+        };
+        break;
+      case 1:
+        comp.callback_functionA = [&]() -> void {
+          GameManager::getInstance()->ecs->each<Components::Render>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::Render> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->ecs->each<Components::UIRender>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::UIRender> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->lcd->clear();
+
+          GameManager::getInstance()->m_settingMenu();
+        };
+        break;
       case 2:
         comp.callback_functionA = [&]() -> void {
           GameManager::getInstance()->ecs->each<Components::Render>(
@@ -408,7 +450,7 @@ void Engine::GameManager::m_makeGameLevel(int level) {
 }
 
 void Engine::GameManager::m_makeAboutInfo() {
-// Init basic menu display
+  // Init basic menu display
   auto ent = ecs->create();
   auto trans = ent->assign<Components::Transform>();
   auto render = ent->assign<Components::Render>();
@@ -533,5 +575,43 @@ void Engine::GameManager::m_makeAboutInfo() {
   }
 
   render2->selected = 0;
+}
+
+void Engine::GameManager::m_makeHelpInfo() {
+  // Init basic menu display
+  auto ent = ecs->create();
+  auto trans = ent->assign<Components::Transform>();
+  auto render = ent->assign<Components::Render>();
+
+  trans->Position = {0, 0, 0};
+
+  trans->Rotation = {0, 0, 0};
+
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Spirit;
+  render->Data.spirit_Data = m_blank;
+  render->Visible = true;
+  render->x = 84;
+  render->y = 48;
+}
+
+void Engine::GameManager::m_settingMenu() {
+  // Init basic menu display
+  auto ent = ecs->create();
+  auto trans = ent->assign<Components::Transform>();
+  auto render = ent->assign<Components::Render>();
+
+  trans->Position = {0, 0, 0};
+
+  trans->Rotation = {0, 0, 0};
+
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Spirit;
+  render->Data.spirit_Data = m_blank;
+  render->Visible = true;
+  render->x = 84;
+  render->y = 48;
 }
 

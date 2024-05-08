@@ -22,11 +22,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Unify fonts, Add level indicator.">
+    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Added About menu.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/Spirits.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Spirits.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/Systems.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Systems.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Spirits.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Spirits.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,7 +228,7 @@
       <workItem from="1715130681559" duration="3561000" />
       <workItem from="1715149692725" duration="44000" />
       <workItem from="1715149757307" duration="3224000" />
-      <workItem from="1715154159329" duration="1276000" />
+      <workItem from="1715154159329" duration="4109000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -333,7 +334,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715151578721</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feat: Added About menu.">
+      <option name="closed" value="true" />
+      <created>1715155507603</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1715155507603</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -394,14 +403,15 @@
     <MESSAGE value="feat: Changed to a new playing method" />
     <MESSAGE value="Able to play all notes" />
     <MESSAGE value="feat: Unify fonts, Add level indicator." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Unify fonts, Add level indicator." />
+    <MESSAGE value="feat: Added About menu." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Added About menu." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/Core/Src/Systems.cpp</url>
-          <line>80</line>
+          <line>71</line>
           <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
