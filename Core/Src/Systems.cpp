@@ -194,8 +194,8 @@ Systems::GameControlSystem::GameControlSystem() {
 }
 
 void Systems::GameControlSystem::m_playNote(int freq, rtos::Kernel::Clock::duration_u32 duration) {
-  //Engine::GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) freq); //set the period of the pwm signal (in us)
-  //Engine::GameManager::getInstance()->buzzer->pulsewidth_us(Engine::GameManager::getInstance()->buzzer->read_period_us()/2);  //set pulse width of the pwm to 1/2 the period
+  Engine::GameManager::getInstance()->buzzer->period_us((float) 1000000.0f/ (float) freq); //set the period of the pwm signal (in us)
+  Engine::GameManager::getInstance()->buzzer->pulsewidth_us(Engine::GameManager::getInstance()->buzzer->read_period_us()/2);  //set pulse width of the pwm to 1/2 the period
   //log_info("Playing tone: %d", freq);
   ThisThread::sleep_for(duration);  //play sound for duration ms
 }
