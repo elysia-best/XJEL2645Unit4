@@ -594,6 +594,116 @@ void Engine::GameManager::m_makeHelpInfo() {
   render->Visible = true;
   render->x = 84;
   render->y = 48;
+
+  // Display Help
+  auto ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {4, 0, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "ArcEmbed Help";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {0, 1, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "Key A: Enter";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {0, 2, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "Key B: Back";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {0, 4, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "Column Mapping";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  ent1 = GameManager::getInstance()->ecs->create();
+  trans = ent1->assign<Components::Transform>();
+  render = ent1->assign<Components::Render>();
+
+  trans->Position = {0, 5, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "ABCD -> 1234";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 1;
+
+  auto ent2 = GameManager::getInstance()->ecs->create();
+  auto render2 = ent2->assign<Components::UIRender>();
+  std::tuple<float, float, float> pos[1] = {{80, 15, 0}};
+
+  int i = 0;
+  for (auto &p : pos) {
+    Components::UIRender::UIComp_t comp;
+    comp.Visible = false;
+
+    switch (i) {
+      case 0:
+        comp.callback_functionB = [&]() -> void {
+          GameManager::getInstance()->ecs->each<Components::Render>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::Render> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->ecs->each<Components::UIRender>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::UIRender> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->lcd->clear();
+
+          GameManager::getInstance()->m_makeMainMenu();
+        };
+        break;
+    }
+
+    render2->m_comps.emplace_back(comp);
+    ++i;
+  }
+
+  render2->selected = 0;
 }
 
 void Engine::GameManager::m_settingMenu() {
@@ -613,5 +723,44 @@ void Engine::GameManager::m_settingMenu() {
   render->Visible = true;
   render->x = 84;
   render->y = 48;
+
+  auto ent2 = GameManager::getInstance()->ecs->create();
+  auto render2 = ent2->assign<Components::UIRender>();
+  std::tuple<float, float, float> pos[1] = {{80, 15, 0}};
+
+  int i = 0;
+  for (auto &p : pos) {
+    Components::UIRender::UIComp_t comp;
+    comp.Visible = false;
+
+    switch (i) {
+      case 0:
+        comp.callback_functionB = [&]() -> void {
+          GameManager::getInstance()->ecs->each<Components::Render>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::Render> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->ecs->each<Components::UIRender>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::UIRender> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->lcd->clear();
+
+          GameManager::getInstance()->m_makeMainMenu();
+        };
+        break;
+    }
+
+    render2->m_comps.emplace_back(comp);
+    ++i;
+  }
+
+  render2->selected = 0;
 }
 

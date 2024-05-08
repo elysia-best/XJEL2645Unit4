@@ -22,12 +22,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Added About menu.">
+    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Able to display score and percentage when playing.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Inc/Systems.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Systems.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/Spirits.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Spirits.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -228,7 +225,7 @@
       <workItem from="1715130681559" duration="3561000" />
       <workItem from="1715149692725" duration="44000" />
       <workItem from="1715149757307" duration="3224000" />
-      <workItem from="1715154159329" duration="4109000" />
+      <workItem from="1715154159329" duration="4947000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -342,7 +339,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715155507603</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="feat: Able to display score and percentage when playing.">
+      <option name="closed" value="true" />
+      <created>1715158304296</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1715158304296</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -404,7 +409,8 @@
     <MESSAGE value="Able to play all notes" />
     <MESSAGE value="feat: Unify fonts, Add level indicator." />
     <MESSAGE value="feat: Added About menu." />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Added About menu." />
+    <MESSAGE value="feat: Able to display score and percentage when playing." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Able to display score and percentage when playing." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
