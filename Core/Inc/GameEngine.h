@@ -80,6 +80,12 @@ class GameManager {
 
   void m_makeSelectionMenu();
 
+  void m_makeAboutInfo();
+
+  void m_makeHelpInfo();
+
+  void m_settingMenu();
+
   // Game levels
   void m_makeGameLevel(int level);
 };

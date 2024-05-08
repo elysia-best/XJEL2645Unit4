@@ -165,6 +165,8 @@ class UIRender {
 
     int8_t y;
 
+    bool Visible = true;
+
     std::function<void()> callback_functionA = []()->void{};
     std::function<void()> callback_functionB = []()->void{};
     std::function<void()> callback_functionC = []()->void{};

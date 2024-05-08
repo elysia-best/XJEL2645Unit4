@@ -60,7 +60,7 @@ void Systems::UIControlSystem::tick(ECS::World *world, float deltaTime) {
   world->each<Components::UIRender>(
       [&](ECS::Entity *ent, ECS::ComponentHandle<Components::UIRender> render) -> void {
         for (auto &p : render->m_comps) {
-          if (p.id == render->selected) {
+          if (p.id == render->selected && p.Visible) {
             Engine::GameManager::getInstance()->lcd->drawSprite(std::get<0>(p.trans.Position),
                                                                 std::get<1>(p.trans.Position),
                                                                 p.y,

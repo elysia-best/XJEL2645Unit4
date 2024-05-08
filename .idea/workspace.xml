@@ -22,11 +22,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="Able to play all notes">
+    <list default="true" id="836b5407-649c-42f6-8bcc-4c5de3ce1022" name="Default" comment="feat: Unify fonts, Add level indicator.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Inc/Components.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/Components.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Core/Inc/GameEngine.h" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Inc/GameEngine.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/GameEngine.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Core/Src/Spirits.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Spirits.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Core/Src/Systems.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Core/Src/Systems.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -227,7 +227,7 @@
       <workItem from="1715083164145" duration="15158000" />
       <workItem from="1715130681559" duration="3561000" />
       <workItem from="1715149692725" duration="44000" />
-      <workItem from="1715149757307" duration="1770000" />
+      <workItem from="1715149757307" duration="3224000" />
     </task>
     <task id="LOCAL-00001" summary="feat: Enable debug info in CMake.">
       <option name="closed" value="true" />
@@ -325,7 +325,15 @@
       <option name="project" value="LOCAL" />
       <updated>1715096134173</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat: Unify fonts, Add level indicator.">
+      <option name="closed" value="true" />
+      <created>1715151578721</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1715151578721</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -385,7 +393,8 @@
     <MESSAGE value="feat: Able to create and move a simple note." />
     <MESSAGE value="feat: Changed to a new playing method" />
     <MESSAGE value="Able to play all notes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Able to play all notes" />
+    <MESSAGE value="feat: Unify fonts, Add level indicator." />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Unify fonts, Add level indicator." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

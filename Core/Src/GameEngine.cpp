@@ -134,6 +134,27 @@ void Engine::GameManager::m_makeMainMenu() {
     comp.y = (i < 3) ? 5 : 3;
 
     switch (i) {
+      case 2:
+        comp.callback_functionA = [&]() -> void {
+          GameManager::getInstance()->ecs->each<Components::Render>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::Render> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->ecs->each<Components::UIRender>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::UIRender> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->lcd->clear();
+
+          GameManager::getInstance()->m_makeAboutInfo();
+        };
+        break;
       case 3:
         comp.callback_functionA = [&]() -> void {
           GameManager::getInstance()->ecs->each<Components::Render>(
@@ -344,6 +365,20 @@ void Engine::GameManager::m_makeSelectionMenu() {
   }
 
   render2->selected = 0;
+
+  auto ent3 = GameManager::getInstance()->ecs->create();
+  trans = ent3->assign<Components::Transform>();
+  render = ent3->assign<Components::Render>();
+
+  trans->Position = {3, 5, 0};
+  trans->Rotation = {0, 0, 0};
+  trans->Scale = {1, 1, 1};
+
+  render->Type = Components::Render::Type_e::Text;
+  render->Data.text_Data = "BASIC";
+  render->Visible = true;
+  render->Override = true;
+  render->size = 0;
 }
 
 void Engine::GameManager::m_makeGameLevel(int level) {
@@ -370,5 +405,50 @@ void Engine::GameManager::m_makeGameLevel(int level) {
 
   GameManager::getInstance()->ecs->disableSystem(m_UIControlSystem);
   GameManager::getInstance()->ecs->disableSystem(m_PeripheralCheckSystem_UI);
+}
+
+void Engine::GameManager::m_makeAboutInfo() {
+  // Display About
+  GameManager::getInstance()->lcd->printString("About ArcEmbed", 0, 0);
+
+
+  auto ent2 = GameManager::getInstance()->ecs->create();
+  auto render2 = ent2->assign<Components::UIRender>();
+  std::tuple<float, float, float> pos[1] = {{80, 15, 0}};
+
+  int i = 0;
+  for (auto &p : pos) {
+    Components::UIRender::UIComp_t comp;
+    comp.Visible = false;
+
+    switch (i) {
+      case 0:
+        comp.callback_functionB = [&]() -> void {
+          GameManager::getInstance()->ecs->each<Components::Render>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::Render> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->ecs->each<Components::UIRender>(
+              [&](ECS::Entity *ent,
+                  ECS::ComponentHandle<Components::UIRender> render) -> void {
+                GameManager::getInstance()->ecs->destroy(ent, true);
+              }
+          );
+
+          GameManager::getInstance()->lcd->clear();
+
+          GameManager::getInstance()->m_makeMainMenu();
+        };
+        break;
+    }
+
+    render2->m_comps.emplace_back(comp);
+    ++i;
+  }
+
+  render2->selected = 0;
 }
 
