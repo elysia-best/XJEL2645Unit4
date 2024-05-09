@@ -1,0 +1,31 @@
+@startuml
+autonumber
+title XJEL2645 ArcEmbed
+
+' Init funcs
+"main()" -> "GameEngine::init()": Initialize GameEngine
+"GameEngine::init()" -> "GameEngine::m_initPeripherals()": Initialize Peripherals
+"GameEngine::m_initPeripherals()" -> "GameEngine::m_registerSystems()": Register Systems
+"GameEngine::m_registerSystems()" -> "GameEngine::m_initEarlyData()": Loading menu data
+"GameEngine::m_initEarlyData()" -> "GameEngine::init()"
+"GameEngine::init()" -> "main()"
+
+' Main loop
+"main()" -> "while(true)": Enter main loop
+loop "while(true)"
+    "while(true)" -> "GameEngine::ecs->tick()": Tick every system
+
+    ' System ticking
+    "GameEngine::ecs->tick()" --> "PeripheralCheckSystem_UI::tick()": Check Peripheral for UI
+    "GameEngine::ecs->tick()" --> "PeripheralCheckSystem_Game::tick()": Check Peripheral for Game Play
+    "GameEngine::ecs->tick()" -> "RenderSystem::tick()": Render every entities
+    "GameEngine::ecs->tick()" --> "UIControlSystem::tick()": Render Selectable UI Components
+    "GameEngine::ecs->tick()" --> "GameControlSystem::tick()": Judge and controlling game elements
+
+
+
+    "GameEngine::ecs->tick()" -> "GameEngine::lcd->refresh()": Refresh LCD
+    "GameEngine::lcd->refresh()" -> "while(true)"
+end
+
+@enduml
